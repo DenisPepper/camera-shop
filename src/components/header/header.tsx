@@ -1,3 +1,3 @@
 export default function Header(): JSX.Element {
-  return <div className={'header'}>HEADER</div>;
+  return <div className={'header'} id={'header'}>HEADER</div>;
 }
