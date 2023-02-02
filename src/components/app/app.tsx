@@ -1,5 +1,5 @@
-function App(): JSX.Element {
-  return <p>Hello, world!</p>;
-}
+import {AppRouter} from '../app-router/app-router';
 
-export default App;
+export default function App(): JSX.Element {
+  return <AppRouter/>;
+}
