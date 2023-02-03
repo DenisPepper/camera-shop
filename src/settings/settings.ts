@@ -1,6 +1,6 @@
 export const enum RoutesConfig {
   Main ='/',
-  Catalog = '/catalog/*',
+  Catalog = '/catalog',
   ProductsList = 'page',
   Product = '/product/:id',
   Cart = '/cart',
