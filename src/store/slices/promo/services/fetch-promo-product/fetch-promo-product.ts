@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {PromoProductType} from '../../../../../types/promo-product-type';
-import {ServerUri as server} from '../../../../../http-client/server-uri';
+import {ServerUrl as server} from '../../../../../http-client/server-url';
 import {ErrorsConfig as error} from '../../../../../http-client/errors-config';
 
 export const fetchPromoProduct = createAsyncThunk<PromoProductType, undefined, {rejectValue: error}>(

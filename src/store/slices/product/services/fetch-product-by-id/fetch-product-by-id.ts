@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {ProductType} from '../../../../../types/product-type';
-import {ServerUri} from '../../../../../http-client/server-uri';
+import {ServerUrl} from '../../../../../http-client/server-url';
 import {ErrorsConfig as error} from '../../../../../http-client/errors-config';
 
 interface fetchProductByIdProps {
@@ -13,7 +13,7 @@ export const fetchProductById = createAsyncThunk<ProductType, fetchProductByIdPr
   async (fetchProductByIdProps, thunkAPI) => {
     const {id} = fetchProductByIdProps;
     try {
-      const response = await axios.get<ProductType>(`${ServerUri.Product}${id}`);
+      const response = await axios.get<ProductType>(`${ServerUrl.Product}${id}`);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(error.OnFetchProductByID);
