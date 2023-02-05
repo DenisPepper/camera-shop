@@ -25,9 +25,9 @@ export default function Banner(): JSX.Element {
       </picture>
       <p className="banner__info">
         <span className="banner__message">Новинка!</span>
-        {name && <span className="title title--h1">{name}</span>}
+        {!!name && <span className="title title--h1">{name}</span>}
         <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
-        {id && <Link className={'btn'} to={`${RoutesConfig.Product.replace(/:id/, id.toString())}`}>Подробнее</Link>}
+        {!!id && <Link className={'btn'} to={`${RoutesConfig.Product.replace(/:id/, id.toString())}`}>Подробнее</Link>}
       </p>
     </div>
   );
