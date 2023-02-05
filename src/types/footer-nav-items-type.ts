@@ -1,6 +1,6 @@
 import {RoutesConfig} from '../settings/settings';
 
 export interface FooterNavItemsType {
-  to: RoutesConfig;
+  to: RoutesConfig | string;
   title: string;
 }
