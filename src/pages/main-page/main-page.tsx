@@ -1,6 +1,7 @@
 import {Navigate} from 'react-router-dom';
-import {RoutesConfig} from '../../settings/settings';
+import {DEFAULT_PAGE_NUMBER} from '../../settings/settings';
 
 export default function MainPage(): JSX.Element {
-  return <Navigate to={RoutesConfig.Catalog} state={1}/>;
+  return <Navigate to={`/catalog/${DEFAULT_PAGE_NUMBER}`}/>;
 }
+
