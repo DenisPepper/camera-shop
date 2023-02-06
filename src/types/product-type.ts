@@ -1,17 +1,17 @@
 export interface ProductType {
-  id: 1;
+  id: number;
   name: string;
   vendorCode: string;
   type: string;
   category: string;
   description: string;
   level: string;
-  rating: 4;
-  price: 73450;
+  rating: number;
+  price: number;
   previewImg: string;
   previewImg2x: string;
   previewImgWebp: string;
   previewImgWebp2x: string;
-  reviewCount: 16;
+  reviewCount: number;
 }
 
