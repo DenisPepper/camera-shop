@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import {PathName as to} from '../../settings/settings';
 
 interface PaginationButtonProps {
   page: number;
@@ -14,7 +15,7 @@ export default function PaginationButton(props: PaginationButtonProps): JSX.Elem
     <li className="pagination__item">
       <Link
         className={`pagination__link ${modifier}`}
-        to={`/catalog/${page}`}
+        to={`/${to.Catalog}/${page}`}
       >
         {page}
       </Link>

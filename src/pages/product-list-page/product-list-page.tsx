@@ -1,4 +1,4 @@
-import Pagination from '../pagination/pagination';
+import Pagination from '../../components/pagination/pagination';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
@@ -7,10 +7,10 @@ import {getStart, PRODUCTS_URL as api} from '../../http-client/server-url';
 import {productActions} from '../../store/slices/product/slice/product-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {ProductType} from '../../types/product-type';
-import ProductList from '../product-list/product-list';
-import ProductSort from '../product-sort/product-sort';
+import ProductList from '../../components/product-list/product-list';
+import ProductSort from '../../components/product-sort/product-sort';
 
-export default function Products(): JSX.Element {
+export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const {page = ''} = useParams();
   const pageNumber = parseInt(page, DECIMAL);
@@ -29,20 +29,27 @@ export default function Products(): JSX.Element {
   }, [pageNumber, dispatch]);
 
   return (
-    <div className={'catalog__content'}>
-      <ProductSort key={'ProductSort'}/>
+    <>
+      <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
+      <div className={'page-content__columns'}>
+        <div className={'catalog__aside'}>Фильтр</div>
 
-      <ProductList key={'ProductList'}/>
+        <div className={'catalog__content'}>
+          <ProductSort key={'ProductSort'}/>
 
-      {
-        totalPagesCount > 0 &&
-        <Pagination
-          key={'Pagination'}
-          totalPagesCount={totalPagesCount}
-          currentPage={pageNumber}
-          pageNumbers={Array.from({length: totalPagesCount}, (_, i) => i + 1)}
-        />
-      }
-    </div>
+          <ProductList key={'ProductList'}/>
+
+          {
+            totalPagesCount > 0 &&
+            <Pagination
+              key={'Pagination'}
+              totalPagesCount={totalPagesCount}
+              currentPage={pageNumber}
+              pageNumbers={Array.from({length: totalPagesCount}, (_, i) => i + 1)}
+            />
+          }
+        </div>
+      </div>
+    </>
   );
 }

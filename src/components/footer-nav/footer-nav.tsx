@@ -1,8 +1,8 @@
 import FooterNavItem from '../footer-nav-item/footer-nav-item';
-import {RoutesConfig} from '../../settings/settings';
+import {PathName} from '../../settings/settings';
 
 const NAV_LINKS = [
-  {title: 'Каталог', to: RoutesConfig.Main},
+  {title: 'Каталог', to: PathName.Main},
   {title: 'Гарантии', to: '/guarantees'},
   {title: 'Доставка', to: '/delivery'},
   {title: 'О компании', to: '/about'},

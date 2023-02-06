@@ -1,3 +1,9 @@
 export default function CartPage(): JSX.Element {
-  return (<main>CART Page</main>);
+  return (
+    <section className={'basket'}>
+      <div className={'container'}>
+        <h1 className="title title--h2">Корзина</h1>
+      </div>
+    </section>
+  );
 }

@@ -1,9 +1,9 @@
-export const enum RoutesConfig {
+export const enum PathName {
   Main ='/',
-  Catalog = '/catalog/:page',
-  Product = '/product/:id',
-  Cart = '/cart',
-  NotFound = '/*',
+  Catalog = 'catalog',
+  Product = 'product',
+  Cart = 'cart',
+  NotFound = '*',
 }
 
 export const DEFAULT_PAGE_NUMBER = '1';

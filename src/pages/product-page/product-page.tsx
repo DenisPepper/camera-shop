@@ -8,5 +8,11 @@ export default function ProductPage(): JSX.Element {
   const dispatch = useAppDispatch();
   dispatch(fetchProductById({id}));
 
-  return (<main>PRODUCT № {id} Page</main>);
+  return (
+    <>
+      <div className={'page-content__section'}></div>
+      <div className={'page-content__section'}></div>
+      <div className={'page-content__section'}></div>
+    </>
+  );
 }

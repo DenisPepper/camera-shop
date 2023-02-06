@@ -1,6 +1,6 @@
-import {RoutesConfig} from '../settings/settings';
+import {PathName} from '../settings/settings';
 
 export interface FooterNavItemsType {
-  to: RoutesConfig | string;
+  to: PathName | string;
   title: string;
 }

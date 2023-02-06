@@ -2,7 +2,7 @@ import {useSelector} from 'react-redux';
 import {getPromoProductId} from '../../store/slices/promo/selectors/get-promo-product-id/get-promo-product-id';
 import {getPromoProductName} from '../../store/slices/promo/selectors/get-promo-product-name/get-promo-product-name';
 import {Link} from 'react-router-dom';
-import {RoutesConfig} from '../../settings/settings';
+import {PathName as to} from '../../settings/settings';
 
 export default function Banner(): JSX.Element {
   const id = useSelector(getPromoProductId);
@@ -27,7 +27,7 @@ export default function Banner(): JSX.Element {
         <span className="banner__message">Новинка!</span>
         {!!name && <span className="title title--h1">{name}</span>}
         <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
-        {!!id && <Link className={'btn'} to={`${RoutesConfig.Product.replace(/:id/, id.toString())}`}>Подробнее</Link>}
+        {!!id && <Link className={'btn'} to={`/${to.Product}/${id}`}>Подробнее</Link>}
       </p>
     </div>
   );
