@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {PromoSchema} from '../types/promo-schema';
+import {PromoSchema} from '../schema/promo-schema';
 import {fetchPromoProduct} from '../services/fetch-promo-product/fetch-promo-product';
 
 const initialState: PromoSchema = {

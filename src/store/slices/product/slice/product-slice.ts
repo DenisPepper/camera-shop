@@ -1,16 +1,22 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {ProductSchema} from '../types/product-schema';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {ProductSchema} from '../schema/product-schema';
 import {fetchProductById} from '../services/fetch-product-by-id/fetch-product-by-id';
+import {ProductType} from '../../../../types/product-type';
 
 const initialState: ProductSchema = {
   product: null,
+  products: [],
   isLoaded: false,
 };
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    setProducts: (state, action: PayloadAction<ProductType[]>) => {
+      state.products = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchProductById.fulfilled, (state, action) => {
@@ -20,5 +26,5 @@ export const productSlice = createSlice({
   }
 });
 
-export const { actions: productActions } = productSlice;
-export const { reducer: productReducer } = productSlice;
+export const {actions: productActions} = productSlice;
+export const {reducer: productReducer} = productSlice;
