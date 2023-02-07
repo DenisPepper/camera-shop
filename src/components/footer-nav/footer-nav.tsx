@@ -1,22 +1,22 @@
 import FooterNavItem from '../footer-nav-item/footer-nav-item';
-import {Path} from '../../settings/settings';
+import {Path, PathName} from '../../settings/settings';
 
 const NAV_LINKS = [
-  {title: 'Каталог', to: Path.Main},
-  {title: 'Гарантии', to: '/guarantees'},
-  {title: 'Доставка', to: '/delivery'},
-  {title: 'О компании', to: '/about'},
+  {title: PathName[Path.Catalog], to: Path.Catalog},
+  {title: PathName[Path.Guarantee], to: Path.Guarantee},
+  {title: PathName[Path.Delivery], to: Path.Delivery},
+  {title: PathName[Path.About], to: Path.About},
 ];
 
 const RESOURCES_LINKS = [
-  {title: 'Курсы операторов', to: '/courses'},
-  {title: 'Блог', to: '/blog'},
-  {title: 'Сообщество', to: '/community'},
+  {title: PathName[Path.Courses], to: Path.Courses},
+  {title: PathName[Path.Blog], to: Path.Blog},
+  {title: PathName[Path.Community], to: Path.Community},
 ];
 
 const SUPPORT_LINKS = [
-  {title: 'FAQ', to: '/faq'},
-  {title: 'Задать вопрос', to: '/feedback'},
+  {title: PathName[Path.Faq], to: Path.Faq},
+  {title: PathName[Path.Feedback], to: Path.Feedback},
 ];
 
 export default function FooterNav(): JSX.Element {
