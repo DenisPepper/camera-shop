@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import {PathName as to} from '../../settings/settings';
+import React from 'react';
 
 interface ProductCardButtonProps {
   id: number;
@@ -18,7 +19,7 @@ export default function ProductCardButton(props: ProductCardButtonProps): JSX.El
       </button>
       <Link
         className="btn btn--transparent"
-        to={`/${to.Catalog}/${to.Product}/${id}`}
+        to={`/${to.Product}/${id}`}
       >
         Подробнее
       </Link>
