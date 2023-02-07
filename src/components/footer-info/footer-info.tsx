@@ -1,11 +1,11 @@
-import {PathName} from '../../settings/settings';
+import {Path} from '../../settings/settings';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
 
 export default function FooterInfo(): JSX.Element {
   return (
     <div className={'footer__info'}>
-      <Link className="footer__logo" to={PathName.Main} aria-label="Переход на главную">
+      <Link className="footer__logo" to={Path.Main} aria-label="Переход на главную">
         <Logo xlinkHref={'#icon-logo-mono'}/>
       </Link>
       <p className="footer__description">Интернет-магазин фото- и видеотехники</p>

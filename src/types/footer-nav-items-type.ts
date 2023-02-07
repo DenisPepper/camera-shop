@@ -1,6 +1,6 @@
-import {PathName} from '../settings/settings';
+import {Path} from '../settings/settings';
 
 export interface FooterNavItemsType {
-  to: PathName | string;
+  to: Path | string;
   title: string;
 }

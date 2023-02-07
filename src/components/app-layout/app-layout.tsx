@@ -21,7 +21,7 @@ export default function AppLayout(): JSX.Element {
         <main>
           {isLoaded && isCatalogPage && <Banner/>}
           <div className={'page-content'}>
-            <Breadcrumbs/>
+            <Breadcrumbs key={'Breadcrumbs'}/>
             <Outlet/>
           </div>
         </main>

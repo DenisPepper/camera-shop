@@ -1,5 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
-import {PathName as to} from '../../settings/settings';
+import {Path as to} from '../../settings/settings';
 import AppLayout from '../app-layout/app-layout';
 import MainPage from '../../pages/main-page/main-page';
 import ProductPage from '../../pages/product-page/product-page';
@@ -16,19 +16,19 @@ export function AppRouter(): JSX.Element {
 
         <Route index element={<MainPage/>}/>
 
-        <Route path={`/${to.Catalog}/`} element={<CatalogPage/>}>
+        <Route path={to.Catalog} element={<CatalogPage/>}>
           <Route path={':page'} element={<ProductListPage/>}/>;
         </Route>
 
-        <Route path={`${to.Product}/`}>
+        <Route path={to.Product}>
           <Route path={':id'} element={<ProductPage/>}/>
         </Route>
 
-        <Route path={`${to.Cart}`} element={<CartPage/>}/>
+        <Route path={to.Cart} element={<CartPage/>}/>
 
       </Route>
 
-      <Route path={`/${to.NotFound}`} element={<NotFoundPage/>}/>
+      <Route path={to.NotFound} element={<NotFoundPage/>}/>
 
     </Routes>
   );

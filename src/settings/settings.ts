@@ -1,10 +1,16 @@
-export const enum PathName {
+export const enum Path {
   Main ='/',
   Catalog = 'catalog',
   Product = 'product',
   Cart = 'cart',
   NotFound = '*',
 }
+
+export const PathName: Record<string, string> = {
+  [Path.Main]: 'Главная',
+  [Path.Catalog]: 'Каталог',
+  [Path.Cart]: 'Корзина',
+};
 
 export const DEFAULT_PAGE_NUMBER = '1';
 

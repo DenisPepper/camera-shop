@@ -2,7 +2,7 @@ import Pagination from '../../components/pagination/pagination';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
-import {DECIMAL, MAX_PRODUCT_COUNT,} from '../../settings/settings';
+import {DECIMAL, MAX_PRODUCT_COUNT} from '../../settings/settings';
 import {getStart, PRODUCTS_URL as api} from '../../http-client/server-url';
 import {productActions} from '../../store/slices/product/slice/product-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
@@ -12,7 +12,7 @@ import ProductSort from '../../components/product-sort/product-sort';
 
 export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {page = ''} = useParams();
+  const {page = '1'} = useParams();
   const pageNumber = parseInt(page, DECIMAL);
 
   const [totalPagesCount, setTotalPagesCount] = useState(0);
@@ -34,21 +34,20 @@ export default function ProductListPage(): JSX.Element {
       <div className={'page-content__columns'}>
         <div className={'catalog__aside'}>Фильтр</div>
 
-        <div className={'catalog__content'}>
-          <ProductSort key={'ProductSort'}/>
+        {totalPagesCount >= pageNumber &&
+          <div className={'catalog__content'}>
+            <ProductSort key={'ProductSort'}/>
 
-          <ProductList key={'ProductList'}/>
+            <ProductList key={'ProductList'}/>
 
-          {
-            totalPagesCount > 0 &&
             <Pagination
               key={'Pagination'}
               totalPagesCount={totalPagesCount}
               currentPage={pageNumber}
               pageNumbers={Array.from({length: totalPagesCount}, (_, i) => i + 1)}
             />
-          }
-        </div>
+
+          </div>}
       </div>
     </>
   );

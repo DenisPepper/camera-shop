@@ -2,7 +2,7 @@ import {useSelector} from 'react-redux';
 import {getPromoProductId} from '../../store/slices/promo/selectors/get-promo-product-id/get-promo-product-id';
 import {getPromoProductName} from '../../store/slices/promo/selectors/get-promo-product-name/get-promo-product-name';
 import {Link} from 'react-router-dom';
-import {PathName as to} from '../../settings/settings';
+import {Path as to} from '../../settings/settings';
 
 export default function Banner(): JSX.Element {
   const id = useSelector(getPromoProductId);

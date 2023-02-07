@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {PathName as to} from '../../settings/settings';
+import {Path as to} from '../../settings/settings';
 
 export default function HeaderCartLink(): JSX.Element {
   return(

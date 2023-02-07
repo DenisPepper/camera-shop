@@ -1,5 +1,5 @@
 import HeaderLink from '../header-link/header-link';
-import {DEFAULT_PAGE_NUMBER, PathName as to} from '../../settings/settings';
+import {DEFAULT_PAGE_NUMBER, Path as to} from '../../settings/settings';
 
 export default function HeaderNav(): JSX.Element {
   return (
