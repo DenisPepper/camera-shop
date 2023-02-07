@@ -1,4 +1,5 @@
-import {RATING_STARS} from '../../settings/settings';
+import ProductRating from '../product-rating/product-rating';
+import ProductPrice from '../product-price/product-price';
 
 interface ProductCardInfoProps {
   name: string;
@@ -13,24 +14,21 @@ export default function ProductCardInfo(props: ProductCardInfoProps): JSX.Elemen
 
   return (
     <div className="product-card__info">
-      <div className="rate product-card__rate">
-        {
-          RATING_STARS.map(
-            (number) => number <= rating ?
-              <svg key={number} width="17" height="16" aria-hidden="true">
-                <use xlinkHref="#icon-full-star"></use>
-              </svg>
-              :
-              <svg key={number} width="17" height="16" aria-hidden="true">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-          )
-        }
-        <p className="visually-hidden">Рейтинг: {rating}</p>
-        <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviewCount}</p>
-      </div>
+
+      <ProductRating
+        key={'ProductRating'}
+        className={'rate product-card__rate'}
+        rating={rating}
+        reviewCount={reviewCount}
+      />
+
       <p className="product-card__title">{name}</p>
-      <p className="product-card__price"><span className="visually-hidden">Цена:</span>{price}</p>
+
+      <ProductPrice
+        key={'ProductPrice'}
+        className={'product-card__price'}
+        price={price}
+      />
     </div>
   );
 }
