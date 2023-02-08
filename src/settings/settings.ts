@@ -29,6 +29,11 @@ export const PathName: Record<string, string> = {
   [Path.Feedback]: 'Задать вопрос',
 };
 
+export const enum ProductTab {
+  Characteristic = 'characteristic',
+  Description = 'description',
+}
+
 export const DEFAULT_PAGE_NUMBER = '1';
 
 export const DECIMAL = 10;
@@ -40,3 +45,5 @@ export const MAX_RATING = 5;
 export const RATING_STARS = Array.from({length: MAX_RATING}, (_, i) => i + 1);
 
 export const DEFAULT_CATALOG_LINK = `/${Path.Catalog}/${DEFAULT_PAGE_NUMBER}`;
+
+export const DEFAULT_PRODUCT_TAB = ProductTab.Characteristic;
