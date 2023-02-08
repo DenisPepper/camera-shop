@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {Path as to} from '../../settings/settings';
+import {DEFAULT_PRODUCT_TAB, Path as to} from '../../settings/settings';
 import React from 'react';
 
 interface ProductCardButtonProps {
@@ -19,7 +19,7 @@ export default function ProductCardButton(props: ProductCardButtonProps): JSX.El
       </button>
       <Link
         className="btn btn--transparent"
-        to={`/${to.Product}/${id}`}
+        to={`/${to.Product}/${id}?tab=${DEFAULT_PRODUCT_TAB}`}
       >
         Подробнее
       </Link>

@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {useSearchParams} from 'react-router-dom';
+import {ProductTab as Tab} from '../../settings/settings';
+
 
 interface ProductTubsProps {
   description: string;
@@ -11,26 +14,31 @@ interface ProductTubsProps {
 export default function ProductTabs(props: ProductTubsProps): JSX.Element {
   const {description, vendorCode, category, type, level} = props;
 
-  const [flag, setFlag] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleOnClick = () => {
-    setFlag((prev) => !prev);
+  const tab = searchParams.get('tab') || '';
+
+  const handleOnClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    const button = evt.currentTarget;
+    setSearchParams({tab: button.name});
   };
 
   return (
     <div className={'tabs product__tabs'}>
       <div className="tabs__controls product__tabs-controls">
         <button
-          className={`tabs__control ${flag ? 'is-active' : ''}`}
+          className={`tabs__control ${tab === Tab.Characteristic ? 'is-active' : ''}`}
           type="button"
+          name={Tab.Characteristic}
           onClick={handleOnClick}
         >
           Характеристики
         </button>
 
         <button
-          className={`tabs__control ${!flag ? 'is-active' : ''}`}
+          className={`tabs__control ${tab === Tab.Description ? 'is-active' : ''}`}
           type="button"
+          name={Tab.Description}
           onClick={handleOnClick}
         >
           Описание
@@ -39,7 +47,7 @@ export default function ProductTabs(props: ProductTubsProps): JSX.Element {
 
       <div className="tabs__content">
 
-        <div className={`tabs__element ${flag ? 'is-active' : ''}`}>
+        <div className={`tabs__element ${tab === Tab.Characteristic ? 'is-active' : ''}`}>
           <ul className="product__tabs-list">
             <li className="item-list" key={'Артикул'}>
               <span className="item-list__title">Артикул:</span>
@@ -60,7 +68,7 @@ export default function ProductTabs(props: ProductTubsProps): JSX.Element {
           </ul>
         </div>
 
-        <div className={`tabs__element ${!flag ? 'is-active' : ''}`}>
+        <div className={`tabs__element ${tab === Tab.Description ? 'is-active' : ''}`}>
           <div className="product__tabs-text">
             <p>
               {description}
