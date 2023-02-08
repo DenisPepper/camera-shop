@@ -1,5 +1,5 @@
 import Product from '../../components/product/product';
-import {useSelector} from 'react-redux';
+import {shallowEqual, useSelector} from 'react-redux';
 import {fetchProductById} from '../../store/slices/product/services/fetch-product-by-id/fetch-product-by-id';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {useParams} from 'react-router-dom';
@@ -9,7 +9,7 @@ import {getProduct} from '../../store/slices/product/selectors/get-product/get-p
 export default function ProductPage(): JSX.Element {
   const {id = ''} = useParams();
   const dispatch = useAppDispatch();
-  const product = useSelector(getProduct);
+  const product = useSelector(getProduct, shallowEqual);
 
   useEffect(() => {
     dispatch(fetchProductById({id}));

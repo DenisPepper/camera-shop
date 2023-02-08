@@ -2,13 +2,13 @@ import {Outlet, useLocation} from 'react-router-dom';
 import SvgSprite from '../svg-sprite/svg-sprite';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import {useSelector} from 'react-redux';
+import {shallowEqual, useSelector} from 'react-redux';
 import {getPromoIsLoaded} from '../../store/slices/promo/selectors/get-promo-is-loaded/get-promo-is-loaded';
 import Banner from '../banner/banner';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 
 export default function AppLayout(): JSX.Element {
-  const isLoaded = useSelector(getPromoIsLoaded);
+  const isLoaded = useSelector(getPromoIsLoaded, shallowEqual);
 
   const {pathname} = useLocation();
   const isCatalogPage = /catalog/.test(pathname);
