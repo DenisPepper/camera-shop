@@ -2,7 +2,7 @@ import {shallowEqual, useSelector} from 'react-redux';
 import {getPromoProductId} from '../../store/slices/promo/selectors/get-promo-product-id/get-promo-product-id';
 import {getPromoProductName} from '../../store/slices/promo/selectors/get-promo-product-name/get-promo-product-name';
 import {Link} from 'react-router-dom';
-import {Path as to} from '../../settings/settings';
+import {DEFAULT_PRODUCT_TAB, Path as to} from '../../settings/settings';
 
 export default function Banner(): JSX.Element {
   const id = useSelector(getPromoProductId, shallowEqual);
@@ -27,7 +27,7 @@ export default function Banner(): JSX.Element {
         <span className="banner__message">Новинка!</span>
         {!!name && <span className="title title--h1">{name}</span>}
         <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
-        {!!id && <Link className={'btn'} to={`/${to.Product}/${id}?tab=DEFAULT_PRODUCT_TAB`}>Подробнее</Link>}
+        {!!id && <Link className={'btn'} to={`/${to.Product}/${id}?tab=${DEFAULT_PRODUCT_TAB}`}>Подробнее</Link>}
       </p>
     </div>
   );
