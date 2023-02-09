@@ -1,4 +1,4 @@
-import Product from '../../components/product/product';
+import ProductInfo from '../../components/product-info/product-info';
 import {shallowEqual, useSelector} from 'react-redux';
 import {fetchProductById} from '../../store/slices/product/services/fetch-product-by-id/fetch-product-by-id';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
@@ -19,7 +19,7 @@ export default function ProductPage(): JSX.Element {
 
   return lastLoadedID === id ?
     <>
-      <Product key={'Product'}/>
+      <ProductInfo key={'Product'}/>
       <div className={'page-content__section'}></div>
       <div className={'page-content__section'}></div>
     </>

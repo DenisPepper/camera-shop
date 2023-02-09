@@ -3,7 +3,7 @@ import ProductContent from '../product-content/product-content';
 import {getProduct} from '../../store/slices/product/selectors/get-product/get-product';
 import {useSelector} from 'react-redux';
 
-export default function Product(): JSX.Element {
+export default function ProductInfo(): JSX.Element {
   const product = useSelector(getProduct);
 
   return (
