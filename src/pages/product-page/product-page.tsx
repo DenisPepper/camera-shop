@@ -5,6 +5,12 @@ import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {getProductId} from '../../store/slices/product/selectors/get-product-id/get-product-id';
+import ProductSimilar from '../../components/product-similar/product-similar';
+import {fetchSimilar} from '../../store/slices/similar/services/fetch-similar/fetch-similar';
+import ProductReview from '../../components/product-review/product-review';
+import {
+  fetchReviewTotalCount
+} from '../../store/slices/review/services/fetch-review-total-count/fetch-review-total-count';
 
 export default function ProductPage(): JSX.Element {
   const {id = ''} = useParams();
@@ -14,14 +20,16 @@ export default function ProductPage(): JSX.Element {
   useEffect(() => {
     if (lastLoadedID !== id) {
       dispatch(fetchProductById({id}));
+      dispatch(fetchSimilar({id}));
+      dispatch(fetchReviewTotalCount({id}));
     }
   }, [id, lastLoadedID, dispatch]);
 
   return lastLoadedID === id ?
     <>
-      <ProductInfo key={'Product'}/>
-      <div className={'page-content__section'}></div>
-      <div className={'page-content__section'}></div>
+      <ProductInfo key={'ProductInfo'}/>
+      <ProductSimilar key={'ProductSimilar'}/>
+      <ProductReview key={'ProductReview'} id={id}/>
     </>
     :
     <div className={'page-content__section'}></div>;
