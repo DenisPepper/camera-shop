@@ -47,3 +47,7 @@ export const RATING_STARS = Array.from({length: MAX_RATING}, (_, i) => i + 1);
 export const DEFAULT_CATALOG_LINK = `/${Path.Catalog}/${DEFAULT_PAGE_NUMBER}`;
 
 export const DEFAULT_PRODUCT_TAB = ProductTab.Characteristic;
+
+export const SIMILAR_FETCHING_LIMIT = 20;
+
+export const REVIEW_FETCHING_LIMIT = 3;
