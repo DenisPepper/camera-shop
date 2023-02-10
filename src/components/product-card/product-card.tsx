@@ -5,13 +5,14 @@ import ProductCardButton from '../product-card-button/product-card-button';
 
 interface ProductCardProps {
   product: ProductType;
+  modifier?: 'is-active';
 }
 
 export default function ProductCard(props: ProductCardProps): JSX.Element {
-  const {product} = props;
+  const {product, modifier = ''} = props;
 
   return (
-    <div className={'product-card'}>
+    <div className={`product-card ${modifier}`}>
       <ProductCardImage
         key={'ProductCardImage'}
         name={product.name}
