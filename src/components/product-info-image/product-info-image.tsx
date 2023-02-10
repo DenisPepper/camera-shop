@@ -4,7 +4,7 @@ interface ProductImageProps {
   product: ProductType;
 }
 
-export default function ProductImage(props: ProductImageProps): JSX.Element {
+export default function ProductInfoImage(props: ProductImageProps): JSX.Element {
   const {product: p} = props;
 
   return (
