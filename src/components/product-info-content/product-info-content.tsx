@@ -7,7 +7,7 @@ interface ProductContentProps {
   product: ProductType;
 }
 
-export default function ProductContent(props: ProductContentProps): JSX.Element {
+export default function ProductInfoContent(props: ProductContentProps): JSX.Element {
   const {product: p} = props;
 
   return (
@@ -18,7 +18,7 @@ export default function ProductContent(props: ProductContentProps): JSX.Element 
         key={'ProductRating'}
         className={'rate product__rate'}
         rating={p.rating}
-        reviewCount={p.reviewCount}
+        totalReviewCount={p.reviewCount}
       />
 
       <ProductPrice
