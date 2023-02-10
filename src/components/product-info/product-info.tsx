@@ -1,5 +1,5 @@
-import ProductImage from '../product-image/product-image';
-import ProductContent from '../product-content/product-content';
+import ProductInfoImage from '../product-info-image/product-info-image';
+import ProductInfoContent from '../product-info-content/product-info-content';
 import {getProduct} from '../../store/slices/product/selectors/get-product/get-product';
 import {useSelector} from 'react-redux';
 
@@ -12,8 +12,8 @@ export default function ProductInfo(): JSX.Element {
         !!product &&
         <section className={'product'}>
           <div className={'container'}>
-            <ProductImage key={'ProductImage'} product={product}/>
-            <ProductContent key={'ProductContent'} product={product}/>
+            <ProductInfoImage key={'ProductImage'} product={product}/>
+            <ProductInfoContent key={'ProductContent'} product={product}/>
           </div>
         </section>
       }
