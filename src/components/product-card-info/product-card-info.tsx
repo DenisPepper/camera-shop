@@ -19,7 +19,7 @@ export default function ProductCardInfo(props: ProductCardInfoProps): JSX.Elemen
         key={'ProductRating'}
         className={'rate product-card__rate'}
         rating={rating}
-        reviewCount={reviewCount}
+        totalReviewCount={reviewCount}
       />
 
       <p className="product-card__title">{name}</p>
