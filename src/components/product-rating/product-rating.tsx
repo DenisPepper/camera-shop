@@ -3,11 +3,11 @@ import {RATING_STARS} from '../../settings/settings';
 interface ProductRatingProps {
   className: string;
   rating: number;
-  reviewCount: number;
+  totalReviewCount?: number;
 }
 
 export default function ProductRating(props: ProductRatingProps): JSX.Element {
-  const {className, rating, reviewCount} = props;
+  const {className, rating, totalReviewCount} = props;
 
   return (
     <div className={className}>
@@ -23,8 +23,13 @@ export default function ProductRating(props: ProductRatingProps): JSX.Element {
             </svg>
         )
       }
+
       <p className="visually-hidden">Рейтинг: {rating}</p>
-      <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviewCount}</p>
+
+      {
+        !!totalReviewCount &&
+        <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{totalReviewCount}</p>
+      }
     </div>
   );
 }
