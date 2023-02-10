@@ -6,12 +6,14 @@ import {shallowEqual, useSelector} from 'react-redux';
 import {getPromoIsLoaded} from '../../store/slices/promo/selectors/get-promo-is-loaded/get-promo-is-loaded';
 import Banner from '../banner/banner';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
+import UpButton from '../up-button/up-button';
 
 export default function AppLayout(): JSX.Element {
   const isLoaded = useSelector(getPromoIsLoaded, shallowEqual);
 
   const {pathname} = useLocation();
   const isCatalogPage = /catalog/.test(pathname);
+  const isProductPage = /product/.test(pathname);
 
   return (
     <>
@@ -25,6 +27,7 @@ export default function AppLayout(): JSX.Element {
             <Outlet/>
           </div>
         </main>
+        {isProductPage && <UpButton/>}
         <Footer key={'Footer'}/>
       </div>
     </>
