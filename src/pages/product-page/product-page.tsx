@@ -9,8 +9,8 @@ import ProductSimilar from '../../components/product-similar/product-similar';
 import {fetchSimilar} from '../../store/slices/similar/services/fetch-similar/fetch-similar';
 import ProductReview from '../../components/product-review/product-review';
 import {
-  fetchReviewTotalCount
-} from '../../store/slices/review/services/fetch-review-total-count/fetch-review-total-count';
+  fetchReviews
+} from '../../store/slices/review/services/fetch-reviews/fetch-reviews';
 
 export default function ProductPage(): JSX.Element {
   const {id = ''} = useParams();
@@ -21,7 +21,7 @@ export default function ProductPage(): JSX.Element {
     if (lastLoadedID !== id) {
       dispatch(fetchProductById({id}));
       dispatch(fetchSimilar({id}));
-      dispatch(fetchReviewTotalCount({id}));
+      dispatch(fetchReviews({id}));
     }
   }, [id, lastLoadedID, dispatch]);
 
@@ -29,7 +29,7 @@ export default function ProductPage(): JSX.Element {
     <>
       <ProductInfo key={'ProductInfo'}/>
       <ProductSimilar key={'ProductSimilar'}/>
-      <ProductReview key={'ProductReview'} id={id}/>
+      <ProductReview key={'ProductReview'}/>
     </>
     :
     <div className={'page-content__section'}></div>;
