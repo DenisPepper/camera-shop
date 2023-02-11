@@ -5,8 +5,10 @@ import {BrowserRouter} from 'react-router-dom';
 import App from './components/app/app';
 import './index.css';
 
+export const ROOT = document.getElementById('root') as HTMLElement;
+
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
+  ROOT,
 );
 
 root.render(
