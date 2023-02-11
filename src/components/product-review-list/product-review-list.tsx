@@ -8,7 +8,7 @@ interface ProductReviewListProps {
 export default function ProductReviewList(props: ProductReviewListProps): JSX.Element {
   const {reviews} = props;
 
-  return(
+  return (
     <ul className={'review-block__list'}>
       {reviews.map((review) => <ProductReviewCard key={review.id} review={review}/>)}
     </ul>
