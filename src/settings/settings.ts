@@ -50,4 +50,4 @@ export const DEFAULT_PRODUCT_TAB = ProductTab.Characteristic;
 
 export const SIMILAR_FETCHING_LIMIT = 20;
 
-export const REVIEW_FETCHING_LIMIT = 3;
+export const REVIEW_SHOW_LIMIT = 3;
