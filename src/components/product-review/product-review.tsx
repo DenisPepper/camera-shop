@@ -7,6 +7,7 @@ import {getReviewList} from '../../store/slices/review/selectors/get-review-list
 import ProductReviewButtons from '../product-review-buttons/product-review-buttons';
 import {REVIEW_SHOW_LIMIT as LIMIT} from '../../settings/settings';
 import {ReviewType} from '../../types/review-type';
+import PostReviewPopup from '../post-review-popup/post-review-popup';
 
 const compareInReverseOrder = (a: ReviewType, b: ReviewType) => {
   let result = 0;
@@ -22,6 +23,7 @@ export default function ProductReview(): JSX.Element {
   const reviewTotalCount = useSelector(getReviewTotalCount, shallowEqual);
   const reviews = [...useSelector(getReviewList, shallowEqual)].sort((a, b) => compareInReverseOrder(a, b));
   const [limit, setLimit] = useState(() => LIMIT);
+  const [isPopUpOpen, setIsPopUpOpen] = useState(() => false);
 
   const handleOnClickShowMore = () => {
     if (limit < reviewTotalCount) {
@@ -29,13 +31,18 @@ export default function ProductReview(): JSX.Element {
     }
   };
 
+  const handleOnClickPostReview = () => setIsPopUpOpen((prev) => !prev);
+
   return (
     <div className={'page-content__section'}>
+      {
+        isPopUpOpen && <PostReviewPopup/>
+      }
       {
         reviewTotalCount !== 0 &&
         <section className={'review-block'}>
           <div className={'container'}>
-            <ProductReviewHeader/>
+            <ProductReviewHeader onClickPostReview={handleOnClickPostReview}/>
             <ProductReviewList reviews={reviews.slice(0, limit)}/>
             <ProductReviewButtons
               onClickShowMore={handleOnClickShowMore}
