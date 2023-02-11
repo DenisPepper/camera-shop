@@ -1,5 +1,7 @@
 import {ReviewType} from '../../types/review-type';
 import ProductRating from '../product-rating/product-rating';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
 
 interface ProductReviewCardProps {
   review: ReviewType;
@@ -12,7 +14,12 @@ export default function ProductReviewCard(props: ProductReviewCardProps): JSX.El
     <li className={'review-card'}>
       <div className={'review-card__head'}>
         <p className="title title--h4">{r.userName}</p>
-        <time className="review-card__data" dateTime={r.createAt}>{r.createAt}</time>
+        <time
+          className="review-card__data"
+          dateTime={r.createAt}
+        >
+          {dayjs(r.createAt).locale('ru').format('DD MMMM')}
+        </time>
       </div>
 
       <ProductRating className={'rate review-card__rate'} rating={r.rating}/>
