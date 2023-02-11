@@ -13,15 +13,11 @@ interface ProductReviewProps {
   id: string;
 }
 
-/* eslint-disable no-console */
 export default function ProductReview(props: ProductReviewProps): JSX.Element {
   const {id} = props;
-
   const reviewTotalCount = useSelector(getReviewTotalCount, shallowEqual);
   const reviews = useSelector(getReviewList, shallowEqual);
-
   const dispatch = useAppDispatch();
-
   const [limit, setLimit] = useState(() => LIMIT);
 
   const handleOnClickShowMore = () => {
@@ -30,24 +26,9 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
     }
   };
 
-  /* const onScroll = useCallback((evt: Event) => {
-     const doc = evt.currentTarget as typeof document;
-     const target = doc.documentElement;
-     if (target.scrollHeight - target.scrollTop <= target.clientHeight + 200) {
-       setLimit(limit + LIMIT);
-     }
-   }, []);*/
-
   useEffect(() => {
     dispatch(fetchReviewList({id, limit}));
   }, [limit, id, dispatch]);
-
-  /*  useEffect(() => {
-      document.addEventListener('scroll', onScroll);
-      return function () {
-        document.removeEventListener('scroll', onScroll);
-      };
-    }, [limit]);*/
 
   return (
     <div className={'page-content__section'}>
@@ -59,7 +40,7 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
             <ProductReviewList reviews={reviews}/>
             <ProductReviewButtons
               onClickShowMore={handleOnClickShowMore}
-              isVisible={limit > reviewTotalCount}
+              isVisible={limit >= reviewTotalCount}
             />
           </div>
         </section>
