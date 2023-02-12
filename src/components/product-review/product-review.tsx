@@ -35,9 +35,7 @@ export default function ProductReview(): JSX.Element {
 
   return (
     <div className={'page-content__section'}>
-      {
-        isPopUpOpen && <PostReviewPopup/>
-      }
+      <PostReviewPopup key={'PostReviewPopup'} isOpen={isPopUpOpen}/>
       {
         reviewTotalCount !== 0 &&
         <section className={'review-block'}>

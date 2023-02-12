@@ -4,14 +4,22 @@ import {ReactNode} from 'react';
 
 interface AppPopupProps {
   children?: ReactNode;
+  isOpen: boolean;
 }
 
 export default function AppPopup(props: AppPopupProps): JSX.Element {
-  const {children} = props;
+  const {children, isOpen} = props;
 
   return (
     <AppPortal container={ROOT}>
-      {children}
+      <div className={`modal ${isOpen ? 'is-active' : ''}`}>
+        <div className={'modal__wrapper'}>
+          <div className="modal__overlay"></div>
+          <div className={'modal__content'}>
+            {children}
+          </div>
+        </div>
+      </div>
     </AppPortal>
   );
 }
