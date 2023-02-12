@@ -4,6 +4,7 @@ import {promoReducer} from './slices/promo/slice/promo-slice';
 import {productReducer} from './slices/product/slice/product-slice';
 import {similarReducer} from './slices/similar/slice/similar-slice';
 import {reviewReducer} from './slices/review/slice/review-slice';
+import {reviewPopupReducer} from './slices/review-popup/slice/review-popup-slice';
 
 export const buildStore = (initialState?: StateSchema) => {
   const rootReducer: ReducersMapObject<StateSchema> = {
@@ -11,6 +12,7 @@ export const buildStore = (initialState?: StateSchema) => {
     product: productReducer,
     similar: similarReducer,
     review: reviewReducer,
+    reviewPopup: reviewPopupReducer,
   };
   return configureStore<StateSchema>({
     reducer: rootReducer,
