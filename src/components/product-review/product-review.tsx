@@ -7,7 +7,7 @@ import {getReviewList} from '../../store/slices/review/selectors/get-review-list
 import ProductReviewButtons from '../product-review-buttons/product-review-buttons';
 import {REVIEW_SHOW_LIMIT as LIMIT} from '../../settings/settings';
 import {ReviewType} from '../../types/review-type';
-import PostReviewPopup from '../post-review-popup/post-review-popup';
+import ProductReviewPopup from '../product-review-popup/product-review-popup';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {reviewPopupActions} from '../../store/slices/review-popup/slice/review-popup-slice';
 
@@ -39,7 +39,7 @@ export default function ProductReview(): JSX.Element {
 
   return (
     <div className={'page-content__section'}>
-      <PostReviewPopup key={'PostReviewPopup'}/>
+      <ProductReviewPopup key={'PostReviewPopup'}/>
       {
         reviewTotalCount !== 0 &&
         <section className={'review-block'}>
