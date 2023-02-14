@@ -1,6 +1,6 @@
 import AppPortal from '../app-portal/app-portal';
 import {ROOT} from '../../index';
-import React, {ReactNode, useCallback, useEffect} from 'react';
+import React, {ReactNode, useCallback, useEffect, useRef} from 'react';
 
 interface AppPopupProps {
   children?: ReactNode;
@@ -31,16 +31,23 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
     }
   }, [onEscapeKeyDownHandler, disableOnTab]);
 
+  const pageContentRef = useRef<HTMLDivElement>(document.querySelector('.wrapper'));
+
   useEffect(() => {
+    const pageContent = pageContentRef.current;
     if (isOpen) {
       window.addEventListener('keydown', handleOnKeyDown);
+      pageContent?.classList.add('wrapper--under-modal');
     }
-    return () => window.removeEventListener('keydown', handleOnKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleOnKeyDown);
+      pageContent?.classList.remove('wrapper--under-modal');
+    };
   }, [isOpen, handleOnKeyDown]);
 
   return (
     <AppPortal container={ROOT}>
-      <div className={`modal ${isOpen ? 'is-active' : ''} ${isNarrow ? 'modal--narrow' : ''}`}>
+      <div className={`modal ${isOpen ? 'is-active ' : ''}${isNarrow ? 'modal--narrow' : ''}`}>
         <div className={'modal__wrapper'}>
           <div className="modal__overlay" onClick={overlayOnClickHandler}></div>
           <div className={'modal__content'}>
