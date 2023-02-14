@@ -8,10 +8,11 @@ import {
 } from '../../store/slices/review-popup/selectors/get-review-popup-is-open/get-review-popup-is-open';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import AppTextInput from '../app-text-input/app-text-input';
-import AppPopupCloseButton from '../app-popup-close-button/app-popup-close-button';
 import AppTextarea from '../app-textarea/app-textarea';
 import {TEXTAREA_MIN_LENGTH} from '../../settings/settings';
 import AppRatingInput from '../app-rating-input/app-rating-input';
+import {useEffect, useRef} from 'react';
+import AppPopupCloseButton from '../app-popup-close-button/app-popup-close-button';
 
 interface FormType {
   userName: string;
@@ -31,15 +32,24 @@ export default function ProductReviewPopup(): JSX.Element {
     dispatch(reviewPopupActions.close());
   };
 
-  /* eslint-disable no-console */
   const handleOnSubmitForm: SubmitHandler<FormType> = (data, evt) => {
     evt?.preventDefault();
-    console.log('data', data);
+    //console.log('data', data);
   };
 
   const handleErrors = () => {
-    console.log('errors', errors);
+    //console.log('errors', errors);
   };
+
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isMounted) {
+      setTimeout(() => {
+        closeButtonRef.current?.focus();
+      }, 100);
+    }
+  }, [isMounted]);
 
   return (
     <AppPopup
@@ -59,15 +69,34 @@ export default function ProductReviewPopup(): JSX.Element {
 
             <AppRatingInput title={'Рейтинг'} error={errors?.rate}>
               <div className="rate__group">
-                <input {...register('rate', {required: 'Нужно оценить товар'})} className="visually-hidden" id="star-5" type="radio" value="5"/>
+                <input
+                  {...register('rate', {required: 'Нужно оценить товар'})}
+                  className="visually-hidden" id="star-5" type="radio" value="5"
+                />
                 <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
-                <input {...register('rate', {required: 'Нужно оценить товар'})} className="visually-hidden" id="star-4" type="radio" value="4"/>
+                <input
+                  {...register('rate', {required: 'Нужно оценить товар'})}
+                  className="visually-hidden" id="star-4"
+                  type="radio" value="4"
+                />
                 <label className="rate__label" htmlFor="star-4" title="Хорошо"></label>
-                <input {...register('rate', {required: 'Нужно оценить товар'})} className="visually-hidden" id="star-3" type="radio" value="3"/>
+                <input
+                  {...register('rate', {required: 'Нужно оценить товар'})}
+                  className="visually-hidden" id="star-3"
+                  type="radio" value="3"
+                />
                 <label className="rate__label" htmlFor="star-3" title="Нормально"></label>
-                <input {...register('rate', {required: 'Нужно оценить товар'})} className="visually-hidden" id="star-2" type="radio" value="2"/>
+                <input
+                  {...register('rate', {required: 'Нужно оценить товар'})}
+                  className="visually-hidden" id="star-2"
+                  type="radio" value="2"
+                />
                 <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
-                <input {...register('rate', {required: 'Нужно оценить товар'})} className="visually-hidden" id="star-1" type="radio" value="1"/>
+                <input
+                  {...register('rate', {required: 'Нужно оценить товар'})}
+                  className="visually-hidden" id="star-1"
+                  type="radio" value="1"
+                />
                 <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
               </div>
             </AppRatingInput>
@@ -120,7 +149,7 @@ export default function ProductReviewPopup(): JSX.Element {
         </form>
       </div>
 
-      <AppPopupCloseButton handleOnClick={handleOnCloseClick}/>
+      <AppPopupCloseButton handleOnClick={handleOnCloseClick} ref={closeButtonRef}/>
 
     </AppPopup>
   );
