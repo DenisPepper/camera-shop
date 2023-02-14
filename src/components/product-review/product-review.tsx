@@ -10,6 +10,7 @@ import {ReviewType} from '../../types/review-type';
 import ProductReviewPopup from '../product-review-popup/product-review-popup';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {reviewPopupActions} from '../../store/slices/review-popup/slice/review-popup-slice';
+import GratefulFeedbackPopup from '../grateful-feedback-popup/grateful-feedback-popup';
 
 const compareInReverseOrder = (a: ReviewType, b: ReviewType) => {
   let result = 0;
@@ -40,6 +41,7 @@ export default function ProductReview(): JSX.Element {
   return (
     <div className={'page-content__section'}>
       <ProductReviewPopup key={'PostReviewPopup'}/>
+      <GratefulFeedbackPopup key={'GratefulFeedbackPopup'}/>
       {
         reviewTotalCount !== 0 &&
         <section className={'review-block'}>
