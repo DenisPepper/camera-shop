@@ -1,12 +1,13 @@
-import {forwardRef} from 'react';
+import React, {forwardRef} from 'react';
 
 interface AppPopupCloseButtonProps {
   handleOnClick: () => void;
+  handleOnFocus: () => void;
 }
 // eslint-disable-next-line react/display-name
 const AppPopupCloseButton = forwardRef<HTMLButtonElement, AppPopupCloseButtonProps>
 ((props: AppPopupCloseButtonProps, ref) => {
-  const {handleOnClick} = props;
+  const {handleOnClick, handleOnFocus} = props;
 
   return (
     <button
@@ -14,6 +15,7 @@ const AppPopupCloseButton = forwardRef<HTMLButtonElement, AppPopupCloseButtonPro
       type="button"
       aria-label="Закрыть попап"
       onClick={handleOnClick}
+      onFocus={handleOnFocus}
       ref={ref}
     >
       <svg width="10" height="10" aria-hidden="true">
