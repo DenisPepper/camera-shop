@@ -5,6 +5,8 @@ import React, {ReactNode, useCallback, useEffect} from 'react';
 interface AppPopupProps {
   children?: ReactNode;
   isOpen: boolean;
+  title: string;
+  disableOnTab?: boolean;
   overlayOnClickHandler: () => void;
   onEscapeKeyDownHandler: () => void;
 }
@@ -13,15 +15,19 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
   const {
     children,
     isOpen,
+    title,
+    disableOnTab = false,
     overlayOnClickHandler,
-    onEscapeKeyDownHandler
+    onEscapeKeyDownHandler,
   } = props;
 
   const handleOnKeyDown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
       onEscapeKeyDownHandler();
+    } else if (evt.key === 'Tab' || evt.shiftKey) {
+      disableOnTab && evt.preventDefault();
     }
-  }, [onEscapeKeyDownHandler]);
+  }, [onEscapeKeyDownHandler, disableOnTab]);
 
   useEffect(() => {
     if (isOpen) {
@@ -36,6 +42,7 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
         <div className={'modal__wrapper'}>
           <div className="modal__overlay" onClick={overlayOnClickHandler}></div>
           <div className={'modal__content'}>
+            <p className="title title--h4">{title}</p>
             {children}
           </div>
         </div>
