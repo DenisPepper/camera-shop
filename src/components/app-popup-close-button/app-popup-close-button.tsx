@@ -1,8 +1,11 @@
+import {forwardRef} from 'react';
+
 interface AppPopupCloseButtonProps {
   handleOnClick: () => void;
 }
-
-export default function AppPopupCloseButton(props: AppPopupCloseButtonProps): JSX.Element {
+// eslint-disable-next-line react/display-name
+const AppPopupCloseButton = forwardRef<HTMLButtonElement, AppPopupCloseButtonProps>
+((props: AppPopupCloseButtonProps, ref) => {
   const {handleOnClick} = props;
 
   return (
@@ -11,10 +14,13 @@ export default function AppPopupCloseButton(props: AppPopupCloseButtonProps): JS
       type="button"
       aria-label="Закрыть попап"
       onClick={handleOnClick}
+      ref={ref}
     >
       <svg width="10" height="10" aria-hidden="true">
         <use xlinkHref="#icon-close"></use>
       </svg>
     </button>
   );
-}
+});
+
+export default AppPopupCloseButton;
