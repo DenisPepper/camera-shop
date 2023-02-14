@@ -13,6 +13,9 @@ import {TEXTAREA_MIN_LENGTH} from '../../settings/settings';
 import AppRatingInput from '../app-rating-input/app-rating-input';
 import React, {useEffect, useRef} from 'react';
 import AppPopupCloseButton from '../app-popup-close-button/app-popup-close-button';
+import {
+  gratefulFeedbackPopupActions
+} from '../../store/slices/grateful-feedback-popup/slice/grateful-feedback-popup-slice';
 
 interface FormType {
   userName: string;
@@ -56,6 +59,8 @@ export default function ProductReviewPopup(): JSX.Element {
 
   const handleOnSubmitForm: SubmitHandler<FormType> = (data, evt) => {
     evt?.preventDefault();
+    dispatch(reviewPopupActions.close());
+    dispatch(gratefulFeedbackPopupActions.open());
   };
 
   useEffect(() => {
