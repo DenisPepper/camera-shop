@@ -26,16 +26,18 @@ export default function ProductReviewPopup(): JSX.Element {
   const dispatch = useAppDispatch();
   const isMounted = useSelector(getReviewPopupIsOpen, shallowEqual);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const ratingRef = useRef<HTMLInputElement>(null);
+  const ratingRef = useRef<HTMLInputElement | null>(null);
   const {register, handleSubmit, reset, formState: {errors}} = useForm<FormType>({
     defaultValues: {
       userName: '',
       userPlus: '',
       userMinus: '',
       userComment: '',
-      rate: ''
+      rate: '0'
     }
   });
+
+  const {ref, ...rest} = register('rate', {required: 'Нужно оценить товар'});
 
   const handleOnCloseClick = () => {
     reset();
@@ -54,11 +56,6 @@ export default function ProductReviewPopup(): JSX.Element {
 
   const handleOnSubmitForm: SubmitHandler<FormType> = (data, evt) => {
     evt?.preventDefault();
-    //console.log('data', data);
-  };
-
-  const handleErrors = () => {
-    // eslint-disable-next-line no-console
   };
 
   useEffect(() => {
@@ -68,6 +65,7 @@ export default function ProductReviewPopup(): JSX.Element {
       }, 100);
     }
   }, [isMounted]);
+
 
   return (
     <AppPopup
@@ -81,7 +79,7 @@ export default function ProductReviewPopup(): JSX.Element {
         <form
           method="post"
           autoComplete={'off'}
-          onSubmit={handleSubmit(handleOnSubmitForm, handleErrors)}
+          onSubmit={handleSubmit(handleOnSubmitForm)}
           onKeyDown={handleOnKeyDown}
         >
           <div className={'form-review__rate'}>
@@ -90,7 +88,8 @@ export default function ProductReviewPopup(): JSX.Element {
               <div className="rate__group">
 
                 <input
-                  {...register('rate', {required: 'Нужно оценить товар'})}
+                  ref={(evt) => {ref(evt); ratingRef.current = evt; }}
+                  {...rest}
                   className="visually-hidden" id="star-5" type="radio" value="5"
                 />
                 <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
@@ -116,7 +115,6 @@ export default function ProductReviewPopup(): JSX.Element {
                 <input
                   {...register('rate', {required: 'Нужно оценить товар'})}
                   className="visually-hidden" id="star-1" type="radio" value="1"
-                  ref={ratingRef}
                 />
                 <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
 
