@@ -1,5 +1,5 @@
 import {MAX_RATING} from '../../settings/settings';
-import {ReactNode} from 'react';
+import React, {ReactNode, useState} from 'react';
 import {GlobalError} from 'react-hook-form/dist/types/errors';
 
 interface AppRatingInputProps {
@@ -10,9 +10,16 @@ interface AppRatingInputProps {
 
 export default function AppRatingInput(props: AppRatingInputProps): JSX.Element {
   const {children, title, error} = props;
+  const [value, setValue] = useState('0');
+
+  const handleOnChange = (evt: React.MouseEvent<HTMLFieldSetElement>) => {
+    // eslint-disable-next-line no-console
+    const input = evt.target as HTMLInputElement;
+    setValue(() => input.value);
+  };
 
   return (
-    <fieldset className="rate form-review__item is-invalid">
+    <fieldset className="rate form-review__item is-invalid" onChange={handleOnChange}>
       <legend className="rate__caption">
         {title}
         <svg width="9" height="9" aria-hidden="true">
@@ -22,7 +29,7 @@ export default function AppRatingInput(props: AppRatingInputProps): JSX.Element 
       <div className="rate__bar">
         {children}
         <div className="rate__progress">
-          <span className="rate__stars">{0}</span>
+          <span className="rate__stars">{value}</span>
           <span>/</span>
           <span className="rate__all-stars">{MAX_RATING}</span>
         </div>
