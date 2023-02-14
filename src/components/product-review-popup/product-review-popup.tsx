@@ -88,8 +88,7 @@ export default function ProductReviewPopup(): JSX.Element {
               <div className="rate__group">
 
                 <input
-                  ref={(evt) => {ref(evt); ratingRef.current = evt; }}
-                  {...rest}
+                  {...register('rate', {required: 'Нужно оценить товар'})}
                   className="visually-hidden" id="star-5" type="radio" value="5"
                 />
                 <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
@@ -113,7 +112,8 @@ export default function ProductReviewPopup(): JSX.Element {
                 <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
 
                 <input
-                  {...register('rate', {required: 'Нужно оценить товар'})}
+                  ref={(evt) => {ref(evt); ratingRef.current = evt; }}
+                  {...rest}
                   className="visually-hidden" id="star-1" type="radio" value="1"
                 />
                 <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
