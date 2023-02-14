@@ -11,7 +11,7 @@ import AppTextInput from '../app-text-input/app-text-input';
 import AppTextarea from '../app-textarea/app-textarea';
 import {TEXTAREA_MIN_LENGTH} from '../../settings/settings';
 import AppRatingInput from '../app-rating-input/app-rating-input';
-import {useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import AppPopupCloseButton from '../app-popup-close-button/app-popup-close-button';
 
 interface FormType {
@@ -25,11 +25,31 @@ interface FormType {
 export default function ProductReviewPopup(): JSX.Element {
   const dispatch = useAppDispatch();
   const isMounted = useSelector(getReviewPopupIsOpen, shallowEqual);
-  const {register, handleSubmit, reset, formState: {errors}} = useForm<FormType>();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const ratingRef = useRef<HTMLInputElement>(null);
+  const {register, handleSubmit, reset, formState: {errors}} = useForm<FormType>({
+    defaultValues: {
+      userName: '',
+      userPlus: '',
+      userMinus: '',
+      userComment: '',
+      rate: ''
+    }
+  });
 
   const handleOnCloseClick = () => {
     reset();
     dispatch(reviewPopupActions.close());
+  };
+
+  const handleOnKeyDown = (evt: React.KeyboardEvent<HTMLFormElement>) => {
+    if (evt.key === 'Tab' || evt.shiftKey) {
+      evt.stopPropagation();
+    }
+  };
+
+  const handleOnFocusCloseButton = () => {
+    ratingRef.current?.focus();
   };
 
   const handleOnSubmitForm: SubmitHandler<FormType> = (data, evt) => {
@@ -38,15 +58,13 @@ export default function ProductReviewPopup(): JSX.Element {
   };
 
   const handleErrors = () => {
-    //console.log('errors', errors);
+    // eslint-disable-next-line no-console
   };
-
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (isMounted) {
       setTimeout(() => {
-        closeButtonRef.current?.focus();
+        ratingRef.current?.focus();
       }, 100);
     }
   }, [isMounted]);
@@ -54,50 +72,54 @@ export default function ProductReviewPopup(): JSX.Element {
   return (
     <AppPopup
       isOpen={isMounted}
+      title={'Оставить отзыв'}
       overlayOnClickHandler={handleOnCloseClick}
       onEscapeKeyDownHandler={handleOnCloseClick}
+      disableOnTab
     >
-      <p className="title title--h4">Оставить отзыв</p>
-
       <div className={'form-review'}>
         <form
           method="post"
           autoComplete={'off'}
           onSubmit={handleSubmit(handleOnSubmitForm, handleErrors)}
+          onKeyDown={handleOnKeyDown}
         >
           <div className={'form-review__rate'}>
 
             <AppRatingInput title={'Рейтинг'} error={errors?.rate}>
               <div className="rate__group">
+
                 <input
                   {...register('rate', {required: 'Нужно оценить товар'})}
                   className="visually-hidden" id="star-5" type="radio" value="5"
                 />
                 <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
+
                 <input
                   {...register('rate', {required: 'Нужно оценить товар'})}
-                  className="visually-hidden" id="star-4"
-                  type="radio" value="4"
+                  className="visually-hidden" id="star-4" type="radio" value="4"
                 />
                 <label className="rate__label" htmlFor="star-4" title="Хорошо"></label>
+
                 <input
                   {...register('rate', {required: 'Нужно оценить товар'})}
-                  className="visually-hidden" id="star-3"
-                  type="radio" value="3"
+                  className="visually-hidden" id="star-3" type="radio" value="3"
                 />
                 <label className="rate__label" htmlFor="star-3" title="Нормально"></label>
+
                 <input
                   {...register('rate', {required: 'Нужно оценить товар'})}
-                  className="visually-hidden" id="star-2"
-                  type="radio" value="2"
+                  className="visually-hidden" id="star-2" type="radio" value="2"
                 />
                 <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
+
                 <input
                   {...register('rate', {required: 'Нужно оценить товар'})}
-                  className="visually-hidden" id="star-1"
-                  type="radio" value="1"
+                  className="visually-hidden" id="star-1" type="radio" value="1"
+                  ref={ratingRef}
                 />
                 <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
+
               </div>
             </AppRatingInput>
 
@@ -149,7 +171,11 @@ export default function ProductReviewPopup(): JSX.Element {
         </form>
       </div>
 
-      <AppPopupCloseButton handleOnClick={handleOnCloseClick} ref={closeButtonRef}/>
+      <AppPopupCloseButton
+        handleOnClick={handleOnCloseClick}
+        handleOnFocus={handleOnFocusCloseButton}
+        ref={closeButtonRef}
+      />
 
     </AppPopup>
   );
