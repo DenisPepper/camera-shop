@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {ReviewSchema} from '../schema/review-schema';
 import {fetchReviews} from '../services/fetch-reviews/fetch-reviews';
+import {postReview} from '../services/post-review/post-review';
 
 const initialState: ReviewSchema = {
   list: [],
@@ -20,6 +21,10 @@ export const reviewSlice = createSlice({
       .addCase(fetchReviews.fulfilled, (state, action) => {
         state.totalCount = action.payload.totalCount;
         state.list = action.payload.reviews;
+      })
+      .addCase(postReview.fulfilled, (state, action) => {
+        state.list = [...state.list, action.payload];
+        state.totalCount = state.totalCount + 1;
       });
   }
 });
