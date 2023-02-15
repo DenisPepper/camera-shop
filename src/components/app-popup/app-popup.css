@@ -1,7 +1,3 @@
-html {
-  scroll-behavior: smooth;
-}
-
 .wrapper--under-modal {
   height: 100vh;
   overflow-y: hidden;
