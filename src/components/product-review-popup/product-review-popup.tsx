@@ -1,50 +1,52 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import AppPopup from '../app-popup/app-popup';
 import {shallowEqual, useSelector} from 'react-redux';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
-import {reviewPopupActions} from '../../store/slices/review-popup/slice/review-popup-slice';
 import {
   getReviewPopupIsOpen
 } from '../../store/slices/review-popup/selectors/get-review-popup-is-open/get-review-popup-is-open';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import AppTextInput from '../app-text-input/app-text-input';
 import AppTextarea from '../app-textarea/app-textarea';
-import {TEXTAREA_MIN_LENGTH} from '../../settings/settings';
+import {DECIMAL, DEFAULT_REVIEW_POPUP_VALUES, TEXTAREA_MIN_LENGTH} from '../../settings/settings';
 import AppRatingInput from '../app-rating-input/app-rating-input';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useLayoutEffect, useRef} from 'react';
 import AppPopupCloseButton from '../app-popup-close-button/app-popup-close-button';
+import {ReviewFormType} from '../../types/review-form-type';
 import {
-  gratefulFeedbackPopupActions
-} from '../../store/slices/grateful-feedback-popup/slice/grateful-feedback-popup-slice';
+  getReviewPopupShouldReset
+} from '../../store/slices/review-popup/selectors/get-review-popup-should-reset/get-review-popup-should-reset';
+import {ReviewPrePostType} from '../../types/review-post-type';
 
-interface FormType {
-  userName: string;
-  userPlus: string;
-  userMinus: string;
-  userComment: string;
-  rate: string;
+interface ProductReviewPopupProps {
+  onSubmitFormHandler: (data: ReviewPrePostType) => void;
+  onCloseFormHandler: () => void;
 }
 
-export default function ProductReviewPopup(): JSX.Element {
-  const dispatch = useAppDispatch();
+export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.Element {
+  const {onSubmitFormHandler, onCloseFormHandler} = props;
   const isMounted = useSelector(getReviewPopupIsOpen, shallowEqual);
+  const shouldReset = useSelector(getReviewPopupShouldReset, shallowEqual);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const ratingRef = useRef<HTMLInputElement | null>(null);
-  const {register, handleSubmit, reset, formState: {errors}} = useForm<FormType>({
-    defaultValues: {
-      userName: '',
-      userPlus: '',
-      userMinus: '',
-      userComment: '',
-      rate: '0'
-    }
+  const {register, handleSubmit, reset, formState: {errors}} = useForm<ReviewFormType>({
+    defaultValues: DEFAULT_REVIEW_POPUP_VALUES
   });
 
   const {ref, ...rest} = register('rate', {required: 'Нужно оценить товар'});
 
+  const handleOnSubmitForm: SubmitHandler<ReviewFormType> = (data, evt) => {
+    evt?.preventDefault();
+    onSubmitFormHandler({
+      userName: data.userName,
+      advantage: data.userPlus,
+      disadvantage: data.userMinus,
+      review: data.userComment,
+      rating: parseInt(data.rate, DECIMAL)}
+    );
+  };
+
   const handleOnCloseClick = () => {
-    reset();
-    dispatch(reviewPopupActions.close());
+    onCloseFormHandler();
   };
 
   const handleOnKeyDown = (evt: React.KeyboardEvent<HTMLFormElement>) => {
@@ -57,11 +59,11 @@ export default function ProductReviewPopup(): JSX.Element {
     ratingRef.current?.focus();
   };
 
-  const handleOnSubmitForm: SubmitHandler<FormType> = (data, evt) => {
-    evt?.preventDefault();
-    dispatch(reviewPopupActions.close());
-    dispatch(gratefulFeedbackPopupActions.open());
-  };
+  useLayoutEffect(() => {
+    if (shouldReset) {
+      reset();
+    }
+  }, [shouldReset, reset]);
 
   useEffect(() => {
     if (isMounted) {
@@ -117,7 +119,10 @@ export default function ProductReviewPopup(): JSX.Element {
                 <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
 
                 <input
-                  ref={(evt) => {ref(evt); ratingRef.current = evt; }}
+                  ref={(evt) => {
+                    ref(evt);
+                    ratingRef.current = evt;
+                  }}
                   {...rest}
                   className="visually-hidden" id="star-1" type="radio" value="1"
                 />
