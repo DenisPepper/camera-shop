@@ -11,6 +11,12 @@ import ProductReviewPopup from '../product-review-popup/product-review-popup';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {reviewPopupActions} from '../../store/slices/review-popup/slice/review-popup-slice';
 import GratefulFeedbackPopup from '../grateful-feedback-popup/grateful-feedback-popup';
+import './product-review.css';
+import {postReview} from '../../store/slices/review/services/post-review/post-review';
+import {
+  gratefulFeedbackPopupActions
+} from '../../store/slices/grateful-feedback-popup/slice/grateful-feedback-popup-slice';
+import {ReviewPrePostType} from '../../types/review-post-type';
 
 const compareInReverseOrder = (a: ReviewType, b: ReviewType) => {
   let result = 0;
@@ -22,10 +28,16 @@ const compareInReverseOrder = (a: ReviewType, b: ReviewType) => {
   return result;
 };
 
-export default function ProductReview(): JSX.Element {
+interface ProductReviewProps {
+  id: number;
+}
+
+export default function ProductReview(props: ProductReviewProps): JSX.Element {
+  const {id} = props;
   const dispatch = useAppDispatch();
   const reviewTotalCount = useSelector(getReviewTotalCount, shallowEqual);
-  const reviews = [...useSelector(getReviewList, shallowEqual)].sort((a, b) => compareInReverseOrder(a, b));
+  const reviews = [...useSelector(getReviewList, shallowEqual)]
+    .sort((a, b) => compareInReverseOrder(a, b));
   const [limit, setLimit] = useState(() => LIMIT);
 
   const handleOnClickShowMore = () => {
@@ -38,9 +50,28 @@ export default function ProductReview(): JSX.Element {
     dispatch(reviewPopupActions.open());
   };
 
+  const handleOnSubmitReviewForm = (data: ReviewPrePostType) => {
+    dispatch(postReview({
+      review: {...data, cameraId: id},
+      whenResolved: () => {
+        dispatch(reviewPopupActions.reset());
+        dispatch(reviewPopupActions.close());
+        dispatch(gratefulFeedbackPopupActions.open());
+      }
+    }));
+  };
+
+  const handleOnCloseReviewForm = () => {
+    dispatch(reviewPopupActions.close());
+  };
+
   return (
     <div className={'page-content__section'}>
-      <ProductReviewPopup key={'PostReviewPopup'}/>
+      <ProductReviewPopup
+        key={'PostReviewPopup'}
+        onSubmitFormHandler={handleOnSubmitReviewForm}
+        onCloseFormHandler={handleOnCloseReviewForm}
+      />
       <GratefulFeedbackPopup key={'GratefulFeedbackPopup'}/>
       {
         reviewTotalCount !== 0 &&
