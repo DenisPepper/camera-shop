@@ -53,3 +53,5 @@ export const SIMILAR_FETCHING_LIMIT = 20;
 export const REVIEW_SHOW_LIMIT = 3;
 
 export const TEXTAREA_MIN_LENGTH = 5;
+
+export const DEFAULT_REVIEW_POPUP_VALUES = {userName: '', userPlus: '', userMinus: '', userComment: '', rate: '0'};
