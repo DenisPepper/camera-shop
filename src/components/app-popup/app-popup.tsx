@@ -1,6 +1,7 @@
 import AppPortal from '../app-portal/app-portal';
 import {ROOT} from '../../index';
 import React, {ReactNode, useCallback, useEffect, useRef} from 'react';
+import './app-popup.css';
 
 interface AppPopupProps {
   children?: ReactNode;

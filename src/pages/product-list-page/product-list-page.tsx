@@ -1,5 +1,5 @@
 import Pagination from '../../components/pagination/pagination';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import {DECIMAL, MAX_PRODUCT_COUNT} from '../../settings/settings';
@@ -14,7 +14,6 @@ export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const {page = '1'} = useParams();
   const pageNumber = parseInt(page, DECIMAL);
-
   const [totalPagesCount, setTotalPagesCount] = useState(0);
 
   useEffect(() => {
