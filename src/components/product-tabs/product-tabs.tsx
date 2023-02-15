@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSearchParams} from 'react-router-dom';
 import {ProductTab as Tab} from '../../settings/settings';
 
 
@@ -9,18 +8,24 @@ interface ProductTubsProps {
   category: string;
   type: string;
   level: string;
+  tab: string;
+  onTabClickHandler: (tabName: string) => void;
 }
 
 export default function ProductTabs(props: ProductTubsProps): JSX.Element {
-  const {description, vendorCode, category, type, level} = props;
-
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const tab = searchParams.get('tab') || '';
+  const {
+    description,
+    vendorCode,
+    category,
+    type,
+    level,
+    tab,
+    onTabClickHandler
+  } = props;
 
   const handleOnClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     const button = evt.currentTarget;
-    setSearchParams({tab: button.name});
+    onTabClickHandler(button.name);
   };
 
   return (
