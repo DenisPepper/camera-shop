@@ -1,8 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {ProductType} from '../../../../../types/product-type';
-import {ServerUrl} from '../../../../../http-client/server-url';
-import {ErrorsConfig as error} from '../../../../../http-client/errors-config';
+import {ServerUrl} from '../../../../../api/server-url';
+import {ErrorsConfig as error} from '../../../../../api/errors-config';
 
 interface fetchProductByIdProps {
   id: string;

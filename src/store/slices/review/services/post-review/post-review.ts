@@ -1,9 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ReviewPostType} from '../../../../../types/review-post-type';
 import {ReviewType} from '../../../../../types/review-type';
-import {ErrorsConfig as error} from '../../../../../http-client/errors-config';
+import {ErrorsConfig as error} from '../../../../../api/errors-config';
 import axios from 'axios';
-import {ServerUrl as server} from '../../../../../http-client/server-url';
+import {ServerUrl as server} from '../../../../../api/server-url';
 
 
 interface PostReviewProps {

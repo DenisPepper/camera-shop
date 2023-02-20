@@ -1,8 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {ReviewType} from '../../../../../types/review-type';
-import {ServerUrl as server} from '../../../../../http-client/server-url';
-import {ErrorsConfig as error} from '../../../../../http-client/errors-config';
+import {ServerUrl as server} from '../../../../../api/server-url';
+import {ErrorsConfig as error} from '../../../../../api/errors-config';
 
 interface FetchSimilarProps {
   id: string;

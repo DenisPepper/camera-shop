@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import {DECIMAL, MAX_PRODUCT_COUNT} from '../../settings/settings';
-import {getStart, PRODUCTS_URL as api} from '../../http-client/server-url';
+import {getStart, PRODUCTS_URL as api} from '../../api/server-url';
 import {productActions} from '../../store/slices/product/slice/product-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {ProductType} from '../../types/product-type';
