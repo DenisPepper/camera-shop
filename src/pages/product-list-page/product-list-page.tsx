@@ -1,14 +1,12 @@
 import Pagination from '../../components/pagination/pagination';
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
 import {useParams} from 'react-router-dom';
-import {DECIMAL, MAX_PRODUCT_COUNT} from '../../settings/settings';
-import {getStart, PRODUCTS_URL as api} from '../../api/server-url';
+import {DECIMAL} from '../../settings/settings';
 import {productActions} from '../../store/slices/product/slice/product-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
-import {ProductType} from '../../types/product-type';
 import ProductList from '../../components/product-list/product-list';
 import ProductSort from '../../components/product-sort/product-sort';
+import {fetchProducts} from './services/fetch-products/fetch-products';
 
 export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -17,13 +15,11 @@ export default function ProductListPage(): JSX.Element {
   const [totalPagesCount, setTotalPagesCount] = useState(0);
 
   useEffect(() => {
-    axios
-      .get<ProductType[]>(`${api}?_start=${getStart(pageNumber)}&_limit=${MAX_PRODUCT_COUNT}`)
-      .then((response) => {
-        const totalProducts = parseInt(response.headers['x-total-count'] || '', DECIMAL);
-        const totalCount = Math.ceil(totalProducts / MAX_PRODUCT_COUNT);
+    fetchProducts(pageNumber)
+      .then((data) => {
+        const {totalCount, products} = data;
         setTotalPagesCount(totalCount);
-        dispatch(productActions.setProducts(response.data));
+        dispatch(productActions.setProducts(products));
       });
   }, [pageNumber, dispatch]);
 
