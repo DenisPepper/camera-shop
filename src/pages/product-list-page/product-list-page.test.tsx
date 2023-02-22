@@ -5,12 +5,13 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 
 it('should render ProductListPage FC with expected text', () => {
-  const stubStore = configureMockStore();
+  const mockStore = configureMockStore();
   render(
-    <Provider store={stubStore()}>
-      <ProductListPage/>
-    </Provider>,
-    {wrapper: BrowserRouter});
+    <Provider store={mockStore()}>
+      <BrowserRouter>
+        <ProductListPage/>
+      </BrowserRouter>
+    </Provider>);
   const pageTitle = screen.getByText(/Каталог фото- и видеотехники/);
   expect(pageTitle).toBeInTheDocument();
 });
