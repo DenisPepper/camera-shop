@@ -4,5 +4,4 @@ import {BrowserRouter} from 'react-router-dom';
 
 it.todo('should render ProductPage FC', () => {
   render(<ProductPage/>, {wrapper: BrowserRouter});
-  // TODO write test
 });
