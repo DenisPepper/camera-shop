@@ -7,6 +7,6 @@ interface AppPortalProps {
 }
 
 export default function AppPortal(props: AppPortalProps): JSX.Element {
-  const { children, container = document.body } = props;
-  return createPortal(children, container);
+  const { children, container } = props;
+  return createPortal(children, container ?? document.body);
 }
