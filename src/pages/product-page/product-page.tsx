@@ -33,7 +33,7 @@ export default function ProductPage(): JSX.Element {
   }, [id, lastLoadedID, dispatch]);
 
   if (tab !== Tab.Characteristic && tab !== Tab.Description) {
-    return <Navigate to={Path.NotFound}/>;
+    return <Navigate to={Path.NotFound} key={'Navigate'}/>;
   }
 
   return lastLoadedID === id ?
@@ -47,5 +47,8 @@ export default function ProductPage(): JSX.Element {
       <ProductReview key={'ProductReview'} id={parseInt(id, DECIMAL)}/>
     </>
     :
-    <div className={'page-content__section'}></div>;
+    <div
+      className={'page-content__section'}
+      key={'page-content__section'}
+    />;
 }
