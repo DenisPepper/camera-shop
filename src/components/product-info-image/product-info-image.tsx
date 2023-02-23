@@ -8,7 +8,7 @@ export default function ProductInfoImage(props: ProductImageProps): JSX.Element 
   const {product: p} = props;
 
   return (
-    <div className="product__img">
+    <div className="product__img" data-testid={'product-image'}>
       <picture>
         <source
           type="image/webp"
