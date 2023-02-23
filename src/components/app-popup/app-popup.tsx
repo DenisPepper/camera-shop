@@ -1,7 +1,8 @@
 import AppPortal from '../app-portal/app-portal';
-import {ROOT} from '../../index';
 import React, {ReactNode, useCallback, useEffect, useRef} from 'react';
 import './app-popup.css';
+
+const root = document.getElementById('root') as HTMLElement;
 
 interface AppPopupProps {
   children?: ReactNode;
@@ -47,7 +48,7 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
   }, [isOpen, handleOnKeyDown]);
 
   return (
-    <AppPortal container={ROOT}>
+    <AppPortal container={root}>
       <div className={`modal ${isOpen ? 'is-active ' : ''}${isNarrow ? 'modal--narrow' : ''}`}>
         <div className={'modal__wrapper'}>
           <div className="modal__overlay" onClick={overlayOnClickHandler}></div>
