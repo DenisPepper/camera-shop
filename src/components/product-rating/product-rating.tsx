@@ -10,7 +10,7 @@ export default function ProductRating(props: ProductRatingProps): JSX.Element {
   const {className, rating, totalReviewCount} = props;
 
   return (
-    <div className={className}>
+    <div className={className} data-testid={'rating-container'}>
       {
         RATING_STARS.map(
           (number) => number <= rating ?
