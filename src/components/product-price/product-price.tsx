@@ -9,7 +9,7 @@ export default function ProductPrice(props: ProductPriceProps): JSX.Element {
   const {className, price} = props;
 
   return (
-    <p className={className}>
+    <p className={className} data-testid={'product-price-container'}>
       <span className="visually-hidden">Цена:</span>
       {formatPrice(price)} ₽
     </p>
