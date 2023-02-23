@@ -2,7 +2,7 @@ import {ReviewType} from '../types/review-type';
 
 export const stubReview: ReviewType = {
   id: 'string',
-  userName: 'string',
+  userName: 'this is stub user name',
   advantage: 'string',
   disadvantage: 'string',
   review: 'string',
