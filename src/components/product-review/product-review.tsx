@@ -81,7 +81,7 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
             <ProductReviewList reviews={reviews.slice(0, limit)}/>
             <ProductReviewButtons
               onClickShowMore={handleOnClickShowMore}
-              isVisible={limit >= reviewTotalCount}
+              shouldHide={limit >= reviewTotalCount}
             />
           </div>
         </section>
