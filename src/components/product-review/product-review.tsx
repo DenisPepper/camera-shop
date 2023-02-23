@@ -6,7 +6,6 @@ import React, {useState} from 'react';
 import {getReviewList} from '../../store/slices/review/selectors/get-review-list/get-review-list';
 import ProductReviewButtons from '../product-review-buttons/product-review-buttons';
 import {REVIEW_SHOW_LIMIT as LIMIT} from '../../settings/settings';
-import {ReviewType} from '../../types/review-type';
 import ProductReviewPopup from '../product-review-popup/product-review-popup';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {reviewPopupActions} from '../../store/slices/review-popup/slice/review-popup-slice';
@@ -17,16 +16,9 @@ import {
   gratefulFeedbackPopupActions
 } from '../../store/slices/grateful-feedback-popup/slice/grateful-feedback-popup-slice';
 import {ReviewPrePostType} from '../../types/review-post-type';
-
-const compareInReverseOrder = (a: ReviewType, b: ReviewType) => {
-  let result = 0;
-  if (a.createAt < b.createAt) {
-    result = 1;
-  } else if (a.createAt > b.createAt) {
-    result = -1;
-  }
-  return result;
-};
+import {
+  compareReviewDateInReverseOrder
+} from '../../lib/compare-review-date-in-reverse-order/compare-review-date-in-reverse-order';
 
 interface ProductReviewProps {
   id: number;
@@ -37,7 +29,7 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
   const dispatch = useAppDispatch();
   const reviewTotalCount = useSelector(getReviewTotalCount, shallowEqual);
   const reviews = [...useSelector(getReviewList, shallowEqual)]
-    .sort((a, b) => compareInReverseOrder(a, b));
+    .sort((a, b) => compareReviewDateInReverseOrder(a, b));
   const [limit, setLimit] = useState(() => LIMIT);
 
   const handleOnClickShowMore = () => {
