@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 
 export default function Header(): JSX.Element {
   return (
-    <header className={'header'} id={'header'}>
+    <header className={'header'} id={'header'} data-testid={'header'}>
       <div className={'container'}>
         <Link className="header__logo" to={Path.Main} aria-label="Переход на главную">
           <Logo xlinkHref={'#icon-logo'}/>
