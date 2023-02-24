@@ -7,7 +7,7 @@ interface MainLogoProps {
 export default function Logo(props: MainLogoProps): JSX.Element {
   const {xlinkHref} = props;
   return (
-    <svg width="100" height="36" aria-hidden="true">
+    <svg width="100" height="36" aria-hidden="true" data-testid={'logo'}>
       <use xlinkHref={xlinkHref}></use>
     </svg>
   );
