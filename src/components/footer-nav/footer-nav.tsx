@@ -21,7 +21,7 @@ const SUPPORT_LINKS = [
 
 export default function FooterNav(): JSX.Element {
   return (
-    <ul className={'footer__nav'}>
+    <ul className={'footer__nav'} data-testid={'footer-nav'}>
       <FooterNavItem
         key={'Навигация'}
         title={'Навигация'}
