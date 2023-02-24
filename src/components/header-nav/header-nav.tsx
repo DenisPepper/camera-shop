@@ -3,7 +3,7 @@ import {Path as to, PathName, DEFAULT_CATALOG_LINK} from '../../settings/setting
 
 export default function HeaderNav(): JSX.Element {
   return (
-    <nav className={'main-nav header__main-nav'}>
+    <nav className={'main-nav header__main-nav'} data-testid={'nav'}>
       <ul className="main-nav__list">
         <HeaderLink to={DEFAULT_CATALOG_LINK}>{PathName[to.Catalog]}</HeaderLink>
         <HeaderLink to={to.Guarantee}>{PathName[to.Guarantee]}</HeaderLink>
