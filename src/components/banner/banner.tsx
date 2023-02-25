@@ -9,7 +9,7 @@ export default function Banner(): JSX.Element {
   const name = useSelector(getPromoProductName, shallowEqual);
 
   return (
-    <div className={'banner'}>
+    <div className={'banner'} data-testid={'banner'}>
       <picture>
         <source
           type="image/webp"
