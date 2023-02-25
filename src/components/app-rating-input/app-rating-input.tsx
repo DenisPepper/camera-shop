@@ -19,7 +19,11 @@ export default function AppRatingInput(props: AppRatingInputProps): JSX.Element 
   };
 
   return (
-    <fieldset className="rate form-review__item is-invalid" onChange={handleOnChange}>
+    <fieldset
+      className="rate form-review__item is-invalid"
+      onChange={handleOnChange}
+      data-testid={'rating-input'}
+    >
       <legend className="rate__caption">
         {title}
         <svg width="9" height="9" aria-hidden="true">
