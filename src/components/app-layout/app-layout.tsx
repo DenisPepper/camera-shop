@@ -18,7 +18,7 @@ export default function AppLayout(): JSX.Element {
   return (
     <>
       <SvgSprite/>
-      <div className={'wrapper'}>
+      <div className={'wrapper'} data-testid={'app-layout'}>
         <Header key={'Header'}/>
         <main>
           {isLoaded && isCatalogPage && <Banner/>}
