@@ -21,8 +21,6 @@ const onSubmitFormHandler = jest.fn();
 const onCloseFormHandler = jest.fn();
 
 
-it.todo('should render without crushing');
-/*
 it('should render without crushing', () => {
   render(
     <Provider store={store}>
@@ -33,4 +31,3 @@ it('should render without crushing', () => {
     </Provider>
   );
 });
-*/
