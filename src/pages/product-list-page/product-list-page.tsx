@@ -7,6 +7,7 @@ import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import ProductList from '../../components/product-list/product-list';
 import ProductSort from '../../components/product-sort/product-sort';
 import {fetchProducts} from './services/fetch-products/fetch-products';
+import Filter from '../../components/filter/filter';
 
 export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -27,7 +28,7 @@ export default function ProductListPage(): JSX.Element {
     <>
       <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
       <div className={'page-content__columns'}>
-        <div className={'catalog__aside'}>Фильтр</div>
+        <Filter />
 
         {totalPagesCount >= pageNumber &&
           <div className={'catalog__content'}>
