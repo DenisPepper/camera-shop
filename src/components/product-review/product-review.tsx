@@ -45,7 +45,7 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
   const handleOnSubmitReviewForm = (data: ReviewPrePostType) => {
     dispatch(postReview({
       review: {...data, cameraId: id},
-      whenResolved: () => {
+      callWhenResolved: () => {
         dispatch(reviewPopupActions.reset());
         dispatch(reviewPopupActions.close());
         dispatch(gratefulFeedbackPopupActions.open());

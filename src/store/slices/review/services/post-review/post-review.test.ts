@@ -27,7 +27,7 @@ describe('when dispatch function', () => {
     await store.dispatch(postReview(
       {
         review: stubPostReview,
-        whenResolved: () => {
+        callWhenResolved: () => {
           store.dispatch(reviewPopupActions.reset());
           store.dispatch(reviewPopupActions.close());
           store.dispatch(gratefulFeedbackPopupActions.open());

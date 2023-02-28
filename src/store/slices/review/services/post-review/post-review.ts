@@ -8,18 +8,18 @@ import {ServerUrl as server} from '../../../../../api/server-url';
 
 interface PostReviewProps {
   review: ReviewPostType;
-  whenResolved: () => void;
+  callWhenResolved: () => void;
 }
 
 export const postReview = createAsyncThunk<ReviewType, PostReviewProps, {rejectValue: error}>(
   'POST_REVIEW',
   async (props, thunkAPI) => {
-    const {review, whenResolved} = props;
+    const {review, callWhenResolved} = props;
     try {
       const response = await axios.post<ReviewType>(
         server.PostReview, review
       );
-      whenResolved();
+      callWhenResolved();
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(error.OnPostReview);
