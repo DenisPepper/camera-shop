@@ -5,21 +5,21 @@ interface ProductImageProps {
 }
 
 export default function ProductInfoImage(props: ProductImageProps): JSX.Element {
-  const {product: p} = props;
+  const {product} = props;
 
   return (
     <div className="product__img" data-testid={'product-image'}>
       <picture>
         <source
           type="image/webp"
-          srcSet={`/${p.previewImgWebp}, /${p.previewImgWebp2x} 2x`}
+          srcSet={`/${product.previewImgWebp}, /${product.previewImgWebp2x} 2x`}
         />
         <img
-          src={`/${p.previewImg}`}
-          srcSet={`/${p.previewImg2x} 2x`}
+          src={`/${product.previewImg}`}
+          srcSet={`/${product.previewImg2x} 2x`}
           width="560"
           height="480"
-          alt={p.name}
+          alt={product.name}
         />
       </picture>
     </div>

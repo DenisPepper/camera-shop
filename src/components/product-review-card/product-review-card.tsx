@@ -8,34 +8,34 @@ interface ProductReviewCardProps {
 }
 
 export default function ProductReviewCard(props: ProductReviewCardProps): JSX.Element {
-  const {review: r} = props;
+  const {review} = props;
 
   return (
     <li className={'review-card'}>
       <div className={'review-card__head'}>
-        <p className="title title--h4">{r.userName}</p>
+        <p className="title title--h4">{review.userName}</p>
         <time
           className="review-card__data"
-          dateTime={r.createAt}
+          dateTime={review.createAt}
         >
-          {dayjs(r.createAt).locale('ru').format('DD MMMM')}
+          {dayjs(review.createAt).locale('ru').format('DD MMMM')}
         </time>
       </div>
 
-      <ProductRating className={'rate review-card__rate'} rating={r.rating}/>
+      <ProductRating className={'rate review-card__rate'} rating={review.rating}/>
 
       <ul className="review-card__list">
         <li className="item-list">
           <span className="item-list__title">Достоинства:</span>
-          <p className="item-list__text">{r.advantage}</p>
+          <p className="item-list__text">{review.advantage}</p>
         </li>
         <li className="item-list">
           <span className="item-list__title">Недостатки:</span>
-          <p className="item-list__text">{r.disadvantage}</p>
+          <p className="item-list__text">{review.disadvantage}</p>
         </li>
         <li className="item-list">
           <span className="item-list__title">Комментарий:</span>
-          <p className="item-list__text">{r.review}</p>
+          <p className="item-list__text">{review.review}</p>
         </li>
       </ul>
     </li>

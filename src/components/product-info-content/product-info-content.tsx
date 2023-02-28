@@ -10,23 +10,23 @@ interface ProductContentProps {
 }
 
 export default function ProductInfoContent(props: ProductContentProps): JSX.Element {
-  const {product: p, tab, onTabClickHandler} = props;
+  const {product, tab, onTabClickHandler} = props;
 
   return (
     <div className={'product__content'}>
-      <h1 className="title title--h3">{p.name}</h1>
+      <h1 className="title title--h3">{product.name}</h1>
 
       <ProductRating
         key={'ProductRating'}
         className={'rate product__rate'}
-        rating={p.rating}
-        totalReviewCount={p.reviewCount}
+        rating={product.rating}
+        totalReviewCount={product.reviewCount}
       />
 
       <ProductPrice
         key={'ProductPrice'}
         className={'product__price'}
-        price={p.price}
+        price={product.price}
       />
 
       <button className="btn btn--purple" type="button">
@@ -38,11 +38,11 @@ export default function ProductInfoContent(props: ProductContentProps): JSX.Elem
 
       <ProductTabs
         key={'ProductTabs'}
-        description={p.description}
-        vendorCode={p.vendorCode}
-        category={p.category}
-        type={p.type}
-        level={p.level}
+        description={product.description}
+        vendorCode={product.vendorCode}
+        category={product.category}
+        type={product.type}
+        level={product.level}
         tab={tab}
         onTabClickHandler={onTabClickHandler}
       />
