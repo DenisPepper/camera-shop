@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ProductSchema} from '../schema/product-schema';
-import {fetchProductById} from '../services/fetch-product-by-id/fetch-product-by-id';
+import {fetchProductByIdWithReviews} from '../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
 import {ProductType} from '../../../../types/product-type';
 
 const initialState: ProductSchema = {
@@ -18,8 +18,8 @@ export const productSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchProductById.fulfilled, (state, action) => {
-        state.product = action.payload;
+      .addCase(fetchProductByIdWithReviews.fulfilled, (state, action) => {
+        state.product = action.payload.product;
       });
   }
 });

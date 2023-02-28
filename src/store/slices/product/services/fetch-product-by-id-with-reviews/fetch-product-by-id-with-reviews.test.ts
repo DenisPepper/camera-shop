@@ -1,11 +1,11 @@
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import {StateSchema} from '../../../../state-schema';
-import {Action} from 'redux';
-import thunk, {ThunkDispatch} from 'redux-thunk';
 import {ServerUrl as Server} from '../../../../../api/server-url';
-import {fetchReviews} from './fetch-reviews';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import thunk, {ThunkDispatch} from 'redux-thunk';
+import {Action} from 'redux';
+import {StateSchema} from 'store/state-schema';
+import {fetchProductByIdWithReviews} from './fetch-product-by-id-with-reviews';
 
 describe('when dispatch function', () => {
   const mockAPI = new MockAdapter(axios);
@@ -17,20 +17,22 @@ describe('when dispatch function', () => {
   it('should call actions with server 200 response', async () => {
     const store = mockStore();
     mockAPI
-      .onGet(`${Server.Product}${id}/reviews`)
+      .onGet(`${Server.Product}${id}?_embed=reviews`)
       .reply(200, 'ok');
 
     expect(store.getActions()).toEqual([]);
 
-    await store.dispatch(fetchReviews({id}));
+    await store.dispatch(fetchProductByIdWithReviews({id}));
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     const actions = store.getActions().map(({type}) => type);
 
     expect(actions).toEqual(
       [
-        fetchReviews.pending.type,
-        fetchReviews.fulfilled.type
+        fetchProductByIdWithReviews.pending.type,
+        fetchProductByIdWithReviews.fulfilled.type
       ]);
+
   });
 });
+

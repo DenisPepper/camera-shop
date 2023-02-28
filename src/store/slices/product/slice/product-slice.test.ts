@@ -1,7 +1,7 @@
 import {productActions as actions, productReducer as reducer} from './product-slice';
 import {ProductSchema as StateSchema} from '../schema/product-schema';
 import {stubProduct as product} from '../../../../mocks/stub-product';
-import {fetchProductById} from '../services/fetch-product-by-id/fetch-product-by-id';
+import {fetchProductByIdWithReviews} from '../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
 
 describe('test of product-slice reducer', () => {
 
@@ -33,7 +33,7 @@ describe('test of product-slice reducer', () => {
       product: product
     };
     expect(reducer(prevState as StateSchema,
-      {type: fetchProductById.fulfilled.type, payload: product}))
+      {type: fetchProductByIdWithReviews.fulfilled.type, payload: {product, reviews: [], reviewCount: 0}}))
       .toEqual(updatedState);
   });
 

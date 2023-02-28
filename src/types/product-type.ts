@@ -1,3 +1,5 @@
+import {ReviewType} from './review-type';
+
 export interface ProductType {
   id: number;
   name: string;
@@ -13,5 +15,10 @@ export interface ProductType {
   previewImgWebp: string;
   previewImgWebp2x: string;
   reviewCount: number;
+}
+
+export interface ProductTypeWithReviews extends ProductType {
+  reviewCount: number;
+  reviews: ReviewType[];
 }
 
