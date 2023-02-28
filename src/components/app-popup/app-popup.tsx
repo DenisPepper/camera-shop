@@ -25,7 +25,7 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
     onEscapeKeyDownHandler,
   } = props;
 
-  const handleOnKeyDown = useCallback((evt: KeyboardEvent) => {
+  const handleOnPopupKeyDown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
       onEscapeKeyDownHandler();
     } else if (evt.key === 'Tab' || evt.shiftKey) {
@@ -38,14 +38,14 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
   useEffect(() => {
     const pageContent = pageContentRef.current;
     if (isOpen) {
-      window.addEventListener('keydown', handleOnKeyDown);
+      window.addEventListener('keydown', handleOnPopupKeyDown);
       pageContent?.classList.add('wrapper--under-modal');
     }
     return () => {
-      window.removeEventListener('keydown', handleOnKeyDown);
+      window.removeEventListener('keydown', handleOnPopupKeyDown);
       pageContent?.classList.remove('wrapper--under-modal');
     };
-  }, [isOpen, handleOnKeyDown]);
+  }, [isOpen, handleOnPopupKeyDown]);
 
   return (
     <AppPortal container={root}>

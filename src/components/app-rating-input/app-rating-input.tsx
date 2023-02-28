@@ -12,7 +12,7 @@ export default function AppRatingInput(props: AppRatingInputProps): JSX.Element 
   const {children, title, error} = props;
   const [value, setValue] = useState('0');
 
-  const handleOnChange = (evt: React.MouseEvent<HTMLFieldSetElement>) => {
+  const handleOnRatingInputChange = (evt: React.MouseEvent<HTMLFieldSetElement>) => {
     // eslint-disable-next-line no-console
     const input = evt.target as HTMLInputElement;
     setValue(() => input.value);
@@ -21,7 +21,7 @@ export default function AppRatingInput(props: AppRatingInputProps): JSX.Element 
   return (
     <fieldset
       className="rate form-review__item is-invalid"
-      onChange={handleOnChange}
+      onChange={handleOnRatingInputChange}
       data-testid={'rating-input'}
     >
       <legend className="rate__caption">

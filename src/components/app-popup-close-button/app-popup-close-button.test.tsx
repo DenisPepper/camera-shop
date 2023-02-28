@@ -11,7 +11,7 @@ describe('test AppPopupCloseButton FC', () => {
 
   it('should render without fail', async () => {
     render(
-      <AppPopupCloseButton handleOnClick={onClick} handleOnFocus={onFocus}/>,
+      <AppPopupCloseButton onClickHandler={onClick} onFocusHandler={onFocus}/>,
       {wrapper: BrowserRouter}
     );
     const element = await screen.findByRole('button');

@@ -32,17 +32,17 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
     .sort((a, b) => compareReviewDateInReverseOrder(a, b));
   const [limit, setLimit] = useState(() => LIMIT);
 
-  const handleOnClickShowMore = () => {
+  const handleOnShowMoreButtonClick = () => {
     if (limit < reviewTotalCount) {
       setLimit((prev) => prev + LIMIT);
     }
   };
 
-  const handleOnClickPostReview = () => {
+  const handleOnPostReviewClick = () => {
     dispatch(reviewPopupActions.open());
   };
 
-  const handleOnSubmitReviewForm = (data: ReviewPrePostType) => {
+  const handleOnReviewFormSubmit = (data: ReviewPrePostType) => {
     dispatch(postReview({
       review: {...data, cameraId: id},
       callWhenResolved: () => {
@@ -53,7 +53,7 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
     }));
   };
 
-  const handleOnCloseReviewForm = () => {
+  const handleOnReviewFormClose = () => {
     dispatch(reviewPopupActions.close());
   };
 
@@ -61,18 +61,18 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
     <div className={'page-content__section'}>
       <ProductReviewPopup
         key={'PostReviewPopup'}
-        onSubmitFormHandler={handleOnSubmitReviewForm}
-        onCloseFormHandler={handleOnCloseReviewForm}
+        onSubmitFormHandler={handleOnReviewFormSubmit}
+        onCloseFormHandler={handleOnReviewFormClose}
       />
       <GratefulFeedbackPopup key={'GratefulFeedbackPopup'}/>
       {
         reviewTotalCount !== 0 &&
         <section className={'review-block'}>
           <div className={'container'}>
-            <ProductReviewHeader onClickPostReview={handleOnClickPostReview}/>
+            <ProductReviewHeader onPostReviewClickHandler={handleOnPostReviewClick}/>
             <ProductReviewList reviews={reviews.slice(0, limit)}/>
             <ProductReviewButtons
-              onClickShowMore={handleOnClickShowMore}
+              onShowMoreClickHandler={handleOnShowMoreButtonClick}
               shouldHide={limit >= reviewTotalCount}
             />
           </div>

@@ -23,7 +23,7 @@ export default function ProductTabs(props: ProductTubsProps): JSX.Element {
     onTabClickHandler
   } = props;
 
-  const handleOnClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOnProductTabButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     const button = evt.currentTarget;
     onTabClickHandler(button.name);
   };
@@ -35,7 +35,7 @@ export default function ProductTabs(props: ProductTubsProps): JSX.Element {
           className={`tabs__control ${tab === Tab.Characteristic ? 'is-active' : ''}`}
           type="button"
           name={Tab.Characteristic}
-          onClick={handleOnClick}
+          onClick={handleOnProductTabButtonClick}
         >
           Характеристики
         </button>
@@ -44,7 +44,7 @@ export default function ProductTabs(props: ProductTubsProps): JSX.Element {
           className={`tabs__control ${tab === Tab.Description ? 'is-active' : ''}`}
           type="button"
           name={Tab.Description}
-          onClick={handleOnClick}
+          onClick={handleOnProductTabButtonClick}
         >
           Описание
         </button>

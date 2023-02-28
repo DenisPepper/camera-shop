@@ -18,7 +18,7 @@ export default function ProductSimilarSlider(props: ProductSimilarSliderProps): 
   const {products} = props;
   const [start, setStart] = useState(0);
 
-  const handleOnClick = (modifier: string) => {
+  const handleOnSimilarButtonClick = (modifier: string) => {
     setStart((prev) => modifier === ButtonModifier.Next ? prev + 1 : prev - 1);
   };
 
@@ -29,7 +29,7 @@ export default function ProductSimilarSlider(props: ProductSimilarSliderProps): 
         key={'ProductSimilarButtonPrev'}
         isDisabled={start === 0}
         modifier={ButtonModifier.Prev}
-        callback={handleOnClick}
+        callback={handleOnSimilarButtonClick}
       />
 
       <div className={'product-similar__slider-list'}>
@@ -48,7 +48,7 @@ export default function ProductSimilarSlider(props: ProductSimilarSliderProps): 
         key={'ProductSimilarButtonNext'}
         isDisabled={start + STEP === products.length - 1}
         modifier={ButtonModifier.Next}
-        callback={handleOnClick}
+        callback={handleOnSimilarButtonClick}
       />
 
     </div>

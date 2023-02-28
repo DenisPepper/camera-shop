@@ -16,17 +16,17 @@ export default function GratefulFeedbackPopup(): JSX.Element {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const returnButtonRef = useRef<HTMLButtonElement>(null);
 
-  const handleOnCloseClick = () => {
+  const handleOnPopupCloseClick = () => {
     dispatch(gratefulFeedbackPopupActions.close());
   };
 
-  const handleOnKeyDown = (evt: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleOnPopupKeyDown = (evt: React.KeyboardEvent<HTMLDivElement>) => {
     if (evt.key === 'Tab' || evt.shiftKey) {
       evt.stopPropagation();
     }
   };
 
-  const handleOnFocusCloseButton = () => {
+  const handleOnCloseButtonFocus = () => {
     returnButtonRef.current?.focus();
   };
 
@@ -44,28 +44,28 @@ export default function GratefulFeedbackPopup(): JSX.Element {
       title={'Спасибо за покупку'}
       isNarrow
       disableOnTab
-      overlayOnClickHandler={handleOnCloseClick}
-      onEscapeKeyDownHandler={handleOnCloseClick}
+      overlayOnClickHandler={handleOnPopupCloseClick}
+      onEscapeKeyDownHandler={handleOnPopupCloseClick}
     >
       <svg className="modal__icon" width="80" height="78" aria-hidden="true">
         <use xlinkHref="#icon-review-success"/>
       </svg>
       <div
         className="modal__buttons"
-        onKeyDown={handleOnKeyDown}
+        onKeyDown={handleOnPopupKeyDown}
       >
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
           ref={returnButtonRef}
-          onClick={handleOnCloseClick}
+          onClick={handleOnPopupCloseClick}
         >
           Вернуться к покупкам
         </button>
       </div>
       <AppPopupCloseButton
-        handleOnClick={handleOnCloseClick}
-        handleOnFocus={handleOnFocusCloseButton}
+        onClickHandler={handleOnPopupCloseClick}
+        onFocusHandler={handleOnCloseButtonFocus}
         ref={closeButtonRef}
       />
     </AppPopup>

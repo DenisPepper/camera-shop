@@ -34,7 +34,7 @@ export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.
 
   const {ref, ...rest} = register('rate', {required: 'Нужно оценить товар'});
 
-  const handleOnSubmitForm: SubmitHandler<ReviewFormType> = (data, evt) => {
+  const handleOnPopupSubmit: SubmitHandler<ReviewFormType> = (data, evt) => {
     evt?.preventDefault();
     onSubmitFormHandler({
       userName: data.userName,
@@ -45,17 +45,17 @@ export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.
     );
   };
 
-  const handleOnCloseClick = () => {
+  const handleOnPopupClose = () => {
     onCloseFormHandler();
   };
 
-  const handleOnKeyDown = (evt: React.KeyboardEvent<HTMLFormElement>) => {
+  const handleOnPopupKeyDown = (evt: React.KeyboardEvent<HTMLFormElement>) => {
     if (evt.key === 'Tab' || evt.shiftKey) {
       evt.stopPropagation();
     }
   };
 
-  const handleOnFocusCloseButton = () => {
+  const handleOnPopupCloseButtonFocus = () => {
     ratingRef.current?.focus();
   };
 
@@ -78,16 +78,16 @@ export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.
     <AppPopup
       isOpen={isMounted}
       title={'Оставить отзыв'}
-      overlayOnClickHandler={handleOnCloseClick}
-      onEscapeKeyDownHandler={handleOnCloseClick}
+      overlayOnClickHandler={handleOnPopupClose}
+      onEscapeKeyDownHandler={handleOnPopupClose}
       disableOnTab
     >
       <div className={'form-review'}>
         <form
           method="post"
           autoComplete={'off'}
-          onSubmit={handleSubmit(handleOnSubmitForm)}
-          onKeyDown={handleOnKeyDown}
+          onSubmit={handleSubmit(handleOnPopupSubmit)}
+          onKeyDown={handleOnPopupKeyDown}
         >
           <div className={'form-review__rate'}>
 
@@ -180,8 +180,8 @@ export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.
       </div>
 
       <AppPopupCloseButton
-        handleOnClick={handleOnCloseClick}
-        handleOnFocus={handleOnFocusCloseButton}
+        onClickHandler={handleOnPopupClose}
+        onFocusHandler={handleOnPopupCloseButtonFocus}
         ref={closeButtonRef}
       />
 

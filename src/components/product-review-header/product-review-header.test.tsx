@@ -7,13 +7,13 @@ describe('test ProductReviewHeader FC', () => {
   const stubCallback = jest.fn();
 
   it('should render without crushing', () => {
-    render(<ProductReviewHeader onClickPostReview={stubCallback}/>);
+    render(<ProductReviewHeader onPostReviewClickHandler={stubCallback}/>);
     const element = screen.getByText(/Оставить свой отзыв/);
     expect(element).toBeInTheDocument();
   });
 
   it('should run callback function', async () => {
-    render(<ProductReviewHeader onClickPostReview={stubCallback}/>);
+    render(<ProductReviewHeader onPostReviewClickHandler={stubCallback}/>);
     const element = screen.getByText(/Оставить свой отзыв/);
     await userEvent.click(element);
     expect(stubCallback).toHaveBeenCalledTimes(1);
