@@ -17,8 +17,8 @@ import {
 } from '../../store/slices/grateful-feedback-popup/slice/grateful-feedback-popup-slice';
 import {ReviewPrePostType} from '../../types/review-post-type';
 import {
-  compareReviewDateInReverseOrder
-} from '../../lib/compare-review-date-in-reverse-order/compare-review-date-in-reverse-order';
+  compareIsoDateInReverseOrder
+} from '../../lib/compare-iso-date-in-reverse-order/compare-iso-date-in-reverse-order';
 
 interface ProductReviewProps {
   id: number;
@@ -29,7 +29,7 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
   const dispatch = useAppDispatch();
   const reviewTotalCount = useSelector(getReviewTotalCount, shallowEqual);
   const reviews = [...useSelector(getReviewList, shallowEqual)]
-    .sort((a, b) => compareReviewDateInReverseOrder(a, b));
+    .sort((a, b) => compareIsoDateInReverseOrder(a.createAt, b.createAt));
   const [limit, setLimit] = useState(() => LIMIT);
 
   const handleOnShowMoreButtonClick = () => {
