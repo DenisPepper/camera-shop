@@ -6,7 +6,7 @@ interface ProductSimilarButtonProps {
   callback: (modifier: string) => void;
 }
 
-const Context = {
+const AriaLabelText = {
   '--prev': 'Предыдущий слайд',
   '--next': 'Следующий слайд'
 };
@@ -18,7 +18,7 @@ export default function ProductSimilarButton(props: ProductSimilarButtonProps): 
     <button
       className={`slider-controls slider-controls${modifier}`}
       type="button"
-      aria-label={Context[modifier]}
+      aria-label={AriaLabelText[modifier]}
       disabled = {isDisabled}
       onClick={() => callback(modifier)}
     >
