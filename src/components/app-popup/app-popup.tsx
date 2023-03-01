@@ -12,7 +12,7 @@ interface AppPopupProps {
   title: string;
   isNarrow?: boolean;
   onPopupCloseHandler: () => void;
-  defaultFocusedElement: MutableRefObject<HTMLElement | null>;
+  defaultFocusedElement?: MutableRefObject<HTMLElement | null>;
 }
 
 export default function AppPopup(props: AppPopupProps): JSX.Element {
@@ -46,6 +46,10 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
     };
   }, [isOpen, handleOnPopupKeyDown]);
 
+  const setupDefaultFocus = useCallback(() => {
+    defaultFocusedElement?.current?.focus();
+  }, [defaultFocusedElement]);
+
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
@@ -53,11 +57,7 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
       }, 100);
     }
   },
-  [isOpen, defaultFocusedElement]);
-
-  const setupDefaultFocus = () => {
-    defaultFocusedElement?.current?.focus();
-  };
+  [isOpen, defaultFocusedElement, setupDefaultFocus]);
 
   return (
     <AppPortal container={root}>
