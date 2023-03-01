@@ -42,7 +42,7 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
     dispatch(reviewPopupActions.open());
   };
 
-  const handleOnReviewFormSubmit = (data: ReviewPrePostType) => {
+  const handleOnReviewPopupSubmit = (data: ReviewPrePostType) => {
     dispatch(postReview({
       review: {...data, cameraId: id},
       callWhenResolved: () => {
@@ -53,31 +53,38 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
     }));
   };
 
-  const handleOnReviewFormClose = () => {
+  const handleOnReviewPopupClose = () => {
     dispatch(reviewPopupActions.close());
+  };
+
+  const handleOnGratefulFeedbackPopupClose = () => {
+    dispatch(gratefulFeedbackPopupActions.close());
   };
 
   return (
     <div className={'page-content__section'}>
       <ProductReviewPopup
         key={'PostReviewPopup'}
-        onSubmitFormHandler={handleOnReviewFormSubmit}
-        onCloseFormHandler={handleOnReviewFormClose}
+        onSubmitFormHandler={handleOnReviewPopupSubmit}
+        onPopupCloseHandler={handleOnReviewPopupClose}
       />
-      <GratefulFeedbackPopup key={'GratefulFeedbackPopup'}/>
-      {
-        reviewTotalCount !== 0 &&
-        <section className={'review-block'}>
-          <div className={'container'}>
-            <ProductReviewHeader onPostReviewClickHandler={handleOnPostReviewClick}/>
-            <ProductReviewList reviews={reviews.slice(0, limit)}/>
-            <ProductReviewButtons
-              onShowMoreClickHandler={handleOnShowMoreButtonClick}
-              shouldHide={limit >= reviewTotalCount}
-            />
-          </div>
-        </section>
-      }
+      <GratefulFeedbackPopup
+        key={'GratefulFeedbackPopup'}
+        onPopupCloseHandler={handleOnGratefulFeedbackPopupClose}
+      />
+      <section className={'review-block'}>
+        <div className={'container'}>
+          <ProductReviewHeader
+            onPostReviewClickHandler={handleOnPostReviewClick}
+          />
+          {reviewTotalCount !== 0 &&
+            <ProductReviewList reviews={reviews.slice(0, limit)}/>}
+          <ProductReviewButtons
+            onShowMoreClickHandler={handleOnShowMoreButtonClick}
+            shouldHide={limit >= reviewTotalCount}
+          />
+        </div>
+      </section>
     </div>
   );
 }

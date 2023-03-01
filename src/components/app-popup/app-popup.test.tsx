@@ -1,20 +1,28 @@
 import AppPopup from './app-popup';
 import {render, screen} from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
+import {useRef} from 'react';
 
 describe('test AppPopup FC', () => {
-  const overlayOnClickHandler = jest.fn();
-  const onEscapeKeyDownHandler = jest.fn();
+  const stubFn = jest.fn();
 
   it('should render without fail', () => {
+    const ref = useRef<HTMLInputElement | null>(null);
+
     render(
       <AppPopup
         isOpen
         title={'title'}
-        overlayOnClickHandler={overlayOnClickHandler}
-        onEscapeKeyDownHandler={onEscapeKeyDownHandler}
+        onPopupCloseHandler={stubFn}
+        defaultFocusedElement={ref}
+        isNarrow={false}
       >
-        <h1>popup</h1>
+        <form>
+          <label>
+            popup
+            <input ref={ref} type="text"/>
+          </label>
+        </form>
       </AppPopup>,
       {wrapper: BrowserRouter});
     const element = screen.getByText('popup');

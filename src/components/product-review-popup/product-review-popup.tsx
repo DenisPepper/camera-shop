@@ -9,8 +9,7 @@ import AppTextInput from '../app-text-input/app-text-input';
 import AppTextarea from '../app-textarea/app-textarea';
 import {DECIMAL, DEFAULT_REVIEW_POPUP_VALUES, TEXTAREA_MIN_LENGTH} from '../../settings/settings';
 import AppRatingInput from '../app-rating-input/app-rating-input';
-import React, {useEffect, useLayoutEffect, useRef} from 'react';
-import AppPopupCloseButton from '../app-popup-close-button/app-popup-close-button';
+import React, {useLayoutEffect, useRef} from 'react';
 import {ReviewFormType} from '../../types/review-form-type';
 import {
   getReviewPopupShouldReset
@@ -19,19 +18,17 @@ import {ReviewPrePostType} from '../../types/review-post-type';
 
 interface ProductReviewPopupProps {
   onSubmitFormHandler: (data: ReviewPrePostType) => void;
-  onCloseFormHandler: () => void;
+  onPopupCloseHandler: () => void;
 }
 
 export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.Element {
-  const {onSubmitFormHandler, onCloseFormHandler} = props;
+  const {onSubmitFormHandler, onPopupCloseHandler} = props;
   const isMounted = useSelector(getReviewPopupIsOpen, shallowEqual);
   const shouldReset = useSelector(getReviewPopupShouldReset, shallowEqual);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const ratingRef = useRef<HTMLInputElement | null>(null);
   const {register, handleSubmit, reset, formState: {errors}} = useForm<ReviewFormType>({
     defaultValues: DEFAULT_REVIEW_POPUP_VALUES
   });
-
   const {ref, ...rest} = register('rate', {required: 'Нужно оценить товар'});
 
   const handleOnPopupSubmit: SubmitHandler<ReviewFormType> = (data, evt) => {
@@ -41,22 +38,9 @@ export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.
       advantage: data.userPlus,
       disadvantage: data.userMinus,
       review: data.userComment,
-      rating: parseInt(data.rate, DECIMAL)}
-    );
-  };
-
-  const handleOnPopupClose = () => {
-    onCloseFormHandler();
-  };
-
-  const handleOnPopupKeyDown = (evt: React.KeyboardEvent<HTMLFormElement>) => {
-    if (evt.key === 'Tab' || evt.shiftKey) {
-      evt.stopPropagation();
+      rating: parseInt(data.rate, DECIMAL)
     }
-  };
-
-  const handleOnPopupCloseButtonFocus = () => {
-    ratingRef.current?.focus();
+    );
   };
 
   useLayoutEffect(() => {
@@ -65,29 +49,18 @@ export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.
     }
   }, [shouldReset, reset]);
 
-  useEffect(() => {
-    if (isMounted) {
-      setTimeout(() => {
-        ratingRef.current?.focus();
-      }, 100);
-    }
-  }, [isMounted]);
-
-
   return (
     <AppPopup
       isOpen={isMounted}
       title={'Оставить отзыв'}
-      overlayOnClickHandler={handleOnPopupClose}
-      onEscapeKeyDownHandler={handleOnPopupClose}
-      disableOnTab
+      defaultFocusedElement={ratingRef}
+      onPopupCloseHandler={onPopupCloseHandler}
     >
       <div className={'form-review'}>
         <form
           method="post"
           autoComplete={'off'}
           onSubmit={handleSubmit(handleOnPopupSubmit)}
-          onKeyDown={handleOnPopupKeyDown}
         >
           <div className={'form-review__rate'}>
 
@@ -178,12 +151,6 @@ export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.
 
         </form>
       </div>
-
-      <AppPopupCloseButton
-        onClickHandler={handleOnPopupClose}
-        onFocusHandler={handleOnPopupCloseButtonFocus}
-        ref={closeButtonRef}
-      />
 
     </AppPopup>
   );

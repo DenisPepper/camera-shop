@@ -26,7 +26,7 @@ it('should render without crushing', () => {
     <Provider store={store}>
       <ProductReviewPopup
         onSubmitFormHandler={onSubmitFormHandler}
-        onCloseFormHandler={onCloseFormHandler}
+        onPopupCloseHandler={onCloseFormHandler}
       />
     </Provider>
   );

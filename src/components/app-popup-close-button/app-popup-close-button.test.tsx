@@ -6,16 +6,15 @@ import {BrowserRouter} from 'react-router-dom';
 
 describe('test AppPopupCloseButton FC', () => {
 
-  const onClick = jest.fn();
-  const onFocus = jest.fn();
+  const mockFn = jest.fn();
 
   it('should render without fail', async () => {
     render(
-      <AppPopupCloseButton onClickHandler={onClick} onFocusHandler={onFocus}/>,
+      <AppPopupCloseButton onClickHandler={mockFn}/>,
       {wrapper: BrowserRouter}
     );
     const element = await screen.findByRole('button');
     await userEvent.click(element);
-    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(mockFn).toHaveBeenCalledTimes(1);
   });
 });

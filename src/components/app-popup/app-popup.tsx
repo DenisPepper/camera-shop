@@ -1,6 +1,8 @@
 import AppPortal from '../app-portal/app-portal';
-import React, {ReactNode, useCallback, useEffect, useRef} from 'react';
+import React, {MutableRefObject, ReactNode, useCallback, useEffect, useRef} from 'react';
 import './app-popup.css';
+import AppPopupCloseButton from '../app-popup-close-button/app-popup-close-button';
+import AppPopupFocusCatcher from '../app-popup-focus-catcher/app-popup-focus-catcher';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -9,9 +11,8 @@ interface AppPopupProps {
   isOpen: boolean;
   title: string;
   isNarrow?: boolean;
-  disableOnTab?: boolean;
-  overlayOnClickHandler: () => void;
-  onEscapeKeyDownHandler: () => void;
+  onPopupCloseHandler: () => void;
+  defaultFocusedElement: MutableRefObject<HTMLElement | null>;
 }
 
 export default function AppPopup(props: AppPopupProps): JSX.Element {
@@ -20,18 +21,16 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
     isOpen,
     title,
     isNarrow,
-    disableOnTab = false,
-    overlayOnClickHandler,
-    onEscapeKeyDownHandler,
+    defaultFocusedElement,
+    onPopupCloseHandler,
   } = props;
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleOnPopupKeyDown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
-      onEscapeKeyDownHandler();
-    } else if (evt.key === 'Tab' || evt.shiftKey) {
-      disableOnTab && evt.preventDefault();
+      onPopupCloseHandler();
     }
-  }, [onEscapeKeyDownHandler, disableOnTab]);
+  }, [onPopupCloseHandler]);
 
   const pageContentRef = useRef<HTMLDivElement>(document.querySelector('.wrapper'));
 
@@ -47,14 +46,37 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
     };
   }, [isOpen, handleOnPopupKeyDown]);
 
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        setupDefaultFocus();
+      }, 100);
+    }
+  },
+  [isOpen, defaultFocusedElement]);
+
+  const setupDefaultFocus = () => {
+    defaultFocusedElement?.current?.focus();
+  };
+
   return (
     <AppPortal container={root}>
       <div className={`modal ${isOpen ? 'is-active ' : ''}${isNarrow ? 'modal--narrow' : ''}`}>
         <div className={'modal__wrapper'}>
-          <div className="modal__overlay" onClick={overlayOnClickHandler}></div>
+          <div className="modal__overlay" onClick={onPopupCloseHandler}/>
           <div className={'modal__content'}>
             <p className="title title--h4">{title}</p>
+            <AppPopupFocusCatcher
+              onFocusHandler={setupDefaultFocus}
+            />
             {children}
+            <AppPopupCloseButton
+              onClickHandler={onPopupCloseHandler}
+              ref={closeButtonRef}
+            />
+            <AppPopupFocusCatcher
+              onFocusHandler={setupDefaultFocus}
+            />
           </div>
         </div>
       </div>
