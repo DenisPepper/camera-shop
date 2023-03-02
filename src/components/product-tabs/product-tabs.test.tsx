@@ -12,7 +12,7 @@ describe('test ProductTabs FC', () => {
     type: 'stub type',
     level: 'stub level',
     tab: 'stub tab',
-    onTabClickHandler: stubCallback,
+    handleInfoTabClick: stubCallback,
   };
 
   it('should render with stub description', async () => {

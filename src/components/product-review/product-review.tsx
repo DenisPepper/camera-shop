@@ -65,22 +65,22 @@ export default function ProductReview(props: ProductReviewProps): JSX.Element {
     <div className={'page-content__section'}>
       <ProductReviewPopup
         key={'PostReviewPopup'}
-        onSubmitFormHandler={handleOnReviewPopupSubmit}
-        onPopupCloseHandler={handleOnReviewPopupClose}
+        handlePopupSubmit={handleOnReviewPopupSubmit}
+        handlePopupClose={handleOnReviewPopupClose}
       />
       <GratefulFeedbackPopup
         key={'GratefulFeedbackPopup'}
-        onPopupCloseHandler={handleOnGratefulFeedbackPopupClose}
+        handlePopupClose={handleOnGratefulFeedbackPopupClose}
       />
       <section className={'review-block'}>
         <div className={'container'}>
           <ProductReviewHeader
-            onPostReviewClickHandler={handleOnPostReviewClick}
+            handlePostReviewClick={handleOnPostReviewClick}
           />
           {reviewTotalCount !== 0 &&
             <ProductReviewList reviews={reviews.slice(0, limit)}/>}
           <ProductReviewButtons
-            onShowMoreClickHandler={handleOnShowMoreButtonClick}
+            handleShowMoreButtonClick={handleOnShowMoreButtonClick}
             shouldHide={limit >= reviewTotalCount}
           />
         </div>

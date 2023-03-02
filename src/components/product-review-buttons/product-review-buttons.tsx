@@ -1,10 +1,10 @@
 interface ProductReviewButtonsProps {
-  onShowMoreClickHandler: () => void;
+  handleShowMoreButtonClick: () => void;
   shouldHide: boolean;
 }
 
 export default function ProductReviewButtons(props: ProductReviewButtonsProps): JSX.Element {
-  const {onShowMoreClickHandler, shouldHide} = props;
+  const {handleShowMoreButtonClick, shouldHide} = props;
 
   return (
     <div
@@ -13,7 +13,7 @@ export default function ProductReviewButtons(props: ProductReviewButtonsProps): 
     >
       <button
         className="btn btn--purple" type="button"
-        onClick={onShowMoreClickHandler}
+        onClick={handleShowMoreButtonClick}
       >
         Показать больше отзывов
       </button>

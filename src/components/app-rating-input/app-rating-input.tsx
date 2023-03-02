@@ -13,7 +13,6 @@ export default function AppRatingInput(props: AppRatingInputProps): JSX.Element 
   const [value, setValue] = useState('0');
 
   const handleOnRatingInputChange = (evt: React.MouseEvent<HTMLFieldSetElement>) => {
-    // eslint-disable-next-line no-console
     const input = evt.target as HTMLInputElement;
     setValue(() => input.value);
   };

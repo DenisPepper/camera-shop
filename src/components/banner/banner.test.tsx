@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 import Banner from './banner';
 import {BrowserRouter} from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
+import React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useSelector: jest.fn(),

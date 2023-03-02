@@ -1,19 +1,21 @@
+/* eslint-disable react/display-name */
+
 import React, {forwardRef} from 'react';
 
 interface AppPopupCloseButtonProps {
-  onClickHandler: () => void;
+  handleButtonClick: () => void;
 }
-// eslint-disable-next-line react/display-name
+
 const AppPopupCloseButton = forwardRef<HTMLButtonElement, AppPopupCloseButtonProps>
 ((props: AppPopupCloseButtonProps, ref) => {
-  const {onClickHandler} = props;
+  const {handleButtonClick} = props;
 
   return (
     <button
       className="cross-btn"
       type="button"
       aria-label="Закрыть попап"
-      onClick={onClickHandler}
+      onClick={handleButtonClick}
       ref={ref}
     >
       <svg width="10" height="10" aria-hidden="true">

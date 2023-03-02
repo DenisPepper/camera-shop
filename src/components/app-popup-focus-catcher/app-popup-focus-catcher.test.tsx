@@ -1,22 +1,18 @@
 import AppPopupFocusCatcher from './app-popup-focus-catcher';
 import {render, screen} from '@testing-library/react';
 
-describe('', () => {
+describe('test AppPopupFocusCatcher', () => {
+  const handleCatcherFocus = jest.fn();
 
   it('should render without fail', () => {
-    const stubFn = jest.fn();
-    render(<AppPopupFocusCatcher onFocusHandler={stubFn}/>);
+    render(<AppPopupFocusCatcher handleCatcherFocus={handleCatcherFocus}/>);
     const element = screen.getByTestId('focus-catcher');
     expect(element).toBeInTheDocument();
   });
 
   it('should run callback fn when it focused', () => {
-    const stubFn = jest.fn();
-    render(<AppPopupFocusCatcher onFocusHandler={stubFn}/>);
+    render(<AppPopupFocusCatcher handleCatcherFocus={handleCatcherFocus}/>);
     screen.getByTestId('focus-catcher').focus();
-    expect(stubFn).toBeCalledTimes(1);
+    expect(handleCatcherFocus).toBeCalledTimes(1);
   });
 });
-
-
-

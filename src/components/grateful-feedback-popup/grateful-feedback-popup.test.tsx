@@ -9,7 +9,7 @@ import {DeepPartial} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 
 describe('test GratefulFeedbackPopup FC', () => {
-  const onClose = jest.fn();
+  const stubCloseHandler = jest.fn();
 
   const mockStore = configureMockStore<StateSchema,
     Action,
@@ -23,7 +23,7 @@ describe('test GratefulFeedbackPopup FC', () => {
 
     render(
       <Provider store={store}>
-        <GratefulFeedbackPopup onPopupCloseHandler={onClose}/>
+        <GratefulFeedbackPopup handlePopupClose={stubCloseHandler}/>
       </Provider>
     );
   });

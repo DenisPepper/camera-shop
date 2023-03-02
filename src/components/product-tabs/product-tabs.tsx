@@ -9,7 +9,7 @@ interface ProductTubsProps {
   type: string;
   level: string;
   tab: string;
-  onTabClickHandler: (tabName: string) => void;
+  handleInfoTabClick: (tabName: string) => void;
 }
 
 export default function ProductTabs(props: ProductTubsProps): JSX.Element {
@@ -20,12 +20,12 @@ export default function ProductTabs(props: ProductTubsProps): JSX.Element {
     type,
     level,
     tab,
-    onTabClickHandler
+    handleInfoTabClick
   } = props;
 
   const handleOnProductTabButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     const button = evt.currentTarget;
-    onTabClickHandler(button.name);
+    handleInfoTabClick(button.name);
   };
 
   return (

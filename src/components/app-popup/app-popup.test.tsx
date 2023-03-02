@@ -3,7 +3,7 @@ import {render, screen} from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
 
 describe('test AppPopup FC', () => {
-  const stubFn = jest.fn();
+  const handlePopupClose = jest.fn();
 
   it('should render without fail', () => {
 
@@ -11,7 +11,7 @@ describe('test AppPopup FC', () => {
       <AppPopup
         isOpen
         title={'title'}
-        onPopupCloseHandler={stubFn}
+        handlePopupClose={handlePopupClose}
         isNarrow={false}
       >
         <form>

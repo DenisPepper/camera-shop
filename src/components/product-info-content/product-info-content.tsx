@@ -6,11 +6,11 @@ import ProductTabs from '../product-tabs/product-tabs';
 interface ProductContentProps {
   product: ProductType;
   tab: string;
-  onTabClickHandler: (tabName: string) => void;
+  handleInfoTabClick: (tabName: string) => void;
 }
 
 export default function ProductInfoContent(props: ProductContentProps): JSX.Element {
-  const {product, tab, onTabClickHandler} = props;
+  const {product, tab, handleInfoTabClick} = props;
 
   return (
     <div className={'product__content'}>
@@ -44,7 +44,7 @@ export default function ProductInfoContent(props: ProductContentProps): JSX.Elem
         type={product.type}
         level={product.level}
         tab={tab}
-        onTabClickHandler={onTabClickHandler}
+        handleInfoTabClick={handleInfoTabClick}
       />
     </div>
   );

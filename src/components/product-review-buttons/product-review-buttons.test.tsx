@@ -8,7 +8,7 @@ describe('test ProductReviewButtons FC', () => {
   it('should render without crushing', () => {
     render(
       <ProductReviewButtons
-        onShowMoreClickHandler={stubCallback}
+        handleShowMoreButtonClick={stubCallback}
         shouldHide
       />);
     const element = screen.getByText(/Показать больше отзывов/);
@@ -18,7 +18,7 @@ describe('test ProductReviewButtons FC', () => {
   it('should run callback function', async () => {
     render(
       <ProductReviewButtons
-        onShowMoreClickHandler={stubCallback}
+        handleShowMoreButtonClick={stubCallback}
         shouldHide
       />);
     const element = screen.getByRole('button');
@@ -29,7 +29,7 @@ describe('test ProductReviewButtons FC', () => {
   it('should render with expected scc class', () => {
     render(
       <ProductReviewButtons
-        onShowMoreClickHandler={stubCallback}
+        handleShowMoreButtonClick={stubCallback}
         shouldHide
       />);
     const element = screen.getByTestId('button-container');

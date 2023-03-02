@@ -5,11 +5,11 @@ import {useSelector} from 'react-redux';
 
 interface ProductInfoProps {
   tab: string;
-  onTabClickHandler: (tabName: string) => void;
+  handleInfoTabClick: (tabName: string) => void;
 }
 
 export default function ProductInfo(props: ProductInfoProps): JSX.Element {
-  const {tab, onTabClickHandler} = props;
+  const {tab, handleInfoTabClick} = props;
   const product = useSelector(getProduct);
 
   return (
@@ -26,7 +26,7 @@ export default function ProductInfo(props: ProductInfoProps): JSX.Element {
               key={'ProductContent'}
               product={product}
               tab={tab}
-              onTabClickHandler={onTabClickHandler}
+              handleInfoTabClick={handleInfoTabClick}
             />
           </div>
         </section>

@@ -11,7 +11,7 @@ describe('test ProductInfoContent FC', () => {
       <ProductInfoContent
         product={stubProduct}
         tab={Tab.Characteristic}
-        onTabClickHandler={stubCallback}
+        handleInfoTabClick={stubCallback}
       />);
     const element = screen.getByText('Добавить в корзину');
     expect(element).toBeInTheDocument();

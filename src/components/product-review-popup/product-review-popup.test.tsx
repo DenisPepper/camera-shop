@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import ProductReviewPopup from './product-review-popup';
 import {render} from '@testing-library/react';
 import {Provider} from 'react-redux';
@@ -20,13 +18,12 @@ const store = mockStore(initialState);
 const onSubmitFormHandler = jest.fn();
 const onCloseFormHandler = jest.fn();
 
-
 it('should render without crushing', () => {
   render(
     <Provider store={store}>
       <ProductReviewPopup
-        onSubmitFormHandler={onSubmitFormHandler}
-        onPopupCloseHandler={onCloseFormHandler}
+        handlePopupSubmit={onSubmitFormHandler}
+        handlePopupClose={onCloseFormHandler}
       />
     </Provider>
   );

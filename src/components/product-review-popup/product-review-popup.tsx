@@ -17,12 +17,12 @@ import {
 import {ReviewPrePostType} from '../../types/review-post-type';
 
 interface ProductReviewPopupProps {
-  onSubmitFormHandler: (data: ReviewPrePostType) => void;
-  onPopupCloseHandler: () => void;
+  handlePopupSubmit: (data: ReviewPrePostType) => void;
+  handlePopupClose: () => void;
 }
 
 export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.Element {
-  const {onSubmitFormHandler, onPopupCloseHandler} = props;
+  const {handlePopupSubmit, handlePopupClose} = props;
   const isMounted = useSelector(getReviewPopupIsOpen, shallowEqual);
   const shouldReset = useSelector(getReviewPopupShouldReset, shallowEqual);
   const ratingRef = useRef<HTMLInputElement | null>(null);
@@ -33,7 +33,7 @@ export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.
 
   const handleOnPopupSubmit: SubmitHandler<ReviewFormType> = (data, evt) => {
     evt?.preventDefault();
-    onSubmitFormHandler({
+    handlePopupSubmit({
       userName: data.userName,
       advantage: data.userPlus,
       disadvantage: data.userMinus,
@@ -54,7 +54,7 @@ export default function ProductReviewPopup(props: ProductReviewPopupProps): JSX.
       isOpen={isMounted}
       title={'Оставить отзыв'}
       defaultFocusedElement={ratingRef}
-      onPopupCloseHandler={onPopupCloseHandler}
+      handlePopupClose={handlePopupClose}
     >
       <div className={'form-review'}>
         <form

@@ -6,11 +6,11 @@ import {
 import React, {useRef} from 'react';
 
 interface GratefulFeedbackPopupProps {
-  onPopupCloseHandler: () => void;
+  handlePopupClose: () => void;
 }
 
 export default function GratefulFeedbackPopup(props: GratefulFeedbackPopupProps): JSX.Element {
-  const {onPopupCloseHandler} = props;
+  const {handlePopupClose} = props;
   const isMounted = useSelector(getGratefulFeedbackPopupIsOpen, shallowEqual);
   const returnButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -20,7 +20,7 @@ export default function GratefulFeedbackPopup(props: GratefulFeedbackPopupProps)
       title={'Спасибо за покупку'}
       isNarrow
       defaultFocusedElement={returnButtonRef}
-      onPopupCloseHandler={onPopupCloseHandler}
+      handlePopupClose={handlePopupClose}
     >
       <svg className="modal__icon" width="80" height="78" aria-hidden="true">
         <use xlinkHref="#icon-review-success"/>
@@ -33,7 +33,7 @@ export default function GratefulFeedbackPopup(props: GratefulFeedbackPopupProps)
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
           ref={returnButtonRef}
-          onClick={onPopupCloseHandler}
+          onClick={handlePopupClose}
         >
           Вернуться к покупкам
         </button>

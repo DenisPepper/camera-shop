@@ -1,9 +1,9 @@
 interface ProductReviewHeaderProps {
-  onPostReviewClickHandler: () => void;
+  handlePostReviewClick: () => void;
 }
 
 export default function ProductReviewHeader(props: ProductReviewHeaderProps): JSX.Element {
-  const {onPostReviewClickHandler} = props;
+  const {handlePostReviewClick} = props;
 
   return (
     <div className={'page-content__headed'}>
@@ -11,7 +11,7 @@ export default function ProductReviewHeader(props: ProductReviewHeaderProps): JS
       <button
         className="btn"
         type="button"
-        onClick={onPostReviewClickHandler}
+        onClick={handlePostReviewClick}
       >
         Оставить свой отзыв
       </button>

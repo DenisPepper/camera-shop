@@ -11,7 +11,7 @@ interface AppPopupProps {
   isOpen: boolean;
   title: string;
   isNarrow?: boolean;
-  onPopupCloseHandler: () => void;
+  handlePopupClose: () => void;
   defaultFocusedElement?: MutableRefObject<HTMLElement | null>;
 }
 
@@ -22,15 +22,15 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
     title,
     isNarrow,
     defaultFocusedElement,
-    onPopupCloseHandler,
+    handlePopupClose,
   } = props;
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleOnPopupKeyDown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
-      onPopupCloseHandler();
+      handlePopupClose();
     }
-  }, [onPopupCloseHandler]);
+  }, [handlePopupClose]);
 
   const pageContentRef = useRef<HTMLDivElement>(document.querySelector('.wrapper'));
 
@@ -63,19 +63,19 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
     <AppPortal container={root}>
       <div className={`modal ${isOpen ? 'is-active ' : ''}${isNarrow ? 'modal--narrow' : ''}`}>
         <div className={'modal__wrapper'}>
-          <div className="modal__overlay" onClick={onPopupCloseHandler}/>
+          <div className="modal__overlay" onClick={handlePopupClose}/>
           <div className={'modal__content'}>
             <p className="title title--h4">{title}</p>
             <AppPopupFocusCatcher
-              onFocusHandler={setupDefaultFocus}
+              handleCatcherFocus={setupDefaultFocus}
             />
             {children}
             <AppPopupCloseButton
-              onClickHandler={onPopupCloseHandler}
+              handleButtonClick={handlePopupClose}
               ref={closeButtonRef}
             />
             <AppPopupFocusCatcher
-              onFocusHandler={setupDefaultFocus}
+              handleCatcherFocus={setupDefaultFocus}
             />
           </div>
         </div>

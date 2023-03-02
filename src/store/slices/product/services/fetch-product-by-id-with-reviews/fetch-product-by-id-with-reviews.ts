@@ -4,10 +4,6 @@ import {ProductType, ProductTypeWithReviews} from '../../../../../types/product-
 import {ServerUrl} from '../../../../../api/server-url';
 import {ErrorsConfig as error} from '../../../../../api/errors-config';
 import {ReviewType} from '../../../../../types/review-type';
-/*
-import {reviewActions} from '../../../review/slice/review-slice';
-import {useAppDispatch} from '../../../../../hooks/use-app-dispatch.ts/use-app-dispatch';
-*/
 
 interface fetchProductByIdProps {
   id: string;

@@ -37,7 +37,7 @@ export default function ProductPage(): JSX.Element {
       <ProductInfo
         key={'ProductInfo'}
         tab={tab}
-        onTabClickHandler={handleOnTabClick}
+        handleInfoTabClick={handleOnTabClick}
       />
       <ProductSimilar key={'ProductSimilar'}/>
       <ProductReview key={'ProductReview'} id={parseInt(id, DECIMAL)}/>

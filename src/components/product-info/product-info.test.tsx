@@ -25,7 +25,7 @@ describe('test ProductInfo FC', () => {
       <Provider store={store}>
         <ProductInfo
           tab={Tab.Characteristic}
-          onTabClickHandler={stubCallback}
+          handleInfoTabClick={stubCallback}
         />
       </Provider>
     );

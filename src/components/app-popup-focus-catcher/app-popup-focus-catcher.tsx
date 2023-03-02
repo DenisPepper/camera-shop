@@ -1,14 +1,14 @@
 interface AppPopupFocusSwitcherProps {
-  onFocusHandler: () => void;
+  handleCatcherFocus: () => void;
 }
 
 export default function AppPopupFocusCatcher(props: AppPopupFocusSwitcherProps): JSX.Element {
-  const {onFocusHandler} = props;
+  const {handleCatcherFocus} = props;
   return (
     <button
       className={'visually-hidden'}
       aria-hidden={'true'}
-      onFocus={onFocusHandler}
+      onFocus={handleCatcherFocus}
       data-testid={'focus-catcher'}
     />
   );
