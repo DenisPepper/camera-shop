@@ -18,7 +18,6 @@ export interface ProductType {
 }
 
 export interface ProductTypeWithReviews extends ProductType {
-  reviewCount: number;
   reviews: ReviewType[];
 }
 
