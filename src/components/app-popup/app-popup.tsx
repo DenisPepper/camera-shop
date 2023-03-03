@@ -50,6 +50,10 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
     defaultFocusedElement?.current?.focus();
   }, [defaultFocusedElement]);
 
+  const switchFocusToCloseButton = () => {
+    closeButtonRef?.current?.focus();
+  };
+
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
@@ -67,15 +71,15 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
           <div className={'modal__content'}>
             <p className="title title--h4">{title}</p>
             <AppPopupFocusCatcher
-              handleCatcherFocus={setupDefaultFocus}
+              handleCatcherFocus={switchFocusToCloseButton}
             />
-            {children}
             <AppPopupCloseButton
               handleButtonClick={handlePopupClose}
               ref={closeButtonRef}
             />
+            {children}
             <AppPopupFocusCatcher
-              handleCatcherFocus={setupDefaultFocus}
+              handleCatcherFocus={switchFocusToCloseButton}
             />
           </div>
         </div>
