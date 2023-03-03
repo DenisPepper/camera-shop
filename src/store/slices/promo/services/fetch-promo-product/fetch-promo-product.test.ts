@@ -6,6 +6,7 @@ import {Action} from 'redux';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import {ServerUrl as Server} from '../../../../../api/server-url';
 import {fetchPromoProduct} from './fetch-promo-product';
+import {stubPromo} from '../../../../../mocks/stub-promo';
 
 describe('when dispatch function', () => {
   const mockAPI = new MockAdapter(axios);
@@ -17,7 +18,7 @@ describe('when dispatch function', () => {
     const store = mockStore();
     mockAPI
       .onGet(Server.PromoProduct)
-      .reply(200, 'ok');
+      .reply(200, stubPromo);
 
     expect(store.getActions()).toEqual([]);
 

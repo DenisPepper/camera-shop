@@ -7,6 +7,7 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import {ServerUrl as Server} from '../../../../../api/server-url';
 import {SIMILAR_FETCHING_LIMIT as LIMIT} from '../../../../../settings/settings';
 import {fetchSimilar} from './fetch-similar';
+import {stubProduct} from '../../../../../mocks/stub-product';
 
 describe('when dispatch an action', () => {
   const mockAPI = new MockAdapter(axios);
@@ -19,7 +20,7 @@ describe('when dispatch an action', () => {
     const store = mockStore();
     mockAPI
       .onGet(`${Server.Product}${id}/similar?_start=0&_limit=${LIMIT}`)
-      .reply(200, 'ok');
+      .reply(200, [stubProduct]);
 
     expect(store.getActions()).toEqual([]);
 

@@ -6,6 +6,7 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import {Action} from 'redux';
 import {StateSchema} from 'store/state-schema';
 import {fetchProductByIdWithReviews} from './fetch-product-by-id-with-reviews';
+import {stubProductWithReviews} from '../../../../../mocks/stub-product-with-reviews';
 
 describe('when dispatch function', () => {
   const mockAPI = new MockAdapter(axios);
@@ -18,7 +19,7 @@ describe('when dispatch function', () => {
     const store = mockStore();
     mockAPI
       .onGet(`${Server.Product}${id}?_embed=reviews`)
-      .reply(200, 'ok');
+      .reply(200, stubProductWithReviews);
 
     expect(store.getActions()).toEqual([]);
 
