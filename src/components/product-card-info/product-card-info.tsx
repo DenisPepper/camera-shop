@@ -1,5 +1,6 @@
 import ProductRating from '../product-rating/product-rating';
 import ProductPrice from '../product-price/product-price';
+import './product-card-info.css';
 
 interface ProductCardInfoProps {
   name: string;
@@ -8,12 +9,11 @@ interface ProductCardInfoProps {
   reviewCount: number;
 }
 
-
 export default function ProductCardInfo(props: ProductCardInfoProps): JSX.Element {
   const {name, price, rating, reviewCount} = props;
 
   return (
-    <div className="product-card__info">
+    <div className="product-card__info product-card__info--column">
 
       <ProductRating
         key={'ProductRating'}
