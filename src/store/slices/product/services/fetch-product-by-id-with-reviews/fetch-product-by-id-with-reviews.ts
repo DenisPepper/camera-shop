@@ -24,7 +24,7 @@ export const fetchProductByIdWithReviews = createAsyncThunk<Returned, fetchProdu
       const {reviews = [], reviewCount = 0} = response.data;
       const product = Object.assign(
         {}, response.data,
-        {reviews: undefined, reviewCount: undefined});
+        {reviews: undefined});
       return {product, reviews, reviewCount};
     } catch (err) {
       return thunkAPI.rejectWithValue(error.OnFetchProductByID);
