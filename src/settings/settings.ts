@@ -29,6 +29,8 @@ export const PathName: Record<string, string> = {
   [Path.Feedback]: 'Задать вопрос',
 };
 
+export const PRODUCT_NAME_EXCLUSION_PATTERNS = ['рет', 'кам'];
+
 export const enum ProductTab {
   Characteristic = 'characteristic',
   Description = 'description',
