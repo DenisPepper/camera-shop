@@ -1,3 +1,5 @@
+import {SortDirectionType} from '../types/sort-types';
+
 export const enum Path {
   Main ='/',
   Catalog = 'catalog',
@@ -57,3 +59,5 @@ export const REVIEW_SHOW_LIMIT = 3;
 export const TEXTAREA_MIN_LENGTH = 5;
 
 export const DEFAULT_REVIEW_POPUP_VALUES = {userName: '', userPlus: '', userMinus: '', userComment: '', rate: '0'};
+
+export const DEFAULT_SORT_DIRECTION: SortDirectionType = 'asc';
