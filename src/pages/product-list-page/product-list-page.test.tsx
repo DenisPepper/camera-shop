@@ -3,11 +3,23 @@ import {BrowserRouter,} from 'react-router-dom';
 import ProductListPage from './product-list-page';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
+import {StateSchema} from '../../store/state-schema';
+import {Action} from 'redux';
+import thunk, {ThunkDispatch} from 'redux-thunk';
+import axios from 'axios';
+import {DeepPartial} from '@reduxjs/toolkit';
+
+const mockStore = configureMockStore<StateSchema,
+  Action,
+  ThunkDispatch<StateSchema, typeof axios, Action>>([thunk]);
+const initialState: DeepPartial<StateSchema> = {
+  sort: {sort: '', direction: ''},
+};
+const store = mockStore(initialState);
 
 it('should render ProductListPage FC with expected text', () => {
-  const mockStore = configureMockStore();
   render(
-    <Provider store={mockStore()}>
+    <Provider store={store}>
       <BrowserRouter>
         <ProductListPage/>
       </BrowserRouter>
