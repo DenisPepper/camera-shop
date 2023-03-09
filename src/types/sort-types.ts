@@ -5,6 +5,6 @@ export type SortInputType = {
   label: string;
 }
 
-export type SortDirectionType = 'asc' | 'desc';
+export type SortDirectionType = 'asc' | 'desc' | '';
 
 export type SortModifierType = 'up' | 'down';
