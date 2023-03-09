@@ -5,7 +5,7 @@ import {SortDirectionType, SortType} from '../../../../types/sort-types';
 
 const initialState: SortSchema = {
   sort: '',
-  direction: '',
+  order: '',
 };
 
 export const sortSlice = createSlice({
@@ -13,8 +13,8 @@ export const sortSlice = createSlice({
   initialState,
   reducers: {
     setSort: (state, action: PayloadAction<SortType>) => {
-      if(state.direction === '') {
-        state.direction = DEFAULT_SORT_DIRECTION;
+      if(state.order === '') {
+        state.order = DEFAULT_SORT_DIRECTION;
       }
       state.sort = action.payload;
     },
@@ -23,7 +23,7 @@ export const sortSlice = createSlice({
       if (state.sort === '') {
         state.sort = DEFAULT_SORT;
       }
-      state.direction = action.payload;
+      state.order = action.payload;
     },
   },
 

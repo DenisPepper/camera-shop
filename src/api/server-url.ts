@@ -5,7 +5,7 @@ export interface QueryParamsType {
   pageNumber?: number;
   sorting?: {
     sort: SortType;
-    sortDirection: SortDirectionType;
+    order: SortDirectionType;
   };
 }
 
@@ -28,9 +28,9 @@ export const getURL = (args: QueryParamsType): string => {
   }
 
   if (sorting) {
-    const {sort, sortDirection} = sorting;
+    const {sort, order} = sorting;
     url = sort ? `${url}&_sort=${sort}` : url;
-    url = sortDirection ? `${url}&_order=${sortDirection}` : url;
+    url = order ? `${url}&_order=${order}` : url;
   }
 
   return url;

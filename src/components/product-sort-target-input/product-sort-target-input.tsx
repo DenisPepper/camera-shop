@@ -1,6 +1,4 @@
 import {SortInputType, SortType} from '../../types/sort-types';
-import {useSelector, shallowEqual} from 'react-redux';
-import {getSort} from '../../store/slices/sort/selectors/get-sort/get-sort';
 
 type Sort = Exclude<SortType, ''>;
 
@@ -11,13 +9,13 @@ const SortInputData: Record<Sort, SortInputType> = {
 
 interface ProductSortTypeInputProps {
   target: Sort;
+  isChecked: boolean;
   handleSortTargetClick: (target: SortType) => void;
 }
 
-export default function ProductSortTypeInput(props: ProductSortTypeInputProps): JSX.Element {
-  const {target, handleSortTargetClick} = props;
+export default function ProductSortTargetInput(props: ProductSortTypeInputProps): JSX.Element {
+  const {target, isChecked, handleSortTargetClick} = props;
   const {id, label} = SortInputData[target];
-  const currentSort = useSelector(getSort, shallowEqual);
 
   const handleInputClick = () => {
     handleSortTargetClick(target);
@@ -25,7 +23,13 @@ export default function ProductSortTypeInput(props: ProductSortTypeInputProps): 
 
   return (
     <div className="catalog-sort__btn-text">
-      <input type="radio" id={id} name="sort" onChange={handleInputClick} checked={target === currentSort}/>
+      <input
+        type="radio"
+        id={id}
+        name="sort"
+        onChange={handleInputClick}
+        checked={isChecked}
+      />
       <label htmlFor={id}>{label}</label>
     </div>
   );

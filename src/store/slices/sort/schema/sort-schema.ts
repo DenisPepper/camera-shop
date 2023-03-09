@@ -1,6 +1,6 @@
 import {SortDirectionType, SortType} from '../../../../types/sort-types';
 
 export interface SortSchema {
-  direction: SortDirectionType;
+  order: SortDirectionType;
   sort: SortType;
 }
