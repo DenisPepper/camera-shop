@@ -35,7 +35,7 @@ export default function HeaderSearchForm(): JSX.Element {
   };
 
   return (
-    <div className={`form-search ${products.length ? 'list-opened' : ''}`}>
+    <div className={`form-search ${products.length ? 'list-opened' : ''}`} data-testid={'form-search'} >
       <form onReset={handleFormReset} ref={formRef}>
 
         <HeaderSearchInput

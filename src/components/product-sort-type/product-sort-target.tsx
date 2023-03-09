@@ -14,12 +14,12 @@ export default function ProductSortTarget(): JSX.Element {
     <div className="catalog-sort__type">
 
       <ProductSortTypeInput
-        sort={'price'}
+        target={'price'}
         handleSortTargetClick={handleSortTargetClick}
       />
 
       <ProductSortTypeInput
-        sort={'rating'}
+        target={'rating'}
         handleSortTargetClick={handleSortTargetClick}
       />
 

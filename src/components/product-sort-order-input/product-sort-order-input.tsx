@@ -1,12 +1,11 @@
 import {InputHTMLAttributes} from 'react';
 import {SortModifierType} from '../../types/sort-types';
 
-type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'aria-label'>
+//type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'aria-label'>
 
-interface ProductSortOrderInputProps extends HTMLInputProps {
+interface ProductSortOrderInputProps extends InputHTMLAttributes<HTMLInputElement> {
   modifier: SortModifierType;
   handleOrderInputClick: (modifier: SortModifierType) => void;
-
 }
 
 export default function ProductSortOrderInput(props: ProductSortOrderInputProps): JSX.Element {
@@ -22,7 +21,7 @@ export default function ProductSortOrderInput(props: ProductSortOrderInputProps)
         type="radio"
         id={modifier}
         name="sort-icon"
-        onClick={handleInputClick}
+        onChange={handleInputClick}
         {...restProps}
       />
       <label htmlFor={modifier}>

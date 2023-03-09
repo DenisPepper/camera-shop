@@ -8,27 +8,35 @@ import ProductList from '../../components/product-list/product-list';
 import ProductSort from '../../components/product-sort/product-sort';
 import {fetchProducts} from './services/fetch-products/fetch-products';
 import Filter from '../../components/filter/filter';
+import {useSelector} from 'react-redux';
+import {getSortDirection} from '../../store/slices/sort/selectors/get-sort-direction/get-sort-direction';
+import {getSort} from '../../store/slices/sort/selectors/get-sort/get-sort';
 
 export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const {page = '1'} = useParams();
   const pageNumber = parseInt(page, DECIMAL);
   const [totalPagesCount, setTotalPagesCount] = useState(0);
+  const sort = useSelector(getSort);
+  const sortDirection = useSelector(getSortDirection);
 
   useEffect(() => {
-    fetchProducts(pageNumber)
+    fetchProducts({
+      pageNumber,
+      sorting: {sort, sortDirection}
+    })
       .then((data) => {
         const {totalCount, products} = data;
         setTotalPagesCount(totalCount);
         dispatch(productActions.setProducts(products));
       });
-  }, [pageNumber, dispatch]);
+  }, [pageNumber, dispatch, sort, sortDirection]);
 
   return (
     <>
       <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
       <div className={'page-content__columns'}>
-        <Filter />
+        <Filter/>
 
         {totalPagesCount >= pageNumber &&
           <div className={'catalog__content'}>
