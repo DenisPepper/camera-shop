@@ -14,7 +14,7 @@ const mockStore = configureMockStore<StateSchema,
   ThunkDispatch<StateSchema, typeof axios, Action>>([thunk]);
 const initialState: DeepPartial<StateSchema> = {
   promo: {isLoaded: false, product: null},
-  sort: {sort: '', direction: ''},
+  sort: {sort: '', order: ''},
 };
 const store = mockStore(initialState);
 

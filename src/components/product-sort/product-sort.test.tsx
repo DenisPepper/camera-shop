@@ -7,19 +7,22 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import axios from 'axios';
 import {DeepPartial} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
 
 it('should render ProductSort FC', async () => {
   const mockStore = configureMockStore<StateSchema,
     Action,
     ThunkDispatch<StateSchema, typeof axios, Action>>([thunk]);
   const initialState: DeepPartial<StateSchema> = {
-    sort: {sort:'', direction:''}
+    sort: {sort: '', order: ''}
   };
   const store = mockStore(initialState);
 
   render(
     <Provider store={store}>
-      < ProductSort/>
+      <BrowserRouter>
+        < ProductSort/>
+      </BrowserRouter>
     </Provider>);
   const element = await screen.findByText(/Сортировать/);
   expect(element).toBeInTheDocument();
