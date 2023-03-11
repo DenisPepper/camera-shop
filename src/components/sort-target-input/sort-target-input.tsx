@@ -13,7 +13,7 @@ interface ProductSortTypeInputProps {
   handleSortTargetClick: (target: SortType) => void;
 }
 
-export default function ProductSortTargetInput(props: ProductSortTypeInputProps): JSX.Element {
+export default function SortTargetInput(props: ProductSortTypeInputProps): JSX.Element {
   const {target, isChecked, handleSortTargetClick} = props;
   const {id, label} = SortInputData[target];
 

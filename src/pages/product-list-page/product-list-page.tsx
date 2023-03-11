@@ -5,7 +5,7 @@ import {DECIMAL} from '../../settings/settings';
 import {productActions} from '../../store/slices/product/slice/product-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import ProductList from '../../components/product-list/product-list';
-import ProductSort from '../../components/product-sort/product-sort';
+import Sort from '../../components/sort/sort';
 import {fetchProducts} from './services/fetch-products/fetch-products';
 import Filter from '../../components/filter/filter';
 import {SortDirectionType, SortType} from '../../types/sort-types';
@@ -38,11 +38,14 @@ export default function ProductListPage(): JSX.Element {
     <>
       <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
       <div className={'page-content__columns'}>
-        <Filter/>
+
+        <Filter key={'Filter'}/>
 
         {totalPagesCount >= pageNumber &&
+
           <div className={'catalog__content'}>
-            <ProductSort key={'ProductSort'}/>
+
+            <Sort key={'ProductSort'}/>
 
             <ProductList key={'ProductList'}/>
 
@@ -54,6 +57,7 @@ export default function ProductListPage(): JSX.Element {
             />
 
           </div>}
+
       </div>
     </>
   );

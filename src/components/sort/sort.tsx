@@ -1,5 +1,5 @@
-import ProductSortTarget from '../product-sort-target/product-sort-target';
-import ProductSortOrder from '../product-sort-order/product-sort-order';
+import SortTarget from '../sort-target/sort-target';
+import SortOrder from '../sort-order/sort-order';
 import {shallowEqual, useSelector} from 'react-redux';
 import {getSort} from '../../store/slices/sort/selectors/get-sort/get-sort';
 import {getSortOrder} from '../../store/slices/sort/selectors/get-sort-order/get-sort-order';
@@ -7,7 +7,7 @@ import {useSearchParams} from 'react-router-dom';
 import {useCallback, useEffect} from 'react';
 import {SortDirectionType, SortParamsType, SortType} from '../../types/sort-types';
 
-export default function ProductSort(): JSX.Element {
+export default function Sort(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get('sort') as SortType || '';
   const order = searchParams.get('order') as SortDirectionType || '';
@@ -30,13 +30,13 @@ export default function ProductSort(): JSX.Element {
         <div className="catalog-sort__inner">
           <p className="title title--h5">Сортировать:</p>
 
-          <ProductSortTarget
+          <SortTarget
             sort={sort}
             order={order}
             handleValuePick={setupQueryParams}
           />
 
-          <ProductSortOrder
+          <SortOrder
             sort={sort}
             order={order}
             handleValuePick={setupQueryParams}

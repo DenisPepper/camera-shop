@@ -1,5 +1,5 @@
 import {SortDirectionType, SortModifierType, SortParamsType, SortProps} from '../../types/sort-types';
-import ProductSortOrderInput from '../product-sort-order-input/product-sort-order-input';
+import SortOrderInput from '../sort-order-input/sort-order-input';
 import {sortActions} from '../../store/slices/sort/slice/sort-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {DEFAULT_SORT} from '../../settings/settings';
@@ -9,7 +9,7 @@ const Direction: Record<SortModifierType, SortDirectionType> = {
   down: 'desc',
 };
 
-export default function ProductSortOrder(props: SortProps): JSX.Element {
+export default function SortOrder(props: SortProps): JSX.Element {
   const {sort, order, handleValuePick} = props;
   const dispatch = useAppDispatch();
 
@@ -25,14 +25,14 @@ export default function ProductSortOrder(props: SortProps): JSX.Element {
   return (
     <div className="catalog-sort__order">
 
-      <ProductSortOrderInput
+      <SortOrderInput
         modifier={'up'}
         handleOrderInputClick={handleSortClick}
         aria-label={'По возрастанию'}
         checked={Direction.up === order}
       />
 
-      <ProductSortOrderInput
+      <SortOrderInput
         modifier={'down'}
         handleOrderInputClick={handleSortClick}
         aria-label={'По убыванию'}

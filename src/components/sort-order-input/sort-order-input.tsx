@@ -8,7 +8,7 @@ interface ProductSortOrderInputProps extends InputHTMLAttributes<HTMLInputElemen
   handleOrderInputClick: (modifier: SortModifierType) => void;
 }
 
-export default function ProductSortOrderInput(props: ProductSortOrderInputProps): JSX.Element {
+export default function SortOrderInput(props: ProductSortOrderInputProps): JSX.Element {
   const {modifier, handleOrderInputClick, ...restProps} = props;
 
   const handleInputClick = () => {

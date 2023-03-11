@@ -1,4 +1,4 @@
-import ProductSort from './product-sort';
+import Sort from './sort';
 import {render, screen} from '@testing-library/react';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {StateSchema} from '../../store/state-schema';
@@ -21,7 +21,7 @@ it('should render ProductSort FC', async () => {
   render(
     <Provider store={store}>
       <BrowserRouter>
-        < ProductSort/>
+        < Sort/>
       </BrowserRouter>
     </Provider>);
   const element = await screen.findByText(/Сортировать/);

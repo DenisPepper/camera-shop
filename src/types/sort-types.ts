@@ -16,5 +16,7 @@ export interface SortProps extends SortParamsType {
 
 export type SortDirectionType = 'asc' | 'desc' | '';
 
+export type SortOrder = Exclude<SortDirectionType, ''>
+
 export type SortModifierType = 'up' | 'down';
 

@@ -1,10 +1,10 @@
 import {SortType, SortParamsType, SortProps} from '../../types/sort-types';
-import ProductSortTargetInput from '../product-sort-target-input/product-sort-target-input';
+import SortTargetInput from '../sort-target-input/sort-target-input';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {sortActions} from '../../store/slices/sort/slice/sort-slice';
 import {DEFAULT_SORT_DIRECTION} from '../../settings/settings';
 
-export default function ProductSortTarget(props: SortProps): JSX.Element {
+export default function SortTarget(props: SortProps): JSX.Element {
   const {sort, order, handleValuePick} = props;
   const dispatch = useAppDispatch();
 
@@ -20,13 +20,13 @@ export default function ProductSortTarget(props: SortProps): JSX.Element {
   return (
     <div className="catalog-sort__type">
 
-      <ProductSortTargetInput
+      <SortTargetInput
         target={'price'}
         handleSortTargetClick={handleSortTargetClick}
         isChecked={sort === 'price'}
       />
 
-      <ProductSortTargetInput
+      <SortTargetInput
         target={'rating'}
         handleSortTargetClick={handleSortTargetClick}
         isChecked={sort === 'rating'}
