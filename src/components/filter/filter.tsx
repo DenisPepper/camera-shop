@@ -1,26 +1,17 @@
-import React from 'react';
+import FilterPrice from '../filter-price/filter-price';
 
 export default function Filter(): JSX.Element {
+
   return (
     <div className={'catalog__aside'}>
       <div className="catalog-filter">
+
         <form>
+
           <h2 className="visually-hidden">Фильтр</h2>
-          <fieldset className="catalog-filter__block">
-            <legend className="title title--h5">Цена, ₽</legend>
-            <div className="catalog-filter__price-range">
-              <div className="custom-input">
-                <label>
-                  <input type="number" name="price" placeholder="от"/>
-                </label>
-              </div>
-              <div className="custom-input">
-                <label>
-                  <input type="number" name="priceUp" placeholder="до"/>
-                </label>
-              </div>
-            </div>
-          </fieldset>
+
+          <FilterPrice key={'FilterPrice'} />
+
           <fieldset className="catalog-filter__block">
             <legend className="title title--h5">Категория</legend>
             <div className="custom-checkbox catalog-filter__item">
@@ -38,6 +29,7 @@ export default function Filter(): JSX.Element {
               </label>
             </div>
           </fieldset>
+
           <fieldset className="catalog-filter__block">
             <legend className="title title--h5">Тип камеры</legend>
             <div className="custom-checkbox catalog-filter__item">
@@ -69,6 +61,7 @@ export default function Filter(): JSX.Element {
               </label>
             </div>
           </fieldset>
+
           <fieldset className="catalog-filter__block">
             <legend className="title title--h5">Уровень</legend>
             <div className="custom-checkbox catalog-filter__item">
@@ -93,9 +86,16 @@ export default function Filter(): JSX.Element {
               </label>
             </div>
           </fieldset>
-          <button className="btn catalog-filter__reset-btn" type="reset">Сбросить фильтры
+
+          <button
+            className="btn catalog-filter__reset-btn"
+            type="reset"
+          >
+            Сбросить фильтры
           </button>
+
         </form>
+
       </div>
     </div>
   );
