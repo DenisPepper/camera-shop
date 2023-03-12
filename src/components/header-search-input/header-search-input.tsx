@@ -1,5 +1,5 @@
 import React from 'react';
-import {debounceSearchInput} from '../../lib/debounce-search-input/debounce-search-input';
+import {debounce} from '../../lib/debounce/debounce';
 
 interface HeaderSearchInputProps {
   handleFormInput: (value: string) => void;
@@ -8,7 +8,7 @@ interface HeaderSearchInputProps {
 export default function HeaderSearchInput(props: HeaderSearchInputProps): JSX.Element {
   const {handleFormInput} = props;
 
-  const handleInputChange = debounceSearchInput(
+  const handleInputChange = debounce(
     (evt: React.ChangeEvent<HTMLInputElement>) => {
       handleFormInput(evt.target.value);
     });
