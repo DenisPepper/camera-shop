@@ -4,10 +4,13 @@ import {shallowEqual, useSelector} from 'react-redux';
 import {getSort} from '../../store/slices/sort/selectors/get-sort/get-sort';
 import {getSortOrder} from '../../store/slices/sort/selectors/get-sort-order/get-sort-order';
 import {useSearchParams} from 'react-router-dom';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useLayoutEffect} from 'react';
 import {SortDirectionType, SortParamsType, SortType} from '../../types/sort-types';
+import {sortActions} from '../../store/slices/sort/slice/sort-slice';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 
 export default function Sort(): JSX.Element {
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get('sort') as SortType || '';
   const order = searchParams.get('order') as SortDirectionType || '';
@@ -17,6 +20,11 @@ export default function Sort(): JSX.Element {
   const setupQueryParams = useCallback(
     (params: SortParamsType) => setSearchParams(params),
     [setSearchParams]);
+
+  useLayoutEffect(() => {
+    !!sort && dispatch(sortActions.setSort(sort));
+    !!order && dispatch(sortActions.setDirection(order));
+  }, []);
 
   useEffect(() => {
     if (currentSort || currentOrder) {
