@@ -1,83 +1,129 @@
-import {useLayoutEffect, useRef, useState} from 'react';
-import {DECIMAL} from '../../settings/settings';
+import React, {useLayoutEffect, useRef, useState} from 'react';
+import {FilterPriceParams} from '../../settings/settings';
 import {fetchMinMaxPrice} from '../../services/fetch-min-max-price/fetch-min-max-price';
 import {useSearchParams} from 'react-router-dom';
+import {debounce} from '../../lib/debounce/debounce';
 
-type PriceType = 'min' | 'max';
 type PriceParamsType = {
-  rice_gte?: string;
-  rice_lte?: string;
+  [FilterPriceParams.GreaterThan]?: string;
+  [FilterPriceParams.LessThan]?: string;
 }
 
 export default function FilterPrice(): JSX.Element {
-  const [, setSearchParams] = useSearchParams();
-  const [minCatalogPrice, setMinCatalogPrice] = useState<string>('от');
-  const [maxCatalogPrice, setMaxCatalogPrice] = useState<string>('до');
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialMinPrice: number = Number(searchParams.get(FilterPriceParams.GreaterThan)) || 0;
+  const initialMaxPrice: number = Number(searchParams.get(FilterPriceParams.LessThan)) || 0;
+  const [minPrice, setMinPrice] = useState<number>(initialMinPrice);
+  const [maxPrice, setMaxPrice] = useState<number>(initialMaxPrice);
+  const [minCatalogPrice, setMinCatalogPrice] = useState<string>('');
+  const [maxCatalogPrice, setMaxCatalogPrice] = useState<string>('');
   const [minModifier, setMinModifier] = useState('');
   const [maxModifier, setMaxModifier] = useState('');
   const minRef = useRef<HTMLInputElement | null>(null);
   const maxRef = useRef<HTMLInputElement | null>(null);
 
-  const handleMinInputChange = (evt: React.FocusEvent<HTMLInputElement>) => {
-    if (!minRef.current) {
-      return;
-    }
-    if (!evt.currentTarget.value) {
-      setMinModifier('');
-      return;
-    }
-    const value = parseInt(evt.currentTarget.value, DECIMAL);
-    handleValue(value, 'min', minRef.current);
-  };
-
-  const handleMaxInputChange = (evt: React.FocusEvent<HTMLInputElement>) => {
-    if (!maxRef.current) {
-      return;
-    }
-    if (!evt.currentTarget.value) {
-      setMaxModifier('');
-      return;
-    }
-    const value = Number(evt.currentTarget.value);
-    handleValue(value, 'max', maxRef.current);
-  };
-
-  /* eslint-disable camelcase */
-  const handleValue = (value: number, priceType: PriceType, ref: HTMLInputElement) => {
-    let price = value;
+  const handleMinPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
+    const value = Number(evt.target.value);
     const params: PriceParamsType = {};
+    let price = value;
 
-    switch (priceType) {
-      case 'max':
-        if (value > Number(maxCatalogPrice)) {
-          price = Number(maxCatalogPrice);
-        }
-        if (+value < minPrice) {
-          price = minPrice;
-        }
-        setMaxPrice(price);
-        params.rice_lte = price.toString();
-        break;
-
-      case 'min':
-        if (value < Number(minCatalogPrice)) {
-          price = Number(minCatalogPrice);
-        }
-        if (maxPrice && value > maxPrice) {
-          price = maxPrice;
-        }
-        setMinPrice(price);
-        params.rice_gte = price.toString();
+    if (value && value < Number(minCatalogPrice)) {
+      price = Number(minCatalogPrice);
     }
+    if (value && maxPrice && value > maxPrice) {
+      price = maxPrice;
+    }
+    /**
+     reset input and equal price to current state value, so that the LayoutEffect does not update
+     */
+    if (value <= 0) {
+      evt.target.value = '';
+      price = minPrice;
+    }
+    setMinPrice(() => price);
 
+    if (maxPrice) {
+      params[FilterPriceParams.LessThan] = maxPrice.toString();
+    }
+    if (price) {
+      params[FilterPriceParams.GreaterThan] = value.toString();
+    }
     setSearchParams(params);
-    //setMaxModifier(price < 0 ? 'is-invalid' : 'is-valid');
-    //setMinModifier(price < 0 ? 'is-invalid' : 'is-valid');
-    ref.value = price.toString();
+
+    setupMinPriceStyles(!evt.target.value ? evt.target.value : price.toString());
   };
 
+  const handleMaxPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
+    const value = Number(evt.target.value);
+    const params: PriceParamsType = {};
+    let price = value;
+
+    if (value && value > Number(maxCatalogPrice)) {
+      price = Number(maxCatalogPrice);
+    }
+    if (value && minPrice && value < minPrice) {
+      price = minPrice;
+    }
+    /**
+     reset input and equal price to current state value, so that the LayoutEffect does not update
+     */
+    if (value <= 0) {
+      evt.target.value = '';
+      price = maxPrice;
+    }
+    setMaxPrice(() => price);
+
+    if (price) {
+      params[FilterPriceParams.LessThan] = value.toString();
+    }
+    if (minPrice) {
+      params[FilterPriceParams.GreaterThan] = minPrice.toString();
+    }
+    setSearchParams(params);
+
+    setupMaxPriceStyles(!evt.target.value ? evt.target.value : price.toString());
+  };
+
+  const checkMaxPriceNotValid = (maxPriceValue: number) =>
+    maxPriceValue <= 0
+    || (maxCatalogPrice && maxPriceValue > Number(maxCatalogPrice))
+    || (minPrice && maxPriceValue < minPrice)
+    || (minCatalogPrice && maxPriceValue < Number(minCatalogPrice));
+
+  const checkMinPriceNotValid = (minPriceValue: number) =>
+    minPriceValue <= 0
+    || (minCatalogPrice && minPriceValue < Number(minCatalogPrice))
+    || (maxPrice && minPriceValue > maxPrice);
+
+  const setupMinPriceStyles = (value: string) => {
+    if (!value) {
+      setMinModifier(value);
+      return;
+    }
+    const modifier = checkMinPriceNotValid(Number(value)) ? 'is-invalid' : 'is-valid';
+    setMinModifier(modifier);
+  };
+
+  const setupMaxPriceStyles = (value: string) => {
+    if (!value) {
+      setMaxModifier(value);
+      return;
+    }
+    const modifier = checkMaxPriceNotValid(Number(value)) ? 'is-invalid' : 'is-valid';
+    setMaxModifier(modifier);
+  };
+
+  const handleMinPriceChange = debounce((evt: React.ChangeEvent<HTMLInputElement>) => {
+    setupMinPriceStyles(evt.target.value);
+  });
+
+  const handleMaxPriceChange = debounce((evt: React.ChangeEvent<HTMLInputElement>) => {
+    setupMaxPriceStyles(evt.target.value);
+  });
+
+  /**
+   fetch max and min prices from server
+   */
   useLayoutEffect(() => {
     const minPricePromise = fetchMinMaxPrice('asc');
     const maxPricePromise = fetchMinMaxPrice('desc');
@@ -87,6 +133,18 @@ export default function FilterPrice(): JSX.Element {
         setMaxCatalogPrice(maxPriceValue.toString());
       });
   }, []);
+
+  /**
+   set initial or updated values from URL
+   */
+  useLayoutEffect(() => {
+    if (minRef.current) {
+      minRef.current.value = minPrice > 0 ? minPrice.toString() : '';
+    }
+    if (maxRef.current) {
+      maxRef.current.value = maxPrice > 0 ? maxPrice.toString() : '';
+    }
+  }, [maxPrice, minPrice]);
 
   return (
     <fieldset className="catalog-filter__block">
@@ -101,7 +159,8 @@ export default function FilterPrice(): JSX.Element {
               min={0}
               name="price"
               placeholder={minCatalogPrice}
-              onBlur={handleMinInputChange}
+              onChange={handleMinPriceChange}
+              onBlur={handleMinPriceBlur}
             />
           </label>
         </div>
@@ -114,7 +173,8 @@ export default function FilterPrice(): JSX.Element {
               min={0}
               name="priceUp"
               placeholder={maxCatalogPrice}
-              onBlur={handleMaxInputChange}
+              onChange={handleMaxPriceChange}
+              onBlur={handleMaxPriceBlur}
             />
           </label>
         </div>

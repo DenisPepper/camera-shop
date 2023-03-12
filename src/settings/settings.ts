@@ -63,3 +63,9 @@ export const DEFAULT_REVIEW_POPUP_VALUES = {userName: '', userPlus: '', userMinu
 export const DEFAULT_SORT: SortType = 'price';
 
 export const DEFAULT_SORT_DIRECTION: SortDirectionType = 'asc';
+
+export const enum FilterPriceParams {
+  GreaterThan = 'price_gte',
+  LessThan = 'price_lte',
+}
+
