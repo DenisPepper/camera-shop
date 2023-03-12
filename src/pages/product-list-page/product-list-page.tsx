@@ -1,7 +1,7 @@
 import Pagination from '../../components/pagination/pagination';
 import React, {useEffect, useState} from 'react';
-import {useParams, useSearchParams} from 'react-router-dom';
-import {DECIMAL} from '../../settings/settings';
+import {useSearchParams} from 'react-router-dom';
+import {DECIMAL, DEFAULT_PAGE_NUMBER, FilterPriceParams} from '../../settings/settings';
 import {productActions} from '../../store/slices/product/slice/product-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import ProductList from '../../components/product-list/product-list';
@@ -10,29 +10,33 @@ import {fetchProducts} from './services/fetch-products/fetch-products';
 import Filter from '../../components/filter/filter';
 import {SortDirectionType, SortType} from '../../types/sort-types';
 
+const COUNT_WITHOUT_PAGINATION = 1;
+
 export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
-
-  const {page = '1'} = useParams();
-  const pageNumber = parseInt(page, DECIMAL);
-
   const [totalPagesCount, setTotalPagesCount] = useState(0);
-
   const [searchParams] = useSearchParams();
+  const pageNumber = parseInt(searchParams.get('page') || DEFAULT_PAGE_NUMBER, DECIMAL);
   const sort = searchParams.get('sort') as SortType || '';
   const order = searchParams.get('order') as SortDirectionType || '';
+  const priceGte = Number(searchParams.get(FilterPriceParams.GreaterThan)) || 0;
+  const priceLte = Number(searchParams.get(FilterPriceParams.LessThan)) || 0;
 
   useEffect(() => {
     fetchProducts({
       pageNumber,
-      sorting: {sort, order}
+      sorting: {sort, order},
+      price: {
+        [FilterPriceParams.GreaterThan]: priceGte,
+        [FilterPriceParams.LessThan]: priceLte,
+      }
     })
       .then((data) => {
         const {totalCount, products} = data;
         setTotalPagesCount(totalCount);
         dispatch(productActions.setProducts(products));
       });
-  }, [pageNumber, dispatch, sort, order]);
+  }, [pageNumber, dispatch, sort, order, priceGte, priceLte]);
 
   return (
     <>
@@ -49,12 +53,13 @@ export default function ProductListPage(): JSX.Element {
 
             <ProductList key={'ProductList'}/>
 
-            <Pagination
-              key={'Pagination'}
-              totalPagesCount={totalPagesCount}
-              currentPage={pageNumber}
-              pageNumbers={Array.from({length: totalPagesCount}, (_, i) => i + 1)}
-            />
+            {totalPagesCount > COUNT_WITHOUT_PAGINATION &&
+              <Pagination
+                key={'Pagination'}
+                totalPagesCount={totalPagesCount}
+                currentPage={pageNumber}
+                pageNumbers={Array.from({length: totalPagesCount}, (_, i) => i + 1)}
+              />}
 
           </div>}
 
