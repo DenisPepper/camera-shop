@@ -1,6 +1,6 @@
 import Pagination from '../../components/pagination/pagination';
 import React, {useEffect, useState} from 'react';
-import {useSearchParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
 import {DECIMAL, DEFAULT_PAGE_NUMBER, FilterPriceParams} from '../../settings/settings';
 import {productActions} from '../../store/slices/product/slice/product-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
@@ -16,7 +16,8 @@ export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const [totalPagesCount, setTotalPagesCount] = useState(0);
   const [searchParams] = useSearchParams();
-  const pageNumber = parseInt(searchParams.get('page') || DEFAULT_PAGE_NUMBER, DECIMAL);
+  const {page} = useParams();
+  const pageNumber = parseInt(page || DEFAULT_PAGE_NUMBER, DECIMAL);
   const sort = searchParams.get('sort') as SortType || '';
   const order = searchParams.get('order') as SortDirectionType || '';
   const priceGte = Number(searchParams.get(FilterPriceParams.GreaterThan)) || 0;
