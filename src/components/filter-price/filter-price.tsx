@@ -33,13 +33,10 @@ export default function FilterPrice(): JSX.Element {
     if (value && maxPrice && value > maxPrice) {
       price = maxPrice;
     }
-    /**
-     reset input and equal price to current state value, so that the LayoutEffect does not update
-     */
     if (value <= 0) {
-      evt.target.value = '';
-      price = minPrice;
+      price = 0;
     }
+    evt.target.value = price ? price.toString() : '';
     setMinPrice(() => price);
 
     if (maxPrice) {
@@ -64,13 +61,10 @@ export default function FilterPrice(): JSX.Element {
     if (value && minPrice && value < minPrice) {
       price = minPrice;
     }
-    /**
-     reset input and equal price to current state value, so that the LayoutEffect does not update
-     */
     if (value <= 0) {
-      evt.target.value = '';
-      price = maxPrice;
+      price = 0;
     }
+    evt.target.value = price ? price.toString() : '';
     setMaxPrice(() => price);
 
     if (price) {
@@ -134,18 +128,6 @@ export default function FilterPrice(): JSX.Element {
       });
   }, []);
 
-  /**
-   set initial or updated values from URL
-   */
-  useLayoutEffect(() => {
-    if (minRef.current) {
-      minRef.current.value = minPrice > 0 ? minPrice.toString() : '';
-    }
-    if (maxRef.current) {
-      maxRef.current.value = maxPrice > 0 ? maxPrice.toString() : '';
-    }
-  }, [maxPrice, minPrice]);
-
   return (
     <fieldset className="catalog-filter__block">
       <legend className="title title--h5">Цена, ₽</legend>
@@ -156,7 +138,6 @@ export default function FilterPrice(): JSX.Element {
             <input
               ref={minRef}
               type="number"
-              min={0}
               name="price"
               placeholder={minCatalogPrice}
               onChange={handleMinPriceChange}
@@ -170,7 +151,6 @@ export default function FilterPrice(): JSX.Element {
             <input
               ref={maxRef}
               type="number"
-              min={0}
               name="priceUp"
               placeholder={maxCatalogPrice}
               onChange={handleMaxPriceChange}
