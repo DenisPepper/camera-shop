@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DEFAULT_DELAY = 500;
+const DEFAULT_DELAY = 300;
 
 type Event = React.ChangeEvent<HTMLInputElement>;
 type Callback = (evt: Event) => void;
