@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useLayoutEffect, useState} from 'react';
 import {FilterPriceParams} from '../../settings/settings';
 import {fetchMinMaxPrice} from '../../services/fetch-min-max-price/fetch-min-max-price';
 import {useSearchParams} from 'react-router-dom';
@@ -9,7 +9,12 @@ type PriceParamsType = {
   [FilterPriceParams.LessThan]?: string;
 }
 
-export default function FilterPrice(): JSX.Element {
+interface FilterPriceProps {
+  resetStylesHandlers: Dispatch<SetStateAction<string>>[];
+}
+
+export default function FilterPrice(props: FilterPriceProps): JSX.Element {
+  const {resetStylesHandlers} = props;
   const [searchParams, setSearchParams] = useSearchParams();
   const initialMinPrice: number = Number(searchParams.get(FilterPriceParams.GreaterThan)) || 0;
   const initialMaxPrice: number = Number(searchParams.get(FilterPriceParams.LessThan)) || 0;
@@ -124,6 +129,11 @@ export default function FilterPrice(): JSX.Element {
         setMinCatalogPrice(minPriceValue.toString());
         setMaxCatalogPrice(maxPriceValue.toString());
       });
+  }, []);
+
+  useLayoutEffect(() => {
+    resetStylesHandlers.push(setMaxModifier);
+    resetStylesHandlers.push(setMinModifier);
   }, []);
 
   return (

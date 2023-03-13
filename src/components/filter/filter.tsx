@@ -1,91 +1,53 @@
 import FilterPrice from '../filter-price/filter-price';
+import FilterCategory from '../filter-category/filter-category';
+import FilterGroup from '../filter-group/filter-group';
+import FilterLevel from '../filter-level/filter-level';
+import {ProductCategory, ProductGroup} from '../../types/filter-types';
+import {Dispatch, SetStateAction, useRef, useState} from 'react';
 
 export default function Filter(): JSX.Element {
+  const [disabledGroups, setDisabledGroups] = useState<ProductGroup[]>([]);
+  const resetHandlersRef = useRef<Dispatch<SetStateAction<string>>[]>([]);
+
+  const handleCategoryChange = (category: ProductCategory) => {
+    let groups: ProductGroup[] = [];
+    switch (category) {
+      case 'videocamera':
+        groups = ['snapshot', 'film'];
+        break;
+    }
+    setDisabledGroups(groups);
+  };
+
+  const handleFilterReset = () => {
+    setDisabledGroups([]);
+    resetHandlersRef.current?.forEach((resetStyleHandler) => resetStyleHandler(''));
+  };
 
   return (
     <div className={'catalog__aside'}>
       <div className="catalog-filter">
 
-        <form>
+        <form onReset={handleFilterReset}>
 
           <h2 className="visually-hidden">Фильтр</h2>
 
-          <FilterPrice key={'FilterPrice'} />
+          <FilterPrice
+            key={'FilterPrice'}
+            resetStylesHandlers={resetHandlersRef.current}
+          />
 
-          <fieldset className="catalog-filter__block">
-            <legend className="title title--h5">Категория</legend>
-            <div className="custom-checkbox catalog-filter__item">
-              <label>
-                <input type="checkbox" name="photocamera" defaultChecked/>
-                <span className="custom-checkbox__icon"></span>
-                <span className="custom-checkbox__label">Фотокамера</span>
-              </label>
-            </div>
-            <div className="custom-checkbox catalog-filter__item">
-              <label>
-                <input type="checkbox" name="videocamera"/>
-                <span className="custom-checkbox__icon"></span>
-                <span className="custom-checkbox__label">Видеокамера</span>
-              </label>
-            </div>
-          </fieldset>
+          <FilterCategory
+            key={'FilterCategory'}
+            handleCategoryChange={handleCategoryChange}
+          />
 
-          <fieldset className="catalog-filter__block">
-            <legend className="title title--h5">Тип камеры</legend>
-            <div className="custom-checkbox catalog-filter__item">
-              <label>
-                <input type="checkbox" name="digital" defaultChecked/>
-                <span className="custom-checkbox__icon"></span>
-                <span className="custom-checkbox__label">Цифровая</span>
-              </label>
-            </div>
-            <div className="custom-checkbox catalog-filter__item">
-              <label>
-                <input type="checkbox" name="film" disabled/>
-                <span className="custom-checkbox__icon"></span>
-                <span className="custom-checkbox__label">Плёночная</span>
-              </label>
-            </div>
-            <div className="custom-checkbox catalog-filter__item">
-              <label>
-                <input type="checkbox" name="snapshot"/>
-                <span className="custom-checkbox__icon"></span>
-                <span className="custom-checkbox__label">Моментальная</span>
-              </label>
-            </div>
-            <div className="custom-checkbox catalog-filter__item">
-              <label>
-                <input type="checkbox" name="collection" defaultChecked disabled/>
-                <span className="custom-checkbox__icon"></span>
-                <span className="custom-checkbox__label">Коллекционная</span>
-              </label>
-            </div>
-          </fieldset>
+          <FilterGroup
+            key={'FilterGroup'}
+            disabledGroups={disabledGroups}
+          />
 
-          <fieldset className="catalog-filter__block">
-            <legend className="title title--h5">Уровень</legend>
-            <div className="custom-checkbox catalog-filter__item">
-              <label>
-                <input type="checkbox" name="zero" defaultChecked/>
-                <span className="custom-checkbox__icon"></span>
-                <span className="custom-checkbox__label">Нулевой</span>
-              </label>
-            </div>
-            <div className="custom-checkbox catalog-filter__item">
-              <label>
-                <input type="checkbox" name="non-professional"/>
-                <span className="custom-checkbox__icon"></span>
-                <span className="custom-checkbox__label">Любительский</span>
-              </label>
-            </div>
-            <div className="custom-checkbox catalog-filter__item">
-              <label>
-                <input type="checkbox" name="professional"/>
-                <span className="custom-checkbox__icon"></span>
-                <span className="custom-checkbox__label">Профессиональный</span>
-              </label>
-            </div>
-          </fieldset>
+          <FilterLevel key={'FilterLevel'}/>
 
           <button
             className="btn catalog-filter__reset-btn"
@@ -100,3 +62,7 @@ export default function Filter(): JSX.Element {
     </div>
   );
 }
+
+//TODO  on form reset
+// - reset css modifiers in FilterPrice FC
+// - reset query params in reducer
