@@ -11,7 +11,7 @@ import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {reviewPopupActions} from '../../store/slices/review-popup/slice/review-popup-slice';
 import GratefulFeedbackPopup from '../grateful-feedback-popup/grateful-feedback-popup';
 import './product-review.css';
-import {postReview} from '../../store/slices/review/services/post-review/post-review';
+import {postReview} from '../../services/post-review/post-review';
 import {
   gratefulFeedbackPopupActions
 } from '../../store/slices/grateful-feedback-popup/slice/grateful-feedback-popup-slice';

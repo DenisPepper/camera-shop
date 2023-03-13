@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {SimilarSchema} from '../schema/similar-schema';
-import {fetchSimilar} from '../services/fetch-similar/fetch-similar';
+import {fetchSimilar} from '../../../../services/fetch-similar/fetch-similar';
 
 const initialState: SimilarSchema = {
   products: null,

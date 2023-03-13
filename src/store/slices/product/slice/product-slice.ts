@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ProductSchema} from '../schema/product-schema';
-import {fetchProductByIdWithReviews} from '../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
+import {fetchProductByIdWithReviews} from '../../../../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
 import {ProductType} from '../../../../types/product-type';
 
 const initialState: ProductSchema = {

@@ -1,10 +1,10 @@
 import {ReviewSchema} from '../schema/review-schema';
 import {reviewReducer} from './review-slice';
 import {stubReview} from '../../../../mocks/stub-review';
-import {postReview} from '../services/post-review/post-review';
+import {postReview} from '../../../../services/post-review/post-review';
 import {
   fetchProductByIdWithReviews
-} from '../../product/services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
+} from '../../../../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
 import {stubProduct} from '../../../../mocks/stub-product';
 
 describe('test of review-slice reducer', () => {

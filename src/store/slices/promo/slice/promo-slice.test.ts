@@ -1,7 +1,7 @@
 import {PromoSchema as Schema} from '../schema/promo-schema';
 import {promoReducer as reducer} from './promo-slice';
 import {stubPromo} from '../../../../mocks/stub-promo';
-import {fetchPromoProduct} from '../services/fetch-promo-product/fetch-promo-product';
+import {fetchPromoProduct} from '../../../../services/fetch-promo-product/fetch-promo-product';
 
 describe('test of promo-slice reducer', () => {
 

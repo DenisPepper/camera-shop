@@ -1,9 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {ReviewSchema} from '../schema/review-schema';
-import {postReview} from '../services/post-review/post-review';
+import {postReview} from '../../../../services/post-review/post-review';
 import {
   fetchProductByIdWithReviews
-} from '../../product/services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
+} from '../../../../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
 
 const initialState: ReviewSchema = {
   list: [],

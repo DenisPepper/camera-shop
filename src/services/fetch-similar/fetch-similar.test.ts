@@ -1,13 +1,13 @@
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {StateSchema} from '../../../../state-schema';
+import {StateSchema} from '../../store/state-schema';
 import {Action} from 'redux';
 import thunk, {ThunkDispatch} from 'redux-thunk';
-import {ServerUrl as Server} from '../../../../../api/server-url';
-import {SIMILAR_FETCHING_LIMIT as LIMIT} from '../../../../../settings/settings';
+import {ServerUrl as Server} from '../../api/server-url';
+import {SIMILAR_FETCHING_LIMIT as LIMIT} from '../../settings/settings';
 import {fetchSimilar} from './fetch-similar';
-import {stubProduct} from '../../../../../mocks/stub-product';
+import {stubProduct} from '../../mocks/stub-product';
 
 describe('when dispatch an action', () => {
   const mockAPI = new MockAdapter(axios);

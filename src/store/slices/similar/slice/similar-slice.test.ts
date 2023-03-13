@@ -1,6 +1,6 @@
 import {similarReducer,} from './similar-slice';
 import {SimilarSchema} from '../schema/similar-schema';
-import {fetchSimilar} from '../services/fetch-similar/fetch-similar';
+import {fetchSimilar} from '../../../../services/fetch-similar/fetch-similar';
 import {stubProduct} from '../../../../mocks/stub-product';
 
 describe('test of similar-slice reducer', () => {

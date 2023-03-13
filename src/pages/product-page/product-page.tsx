@@ -1,12 +1,12 @@
 import ProductInfo from '../../components/product-info/product-info';
 import {shallowEqual, useSelector} from 'react-redux';
-import {fetchProductByIdWithReviews} from '../../store/slices/product/services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
+import {fetchProductByIdWithReviews} from '../../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {Navigate, useParams, useSearchParams} from 'react-router-dom';
 import React, {useEffect} from 'react';
 import {getProductId} from '../../store/slices/product/selectors/get-product-id/get-product-id';
 import ProductSimilar from '../../components/product-similar/product-similar';
-import {fetchSimilar} from '../../store/slices/similar/services/fetch-similar/fetch-similar';
+import {fetchSimilar} from '../../services/fetch-similar/fetch-similar';
 import ProductReview from '../../components/product-review/product-review';
 import {DECIMAL, Path, ProductTab as Tab} from '../../settings/settings';
 

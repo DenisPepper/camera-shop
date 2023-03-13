@@ -1,10 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {ProductType, ProductTypeWithReviews} from '../../../../../types/product-type';
-import {ServerUrl} from '../../../../../api/server-url';
-import {ErrorsConfig as error} from '../../../../../api/errors-config';
-import {ReviewType} from '../../../../../types/review-type';
-import {formatProductName as format} from '../../../../../lib/format-product-name/format-product-name';
+import {ProductType, ProductTypeWithReviews} from '../../types/product-type';
+import {ServerUrl} from '../../api/server-url';
+import {ErrorsConfig as error} from '../../api/errors-config';
+import {ReviewType} from '../../types/review-type';
+import {formatProductName as format} from '../../lib/format-product-name/format-product-name';
 
 interface fetchProductByIdProps {
   id: string;

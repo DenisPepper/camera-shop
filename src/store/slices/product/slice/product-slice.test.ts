@@ -1,7 +1,7 @@
 import {productActions as actions, productReducer as reducer} from './product-slice';
 import {ProductSchema as StateSchema} from '../schema/product-schema';
 import {stubProduct as product} from '../../../../mocks/stub-product';
-import {fetchProductByIdWithReviews} from '../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
+import {fetchProductByIdWithReviews} from '../../../../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
 
 describe('test of product-slice reducer', () => {
 

@@ -1,14 +1,14 @@
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {StateSchema} from '../../../../state-schema';
+import {StateSchema} from '../../store/state-schema';
 import {Action} from 'redux';
 import thunk, {ThunkDispatch} from 'redux-thunk';
-import {ServerUrl as Server} from '../../../../../api/server-url';
+import {ServerUrl as Server} from '../../api/server-url';
 import {postReview} from './post-review';
-import {stubPostReview} from '../../../../../mocks/stub-post-review';
-import {reviewPopupActions} from '../../../review-popup/slice/review-popup-slice';
-import {gratefulFeedbackPopupActions} from '../../../grateful-feedback-popup/slice/grateful-feedback-popup-slice';
+import {stubPostReview} from '../../mocks/stub-post-review';
+import {reviewPopupActions} from '../../store/slices/review-popup/slice/review-popup-slice';
+import {gratefulFeedbackPopupActions} from '../../store/slices/grateful-feedback-popup/slice/grateful-feedback-popup-slice';
 
 describe('when dispatch function', () => {
   const mockAPI = new MockAdapter(axios);

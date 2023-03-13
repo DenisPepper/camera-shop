@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {PromoSchema} from '../schema/promo-schema';
-import {fetchPromoProduct} from '../services/fetch-promo-product/fetch-promo-product';
+import {fetchPromoProduct} from '../../../../services/fetch-promo-product/fetch-promo-product';
 
 const initialState: PromoSchema = {
   product: null,

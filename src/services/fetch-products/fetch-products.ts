@@ -1,8 +1,8 @@
-import {ProductType} from '../../../../types/product-type';
-import {QueryParamsType, getURL} from '../../../../api/server-url';
-import {DECIMAL, MAX_PRODUCT_COUNT as LIMIT} from '../../../../settings/settings';
+import {ProductType} from '../../types/product-type';
+import {QueryParamsType, getURL} from '../../api/server-url';
+import {DECIMAL, MAX_PRODUCT_COUNT as LIMIT} from '../../settings/settings';
 import axios from 'axios';
-import {formatProductName as format} from '../../../../lib/format-product-name/format-product-name';
+import {formatProductName as format} from '../../lib/format-product-name/format-product-name';
 
 interface ReturnedType {
   totalCount: number;

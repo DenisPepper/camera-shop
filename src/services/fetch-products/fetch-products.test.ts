@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import {getURL} from '../../../../api/server-url';
+import {getURL} from '../../api/server-url';
 import {fetchProducts} from './fetch-products';
 
 describe('when call a function', () => {
