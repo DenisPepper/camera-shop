@@ -6,7 +6,7 @@ import {productActions} from '../../store/slices/product/slice/product-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import ProductList from '../../components/product-list/product-list';
 import Sort from '../../components/sort/sort';
-import {fetchProducts} from '../../services/fetch-products/fetch-products';
+import {_fetchProducts} from '../../services/_fetch-products/_fetch-products';
 import Filter from '../../components/filter/filter';
 import {SortDirectionType, SortType} from '../../types/sort-types';
 
@@ -24,7 +24,7 @@ export default function ProductListPage(): JSX.Element {
   const priceLte = Number(searchParams.get(FilterPriceParams.LessThan)) || 0;
 
   useEffect(() => {
-    fetchProducts({
+    _fetchProducts({
       pageNumber,
       sorting: {sort, order},
       price: {

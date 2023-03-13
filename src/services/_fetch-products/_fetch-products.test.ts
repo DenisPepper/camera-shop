@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import {getURL} from '../../api/server-url';
-import {fetchProducts} from './fetch-products';
+import {_fetchProducts} from './_fetch-products';
 
 describe('when call a function', () => {
   const pageNumber = 1;
@@ -16,7 +16,7 @@ describe('when call a function', () => {
     mockAPI
       .onGet(url)
       .reply(200, 'ok');
-    const result = await fetchProducts({pageNumber});
+    const result = await _fetchProducts({pageNumber});
     expect(result).toEqual(defaultData);
   });
 });

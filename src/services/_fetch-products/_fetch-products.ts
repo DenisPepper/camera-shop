@@ -14,7 +14,7 @@ const DEFAULT_DATA: ReturnedType = {
   products: [],
 };
 
-export const fetchProducts = async (args: QueryParamsType): Promise<ReturnedType> => {
+export const _fetchProducts = async (args: QueryParamsType): Promise<ReturnedType> => {
   try {
     const response = await axios.get<ProductType[]>(getURL(args));
     const totalProducts = parseInt(response.headers['x-total-count'] || '0', DECIMAL);
