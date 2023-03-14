@@ -42,7 +42,7 @@ export const DEFAULT_PAGE_NUMBER = '1';
 
 export const DECIMAL = 10;
 
-export const MAX_PRODUCT_COUNT = 9;
+export const MAX_PRODUCT_COUNT_ON_CATALOG_PAGE = 9;
 
 export const MAX_RATING = 5;
 

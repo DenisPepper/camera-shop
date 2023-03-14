@@ -5,18 +5,12 @@ export type SortInputType = {
   label: string;
 }
 
-export type SortParamsType = {
+/*export type SortParamsType = {
   sort: SortType;
   order: SortDirectionType;
-}
+}*/
 
-export interface SortProps extends SortParamsType {
-  handleValuePick: (params: SortParamsType) => void;
-}
-
+// TODO rename as SortOrderType
 export type SortDirectionType = 'asc' | 'desc' | '';
 
-export type SortOrder = Exclude<SortDirectionType, ''>
-
-export type SortModifierType = 'up' | 'down';
 

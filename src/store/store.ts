@@ -6,7 +6,7 @@ import {similarReducer} from './slices/similar/slice/similar-slice';
 import {reviewReducer} from './slices/review/slice/review-slice';
 import {reviewPopupReducer} from './slices/review-popup/slice/review-popup-slice';
 import {gratefulFeedbackPopupReducer} from './slices/grateful-feedback-popup/slice/grateful-feedback-popup-slice';
-import {sortReducer} from './slices/sort/slice/sort-slice';
+import {searchParamsReducer} from './slices/search-params/slice/search-params-slice';
 
 export const buildStore = (initialState?: StateSchema) => {
   const rootReducer: ReducersMapObject<StateSchema> = {
@@ -16,7 +16,7 @@ export const buildStore = (initialState?: StateSchema) => {
     review: reviewReducer,
     reviewPopup: reviewPopupReducer,
     gratefulFeedbackPopup: gratefulFeedbackPopupReducer,
-    sort: sortReducer,
+    searchParams: searchParamsReducer,
   };
   return configureStore<StateSchema>({
     reducer: rootReducer,
