@@ -63,6 +63,5 @@ export default function Filter(): JSX.Element {
   );
 }
 
-//TODO  on form reset
-// - reset css modifiers in FilterPrice FC
-// - reset query params in reducer
+//TODO  on form reset - reset query params in reducer
+//TODO remove unused modules and functions
