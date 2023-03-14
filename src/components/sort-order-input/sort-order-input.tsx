@@ -1,6 +1,5 @@
-import {InputHTMLAttributes, useLayoutEffect} from 'react';
+import {InputHTMLAttributes} from 'react';
 import {SortDirectionType} from '../../types/sort-types';
-import {useSearchParams} from 'react-router-dom';
 import {searchParamsActions} from '../../store/slices/search-params/slice/search-params-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {shallowEqual, useSelector} from 'react-redux';
@@ -18,18 +17,12 @@ interface ProductSortOrderInputProps extends InputHTMLAttributes<HTMLInputElemen
 export default function SortOrderInput(props: ProductSortOrderInputProps): JSX.Element {
   const {order, ...restProps} = props;
   const dispatch = useAppDispatch();
-  const [searchParams] = useSearchParams();
   const modifier = Direction[order] || '';
   const current = useSelector(getOrder, shallowEqual);
 
   const handleInputClick = () => {
     dispatch(searchParamsActions.setOrder(order));
   };
-
-  useLayoutEffect(() => {
-    const initial = searchParams.get('order') as SortDirectionType || '';
-    dispatch(searchParamsActions.setOrder(initial));
-  }, []);
 
   return (
     <div className={`catalog-sort__btn catalog-sort__btn--${modifier}`}>

@@ -3,10 +3,6 @@ import SortInput from '../sort-input/sort-input';
 
 export default function Sort(): JSX.Element {
 
-  /*const setupQueryParams = useCallback(
-    (params: SortParamsType) => setSearchParams(params),
-    [setSearchParams]);*/
-
   return (
     <div className={'catalog-sort'}>
       <form action="#">
