@@ -14,7 +14,7 @@ it('should render ProductSort FC', async () => {
     Action,
     ThunkDispatch<StateSchema, typeof axios, Action>>([thunk]);
   const initialState: DeepPartial<StateSchema> = {
-    sort: {sort: '', order: ''}
+    searchParams: {sort: '', order: '', priceLte: '', priceGte: ''}
   };
   const store = mockStore(initialState);
 

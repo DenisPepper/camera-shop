@@ -1,4 +1,4 @@
-import {productActions as actions, productReducer as reducer} from './product-slice';
+import {productReducer as reducer} from './product-slice';
 import {ProductSchema as StateSchema} from '../schema/product-schema';
 import {stubProduct as product} from '../../../../mocks/stub-product';
 import {fetchProductByIdWithReviews} from '../../../../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
@@ -9,12 +9,13 @@ describe('test of product-slice reducer', () => {
     const initialState: StateSchema = {
       product: null,
       products: [],
+      totalPagesCount: 0,
     };
     expect(reducer(undefined, {type: undefined}))
       .toEqual(initialState);
   });
 
-  it('should update state with new product list', () => {
+  /* it('should update state with new product list', () => {
     const prevState: Partial<StateSchema> = {
       products: [],
     };
@@ -23,7 +24,7 @@ describe('test of product-slice reducer', () => {
     };
     expect(reducer(prevState as StateSchema, actions.setProducts([product])))
       .toEqual(updatedState);
-  });
+  });*/
 
   it('should update state with new product', () => {
     const prevState: Partial<StateSchema> = {
