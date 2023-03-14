@@ -1,14 +1,6 @@
-import {SortDirectionType, SortType} from './sort-types';
-import {FilterPriceParams} from '../settings/settings';
+import {SearchParamsSchema} from '../store/slices/search-params/schema/search-params-schema';
 
-export interface QueryParamsType {
+export interface SearchParamsType {
   pageNumber?: number;
-  sorting?: {
-    sort?: SortType;
-    order?: SortDirectionType;
-  };
-  price?: {
-    [FilterPriceParams.GreaterThan]?: number;
-    [FilterPriceParams.LessThan]?: number;
-  };
+  searchParams?: Partial<SearchParamsSchema>;
 }
