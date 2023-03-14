@@ -19,7 +19,7 @@ export const searchParamsSlice = createSlice({
     },
     setOrder: (state, action: PayloadAction<SortDirectionType>) => {
       state.order = action.payload;
-      if (state.sort === '') {
+      if (state.order && state.sort === '') {
         state.sort = DEFAULT_SORT;
       }
     }
@@ -27,5 +27,5 @@ export const searchParamsSlice = createSlice({
 }
 );
 
-export const { actions: searchParamsActions } = searchParamsSlice;
-export const { reducer: searchParamsReducer } = searchParamsSlice;
+export const {actions: searchParamsActions} = searchParamsSlice;
+export const {reducer: searchParamsReducer} = searchParamsSlice;
