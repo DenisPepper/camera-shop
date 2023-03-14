@@ -1,8 +1,5 @@
-import {
-  FilterPriceParams as PriceParams,
-  MAX_PRODUCT_COUNT_ON_CATALOG_PAGE as PAGE_LIMIT,
-} from '../settings/settings';
-import {QueryParamsType} from '../types/search-params-types';
+import {MAX_PRODUCT_COUNT_ON_CATALOG_PAGE as PAGE_LIMIT} from '../settings/settings';
+import {SearchParamsType} from '../types/search-params-types';
 
 export const enum ServerUrl {
   PromoProduct = 'https://camera-shop.accelerator.pages.academy/promo',
@@ -12,8 +9,8 @@ export const enum ServerUrl {
 
 export const getStart = (pageNumber: number) => (pageNumber - 1) * PAGE_LIMIT;
 
-export const getURL = (args: QueryParamsType): string => {
-  const {pageNumber, sorting, price} = args;
+export const getUrlWithSearchParams = (args: SearchParamsType): string => {
+  const {pageNumber, searchParams: params} = args;
 
   let url = 'https://camera-shop.accelerator.pages.academy/cameras';
 
@@ -22,16 +19,12 @@ export const getURL = (args: QueryParamsType): string => {
     url = `${url}?_start=${start}&_limit=${PAGE_LIMIT}`;
   }
 
-  if (sorting) {
-    const {sort, order} = sorting;
-    url = sort ? `${url}&_sort=${sort}` : url;
-    url = order ? `${url}&_order=${order}` : url;
+  if (params?.sort) {
+    url = `${url}&_sort=${params?.sort}`;
   }
 
-  if (price) {
-    const {price_gte: gte, price_lte: lte} = price;
-    url = gte ? `${url}&${PriceParams.GreaterThan}=${gte}` : url;
-    url = lte ? `${url}&${PriceParams.LessThan}=${lte}` : url;
+  if (params?.order) {
+    url = `${url}&_order=${params?.order}`;
   }
 
   return url;
