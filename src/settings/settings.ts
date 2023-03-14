@@ -1,4 +1,4 @@
-import {SortOrderType, SortType} from '../types/sort-types';
+import {SortType} from '../types/sort-types';
 
 export const enum Path {
   Main ='/',
@@ -61,11 +61,3 @@ export const TEXTAREA_MIN_LENGTH = 5;
 export const DEFAULT_REVIEW_POPUP_VALUES = {userName: '', userPlus: '', userMinus: '', userComment: '', rate: '0'};
 
 export const DEFAULT_SORT: SortType = 'price';
-
-export const DEFAULT_SORT_DIRECTION: SortOrderType = 'asc';
-
-export const enum FilterPriceParams {
-  GreaterThan = 'price_gte',
-  LessThan = 'price_lte',
-}
-

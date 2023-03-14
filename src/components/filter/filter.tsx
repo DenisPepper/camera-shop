@@ -27,37 +27,19 @@ export default function Filter(): JSX.Element {
   return (
     <div className={'catalog__aside'}>
       <div className="catalog-filter">
-
         <form onReset={handleFilterReset}>
-
           <h2 className="visually-hidden">Фильтр</h2>
 
-          <FilterPrice
-            key={'FilterPrice'}
-            resetStylesHandlers={resetHandlersRef.current}
-          />
-
-          <FilterCategory
-            key={'FilterCategory'}
-            handleCategoryChange={handleCategoryChange}
-          />
-
-          <FilterGroup
-            key={'FilterGroup'}
-            disabledGroups={disabledGroups}
-          />
-
+          <FilterPrice key={'FilterPrice'} resetStylesHandlers={resetHandlersRef.current} />
+          <FilterCategory key={'FilterCategory'} handleCategoryChange={handleCategoryChange} />
+          <FilterGroup key={'FilterGroup'} disabledGroups={disabledGroups} />
           <FilterLevel key={'FilterLevel'}/>
 
-          <button
-            className="btn catalog-filter__reset-btn"
-            type="reset"
-          >
+          <button className="btn catalog-filter__reset-btn" type="reset" >
             Сбросить фильтры
           </button>
 
         </form>
-
       </div>
     </div>
   );

@@ -13,6 +13,8 @@ import {getUrlWithSearchParams} from '../../api/server-url';
 import {getSort} from '../../store/slices/search-params/selectors/get-sort/get-sort';
 import {getOrder} from '../../store/slices/search-params/selectors/get-order/get-order';
 import {SearchParamsSchema} from '../../store/slices/search-params/schema/search-params-schema';
+import {getMinPrice} from '../../store/slices/search-params/selectors/get-min-price/get-min-price';
+import {getMaxPrice} from '../../store/slices/search-params/selectors/get-max-price/get-max-price';
 
 const COUNT_WITHOUT_PAGINATION = 1;
 
@@ -26,6 +28,8 @@ export default function ProductListPage(): JSX.Element {
   const totalPagesCount = useSelector(getTotalPagesCount, shallowEqual);
   const sort = useSelector(getSort, shallowEqual);
   const order = useSelector(getOrder, shallowEqual);
+  const minPrice = useSelector(getMinPrice, shallowEqual);
+  const maxPrice = useSelector(getMaxPrice, shallowEqual);
 
   const setupSearchParams = useCallback((params: SearchParams) => {
     const updatedParams: {[key: string]: string} = {};
@@ -39,7 +43,7 @@ export default function ProductListPage(): JSX.Element {
 
   useEffect(() => {
     const searchParams: SearchParams = {
-      sort, order
+      sort, order, minPrice, maxPrice
     };
     const url: string = getUrlWithSearchParams({
       pageNumber: pageNumber,
@@ -47,7 +51,7 @@ export default function ProductListPage(): JSX.Element {
     });
     dispatch(fetchProducts({url}));
     setupSearchParams(searchParams);
-  }, [pageNumber, dispatch, sort, order, setupSearchParams]);
+  }, [dispatch, pageNumber, setupSearchParams, sort, order, minPrice, maxPrice]);
 
   return (
     <>

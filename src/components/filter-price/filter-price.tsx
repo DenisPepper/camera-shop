@@ -1,33 +1,30 @@
-import React, {Dispatch, SetStateAction, useLayoutEffect, useState} from 'react';
-import {FilterPriceParams} from '../../settings/settings';
+import React, {Dispatch, SetStateAction, useLayoutEffect, useRef, useState} from 'react';
 import {fetchMinMaxPrice} from '../../services/fetch-min-max-price/fetch-min-max-price';
-import {useSearchParams} from 'react-router-dom';
 import {debounce} from '../../lib/debounce/debounce';
-
-type PriceParamsType = {
-  [FilterPriceParams.GreaterThan]?: string;
-  [FilterPriceParams.LessThan]?: string;
-}
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
+import {searchParamsActions} from '../../store/slices/search-params/slice/search-params-slice';
+import {shallowEqual, useSelector} from 'react-redux';
+import {getMinPrice} from '../../store/slices/search-params/selectors/get-min-price/get-min-price';
+import {getMaxPrice} from '../../store/slices/search-params/selectors/get-max-price/get-max-price';
 
 interface FilterPriceProps {
   resetStylesHandlers: Dispatch<SetStateAction<string>>[];
 }
 
 export default function FilterPrice(props: FilterPriceProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const {resetStylesHandlers} = props;
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initialMinPrice: number = Number(searchParams.get(FilterPriceParams.GreaterThan)) || 0;
-  const initialMaxPrice: number = Number(searchParams.get(FilterPriceParams.LessThan)) || 0;
-  const [minPrice, setMinPrice] = useState<number>(initialMinPrice);
-  const [maxPrice, setMaxPrice] = useState<number>(initialMaxPrice);
+  const minPrice = Number(useSelector(getMinPrice, shallowEqual));
+  const maxPrice = Number(useSelector(getMaxPrice, shallowEqual));
   const [minCatalogPrice, setMinCatalogPrice] = useState<string>('');
   const [maxCatalogPrice, setMaxCatalogPrice] = useState<string>('');
   const [minModifier, setMinModifier] = useState('');
   const [maxModifier, setMaxModifier] = useState('');
+  const minRef = useRef<HTMLInputElement | null>(null);
+  const maxRef = useRef<HTMLInputElement | null>(null);
 
   const handleMinPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
     const value = Number(evt.target.value);
-    const params: PriceParamsType = {};
     let price = value;
 
     if (value && value < Number(minCatalogPrice)) {
@@ -39,23 +36,14 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     if (value <= 0) {
       price = 0;
     }
-    evt.target.value = price ? price.toString() : '';
-    setMinPrice(() => price);
-
-    if (maxPrice) {
-      params[FilterPriceParams.LessThan] = maxPrice.toString();
-    }
-    if (price) {
-      params[FilterPriceParams.GreaterThan] = value.toString();
-    }
-    setSearchParams(params);
-
+    // eslint-disable-next-line no-console
+    console.log(price);
+    dispatch(searchParamsActions.setMinPrice(price === 0 ? '' : price.toString()));
     setupMinPriceStyles(!evt.target.value ? evt.target.value : price.toString());
   };
 
   const handleMaxPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
     const value = Number(evt.target.value);
-    const params: PriceParamsType = {};
     let price = value;
 
     if (value && value > Number(maxCatalogPrice)) {
@@ -67,17 +55,7 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     if (value <= 0) {
       price = 0;
     }
-    evt.target.value = price ? price.toString() : '';
-    setMaxPrice(() => price);
-
-    if (price) {
-      params[FilterPriceParams.LessThan] = value.toString();
-    }
-    if (minPrice) {
-      params[FilterPriceParams.GreaterThan] = minPrice.toString();
-    }
-    setSearchParams(params);
-
+    dispatch(searchParamsActions.setMaxPrice(price === 0 ? '' : price.toString()));
     setupMaxPriceStyles(!evt.target.value ? evt.target.value : price.toString());
   };
 
@@ -136,6 +114,11 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     resetStylesHandlers.push(setMinModifier);
   }, []);
 
+  useLayoutEffect(() => {
+    minRef.current && (minRef.current.value = minPrice ? minPrice.toString() : '');
+    maxRef.current && (maxRef.current.value = maxPrice ? maxPrice.toString() : '');
+  }, [minPrice, maxPrice]);
+
   return (
     <fieldset className="catalog-filter__block">
       <legend className="title title--h5">Цена, ₽</legend>
@@ -144,6 +127,7 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
         <div className={`custom-input ${minModifier}`}>
           <label>
             <input
+              ref={minRef}
               type="number"
               name="price"
               placeholder={minCatalogPrice}
@@ -156,6 +140,7 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
         <div className={`custom-input ${maxModifier}`}>
           <label>
             <input
+              ref={maxRef}
               type="number"
               name="priceUp"
               placeholder={maxCatalogPrice}

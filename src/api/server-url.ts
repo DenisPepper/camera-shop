@@ -27,5 +27,13 @@ export const getUrlWithSearchParams = (args: SearchParamsType): string => {
     url = `${url}&_order=${params?.order}`;
   }
 
+  if (params?.minPrice) {
+    url = `${url}&price_gte=${params?.minPrice}`;
+  }
+
+  if (params?.maxPrice) {
+    url = `${url}&price_lte=${params?.maxPrice}`;
+  }
+
   return url;
 };
