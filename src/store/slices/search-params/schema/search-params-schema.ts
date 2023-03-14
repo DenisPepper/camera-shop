@@ -1,8 +1,8 @@
-import {SortDirectionType, SortType} from '../../../../types/sort-types';
+import {SortOrderType, SortType} from '../../../../types/sort-types';
 
 export interface SearchParamsSchema {
   sort: SortType;
-  order: SortDirectionType;
+  order: SortOrderType;
   priceGte: string;
   priceLte: string;
 }

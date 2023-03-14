@@ -1,17 +1,17 @@
 import {InputHTMLAttributes} from 'react';
-import {SortDirectionType} from '../../types/sort-types';
+import {SortOrderType} from '../../types/sort-types';
 import {searchParamsActions} from '../../store/slices/search-params/slice/search-params-slice';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {shallowEqual, useSelector} from 'react-redux';
 import {getOrder} from '../../store/slices/search-params/selectors/get-order/get-order';
 
-const Direction: Partial<Record<SortDirectionType, string>> = {
+const Direction: Partial<Record<SortOrderType, string>> = {
   asc: 'up',
   desc: 'down',
 };
 
 interface ProductSortOrderInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  order: Exclude<SortDirectionType, ''>;
+  order: Exclude<SortOrderType, ''>;
 }
 
 export default function SortOrderInput(props: ProductSortOrderInputProps): JSX.Element {

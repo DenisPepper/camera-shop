@@ -5,12 +5,6 @@ export type SortInputType = {
   label: string;
 }
 
-/*export type SortParamsType = {
-  sort: SortType;
-  order: SortDirectionType;
-}*/
-
-// TODO rename as SortOrderType
-export type SortDirectionType = 'asc' | 'desc' | '';
+export type SortOrderType = 'asc' | 'desc' | '';
 
 

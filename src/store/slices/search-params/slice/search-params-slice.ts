@@ -1,6 +1,6 @@
 import {SearchParamsSchema} from '../schema/search-params-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {SortDirectionType, SortType} from '../../../../types/sort-types';
+import {SortOrderType, SortType} from '../../../../types/sort-types';
 import {DEFAULT_SORT} from '../../../../settings/settings';
 
 const initialState: SearchParamsSchema = {
@@ -17,7 +17,7 @@ export const searchParamsSlice = createSlice({
     setSort: (state, action: PayloadAction<SortType>) => {
       state.sort = action.payload;
     },
-    setOrder: (state, action: PayloadAction<SortDirectionType>) => {
+    setOrder: (state, action: PayloadAction<SortOrderType>) => {
       state.order = action.payload;
       if (state.order && state.sort === '') {
         state.sort = DEFAULT_SORT;
