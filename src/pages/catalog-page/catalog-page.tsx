@@ -1,10 +1,14 @@
 import {Outlet} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {fetchPromoProduct} from '../../services/fetch-promo-product/fetch-promo-product';
+import {useLayoutEffect} from 'react';
 
 export default function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  dispatch(fetchPromoProduct());
+
+  useLayoutEffect(() => {
+    dispatch(fetchPromoProduct());
+  }, [dispatch]);
 
   return (
     <section className={'catalog'}>
