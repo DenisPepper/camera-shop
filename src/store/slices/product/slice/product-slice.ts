@@ -1,25 +1,30 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {ProductSchema} from '../schema/product-schema';
 import {fetchProductByIdWithReviews} from '../../../../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
-import {ProductType} from '../../../../types/product-type';
+import {fetchProducts} from '../../../../services/fetch-products/fetch-products';
 
 const initialState: ProductSchema = {
   product: null,
   products: [],
+  totalPagesCount: 0,
 };
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {
-    setProducts: (state, action: PayloadAction<ProductType[]>) => {
-      state.products = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchProductByIdWithReviews.fulfilled, (state, action) => {
         state.product = action.payload.product;
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.products = action.payload.products;
+        state.totalPagesCount = action.payload.totalPagesCount;
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.products = [];
+        state.totalPagesCount = 0;
       });
   }
 });
