@@ -3,15 +3,14 @@ import HeaderSearchForm from '../header-search-form/header-search-form';
 import HeaderCartLink from '../header-cart-link/header-cart-link';
 import {Path} from '../../settings/settings';
 import Logo from '../logo/logo';
-import {Link} from 'react-router-dom';
 
 export default function Header(): JSX.Element {
   return (
     <header className={'header'} id={'header'} data-testid={'header'}>
       <div className={'container'}>
-        <Link className="header__logo" to={Path.Main} aria-label="Переход на главную">
+        <a className="header__logo" href={Path.Main} aria-label="Переход на главную">
           <Logo xlinkHref={'#icon-logo'}/>
-        </Link>
+        </a>
         <HeaderNav/>
         <HeaderSearchForm/>
         <HeaderCartLink/>
