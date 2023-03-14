@@ -1,19 +1,35 @@
-import {InputHTMLAttributes} from 'react';
-import {SortModifierType} from '../../types/sort-types';
+import {InputHTMLAttributes, useLayoutEffect} from 'react';
+import {SortDirectionType} from '../../types/sort-types';
+import {useSearchParams} from 'react-router-dom';
+import {searchParamsActions} from '../../store/slices/search-params/slice/search-params-slice';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
+import {shallowEqual, useSelector} from 'react-redux';
+import {getOrder} from '../../store/slices/search-params/selectors/get-order/get-order';
 
-//type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'aria-label'>
+const Direction: Partial<Record<SortDirectionType, string>> = {
+  asc: 'up',
+  desc: 'down',
+};
 
 interface ProductSortOrderInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  modifier: SortModifierType;
-  handleOrderInputClick: (modifier: SortModifierType) => void;
+  order: Exclude<SortDirectionType, ''>;
 }
 
 export default function SortOrderInput(props: ProductSortOrderInputProps): JSX.Element {
-  const {modifier, handleOrderInputClick, ...restProps} = props;
+  const {order, ...restProps} = props;
+  const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
+  const modifier = Direction[order] || '';
+  const current = useSelector(getOrder, shallowEqual);
 
   const handleInputClick = () => {
-    handleOrderInputClick(modifier);
+    dispatch(searchParamsActions.setOrder(order));
   };
+
+  useLayoutEffect(() => {
+    const initial = searchParams.get('order') as SortDirectionType || '';
+    dispatch(searchParamsActions.setOrder(initial));
+  }, []);
 
   return (
     <div className={`catalog-sort__btn catalog-sort__btn--${modifier}`}>
@@ -22,6 +38,7 @@ export default function SortOrderInput(props: ProductSortOrderInputProps): JSX.E
         id={modifier}
         name="sort-icon"
         onChange={handleInputClick}
+        checked={order === current}
         {...restProps}
       />
       <label htmlFor={modifier}>
