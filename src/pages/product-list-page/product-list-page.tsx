@@ -1,6 +1,6 @@
 import Pagination from '../../components/pagination/pagination';
-import React, {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import React, {useCallback, useEffect} from 'react';
+import {useParams, useSearchParams} from 'react-router-dom';
 import {DECIMAL, DEFAULT_PAGE_NUMBER} from '../../settings/settings';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import ProductList from '../../components/product-list/product-list';
@@ -9,30 +9,45 @@ import Filter from '../../components/filter/filter';
 import {shallowEqual, useSelector} from 'react-redux';
 import {getTotalPagesCount} from '../../store/slices/product/selectors/total-pages-count/total-pages-count';
 import {fetchProducts} from '../../services/fetch-products/fetch-products';
-import {getURL} from '../../api/server-url';
+import {getUrlWithSearchParams} from '../../api/server-url';
+import {getSort} from '../../store/slices/search-params/selectors/get-sort/get-sort';
+import {getOrder} from '../../store/slices/search-params/selectors/get-order/get-order';
+import {SearchParamsSchema} from '../../store/slices/search-params/schema/search-params-schema';
 
 const COUNT_WITHOUT_PAGINATION = 1;
 
+type SearchParams = Partial<SearchParamsSchema>;
+
 export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const totalPagesCount = useSelector(getTotalPagesCount, shallowEqual);
-
+  const [, setSearchParams] = useSearchParams();
   const {page} = useParams();
   const pageNumber = parseInt(page || DEFAULT_PAGE_NUMBER, DECIMAL);
-  /*
-  const [searchParams] = useSearchParams();
-  const sort = searchParams.get('sort') as SortType || '';
-  const order = searchParams.get('order') as SortDirectionType || '';
-  const priceGte = Number(searchParams.get(FilterPriceParams.GreaterThan)) || 0;
-  const priceLte = Number(searchParams.get(FilterPriceParams.LessThan)) || 0;
-  */
+  const totalPagesCount = useSelector(getTotalPagesCount, shallowEqual);
+  const sort = useSelector(getSort, shallowEqual);
+  const order = useSelector(getOrder, shallowEqual);
+
+  const setupSearchParams = useCallback((params: SearchParams) => {
+    const updatedParams: {[key: string]: string} = {};
+    Object.entries(params).forEach(([key, value]) => {
+      if (value) {
+        updatedParams[key] = value;
+      }
+    });
+    setSearchParams(updatedParams);
+  }, [setSearchParams]);
 
   useEffect(() => {
-    const url: string = getURL({
+    const searchParams: SearchParams = {
+      sort, order
+    };
+    const url: string = getUrlWithSearchParams({
       pageNumber: pageNumber,
+      searchParams
     });
     dispatch(fetchProducts({url}));
-  }, [pageNumber, dispatch]);
+    setupSearchParams(searchParams);
+  }, [pageNumber, dispatch, sort, order, setupSearchParams]);
 
   return (
     <>
