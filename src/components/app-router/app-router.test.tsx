@@ -15,7 +15,7 @@ describe('test AppRouter FC', () => {
     ThunkDispatch<StateSchema, typeof axios, Action>>([thunk]);
   const initialState: DeepPartial<StateSchema> = {
     promo: {product: null, isLoaded: false},
-    searchParams: {sort: '', order: '', priceGte: '', priceLte: ''},
+    searchParams: {sort: '', order: '', minPrice: '', maxPrice: ''},
   };
   const store = mockStore(initialState);
 
