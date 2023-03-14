@@ -2,12 +2,14 @@ import {SearchParamsSchema} from '../schema/search-params-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {SortOrderType, SortType} from '../../../../types/sort-types';
 import {DEFAULT_SORT} from '../../../../settings/settings';
+import {CategoryType} from '../../../../types/filter-types';
 
 const initialState: SearchParamsSchema = {
   sort: '',
   order: '',
   minPrice: '',
   maxPrice: '',
+  category: '',
 };
 
 export const searchParamsSlice = createSlice({
@@ -31,6 +33,10 @@ export const searchParamsSlice = createSlice({
 
     setMaxPrice: (state, action: PayloadAction<string>) => {
       state.maxPrice = action.payload;
+    },
+
+    setCategory: (state, action: PayloadAction<CategoryType>) => {
+      state.category = action.payload;
     },
   },
 }

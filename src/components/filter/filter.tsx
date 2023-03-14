@@ -2,13 +2,14 @@ import FilterPrice from '../filter-price/filter-price';
 import FilterCategory from '../filter-category/filter-category';
 import FilterGroup from '../filter-group/filter-group';
 import FilterLevel from '../filter-level/filter-level';
-import {ProductCategory, ProductGroup} from '../../types/filter-types';
+import {ProductGroup} from '../../types/filter-types';
 import {Dispatch, SetStateAction, useRef, useState} from 'react';
 
 export default function Filter(): JSX.Element {
   const [disabledGroups, setDisabledGroups] = useState<ProductGroup[]>([]);
   const resetHandlersRef = useRef<Dispatch<SetStateAction<string>>[]>([]);
 
+  /*
   const handleCategoryChange = (category: ProductCategory) => {
     let groups: ProductGroup[] = [];
     switch (category) {
@@ -18,6 +19,7 @@ export default function Filter(): JSX.Element {
     }
     setDisabledGroups(groups);
   };
+*/
 
   const handleFilterReset = () => {
     setDisabledGroups([]);
@@ -31,7 +33,7 @@ export default function Filter(): JSX.Element {
           <h2 className="visually-hidden">Фильтр</h2>
 
           <FilterPrice key={'FilterPrice'} resetStylesHandlers={resetHandlersRef.current} />
-          <FilterCategory key={'FilterCategory'} handleCategoryChange={handleCategoryChange} />
+          <FilterCategory key={'FilterCategory'} />
           <FilterGroup key={'FilterGroup'} disabledGroups={disabledGroups} />
           <FilterLevel key={'FilterLevel'}/>
 

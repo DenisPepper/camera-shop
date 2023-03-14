@@ -1,21 +1,20 @@
-import {ProductCategory} from '../../types/filter-types';
-
-const categories: Record<ProductCategory, string> = {
-  videocamera: 'Видеокамера',
-  photocamera: 'Фотокамера',
-};
+import {ProductCategory, categories} from '../../types/filter-types';
+import {getCategory} from '../../store/slices/search-params/selectors/get-category/get-category';
+import {shallowEqual, useSelector} from 'react-redux';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
+import {searchParamsActions as actions} from '../../store/slices/search-params/slice/search-params-slice';
 
 interface FilterCategoryInputProps {
   category: ProductCategory;
-  isChecked: boolean;
-  handleCategoryInput: (categoty: ProductCategory) => void;
 }
 
 export default function FilterCategoryInput(props: FilterCategoryInputProps): JSX.Element {
-  const {category, isChecked, handleCategoryInput} = props;
+  const {category} = props;
+  const dispatch = useAppDispatch();
+  const current = useSelector(getCategory, shallowEqual);
 
   const handleInputChange = () => {
-    handleCategoryInput(category);
+    dispatch(actions.setCategory(categories[category]));
   };
 
   return (
@@ -24,7 +23,7 @@ export default function FilterCategoryInput(props: FilterCategoryInputProps): JS
         <input
           type="checkbox"
           name={category}
-          checked={isChecked}
+          checked={categories[category] === current}
           onChange={handleInputChange}
         />
         <span className="custom-checkbox__icon"></span>

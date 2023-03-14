@@ -1,5 +1,5 @@
 import Pagination from '../../components/pagination/pagination';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useLayoutEffect} from 'react';
 import {useParams, useSearchParams} from 'react-router-dom';
 import {DECIMAL, DEFAULT_PAGE_NUMBER} from '../../settings/settings';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
@@ -15,6 +15,7 @@ import {getOrder} from '../../store/slices/search-params/selectors/get-order/get
 import {SearchParamsSchema} from '../../store/slices/search-params/schema/search-params-schema';
 import {getMinPrice} from '../../store/slices/search-params/selectors/get-min-price/get-min-price';
 import {getMaxPrice} from '../../store/slices/search-params/selectors/get-max-price/get-max-price';
+import {getCategory} from '../../store/slices/search-params/selectors/get-category/get-category';
 
 const COUNT_WITHOUT_PAGINATION = 1;
 
@@ -30,9 +31,10 @@ export default function ProductListPage(): JSX.Element {
   const order = useSelector(getOrder, shallowEqual);
   const minPrice = useSelector(getMinPrice, shallowEqual);
   const maxPrice = useSelector(getMaxPrice, shallowEqual);
+  const category = useSelector(getCategory, shallowEqual);
 
   const setupSearchParams = useCallback((params: SearchParams) => {
-    const updatedParams: {[key: string]: string} = {};
+    const updatedParams: { [key: string]: string } = {};
     Object.entries(params).forEach(([key, value]) => {
       if (value) {
         updatedParams[key] = value;
@@ -41,17 +43,17 @@ export default function ProductListPage(): JSX.Element {
     setSearchParams(updatedParams);
   }, [setSearchParams]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const searchParams: SearchParams = {
-      sort, order, minPrice, maxPrice
+      sort, order, minPrice, maxPrice, category
     };
     const url: string = getUrlWithSearchParams({
-      pageNumber: pageNumber,
-      searchParams
+      pageNumber,
+      searchParams,
     });
     dispatch(fetchProducts({url}));
     setupSearchParams(searchParams);
-  }, [dispatch, pageNumber, setupSearchParams, sort, order, minPrice, maxPrice]);
+  }, [dispatch, pageNumber, setupSearchParams, sort, order, minPrice, maxPrice, category]);
 
   return (
     <>
