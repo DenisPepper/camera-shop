@@ -2,7 +2,7 @@ import {SearchParamsSchema} from '../schema/search-params-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {SortOrderType, SortType} from '../../../../types/sort-types';
 import {DEFAULT_SORT} from '../../../../settings/settings';
-import {CategoryType, GroupType} from '../../../../types/filter-types';
+import {CategoryType, GroupType, LevelType} from '../../../../types/filter-types';
 
 const initialState: SearchParamsSchema = {
   sort: '',
@@ -12,6 +12,7 @@ const initialState: SearchParamsSchema = {
   category: '',
   groups: [],
   bannedGroups: [],
+  levels: [],
 };
 
 export const searchParamsSlice = createSlice({
@@ -74,6 +75,14 @@ export const searchParamsSlice = createSlice({
 
     removeBannedGroups: (state) => {
       state.bannedGroups = [];
+    },
+
+    addLevel: (state, action: PayloadAction<LevelType>) => {
+      state.levels = [...state.levels, action.payload];
+    },
+
+    removeLevel: (state, action: PayloadAction<LevelType>) => {
+      state.levels = state.levels.filter((level) => level !== action.payload);
     },
   },
 }

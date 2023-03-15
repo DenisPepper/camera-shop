@@ -9,7 +9,7 @@ export const categories: Record<ProductCategory, CategoryType> = {
 
 export type ProductGroup = 'digital' | 'film' | 'snapshot' | 'collection';
 
-export type GroupType = 'Коллекционная' | 'Цифровая' | 'Моментальная' | 'Плёночная' | '';
+export type GroupType = 'Коллекционная' | 'Цифровая' | 'Моментальная' | 'Плёночная';
 
 export const groups: Record<ProductGroup, GroupType> = {
   collection: 'Коллекционная',
@@ -19,3 +19,11 @@ export const groups: Record<ProductGroup, GroupType> = {
 };
 
 export type ProductLevel = 'zero' | 'non-professional' | 'professional';
+
+export type LevelType = 'Нулевой' | 'Профессиональный' | 'Любительский';
+
+export const levels: Record<ProductLevel, LevelType> = {
+  zero: 'Нулевой',
+  professional: 'Профессиональный',
+  'non-professional': 'Любительский',
+};

@@ -1,11 +1,5 @@
-import {ProductLevel} from '../../types/filter-types';
+import {levels, ProductLevel} from '../../types/filter-types';
 
-
-const levels: Record<ProductLevel, string> = {
-  zero: 'Нулевой',
-  professional: 'Профессиональный',
-  'non-professional': 'Любительский',
-};
 
 interface FilterLevelInputProps {
   level: ProductLevel;

@@ -1,5 +1,5 @@
 import {SortOrderType, SortType} from '../../../../types/sort-types';
-import {CategoryType, GroupType} from '../../../../types/filter-types';
+import {CategoryType, GroupType, LevelType} from '../../../../types/filter-types';
 
 export interface SearchParamsSchema {
   sort: SortType;
@@ -9,4 +9,5 @@ export interface SearchParamsSchema {
   category: CategoryType;
   groups: GroupType[];
   bannedGroups: GroupType[];
+  levels: LevelType[];
 }

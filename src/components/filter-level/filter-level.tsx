@@ -5,8 +5,6 @@ import FilterLevelInput from '../filter-level-input/filter-level-input';
 export default function FilterLevel(): JSX.Element {
 
   const handleLevelChange = (level: ProductLevel) => {
-    // eslint-disable-next-line no-console
-    console.log();
   };
 
   return (
