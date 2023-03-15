@@ -17,6 +17,7 @@ import {getMinPrice} from '../../store/slices/search-params/selectors/get-min-pr
 import {getMaxPrice} from '../../store/slices/search-params/selectors/get-max-price/get-max-price';
 import {getCategory} from '../../store/slices/search-params/selectors/get-category/get-category';
 import {getGroups} from '../../store/slices/search-params/selectors/get-groups/get-groups';
+import {getLevels} from '../../store/slices/search-params/selectors/get-levels/get-levels';
 
 const COUNT_WITHOUT_PAGINATION = 1;
 
@@ -34,6 +35,7 @@ export default function ProductListPage(): JSX.Element {
   const maxPrice = useSelector(getMaxPrice, shallowEqual);
   const category = useSelector(getCategory, shallowEqual);
   const groups = useSelector(getGroups, shallowEqual);
+  const levels = useSelector(getLevels, shallowEqual);
 
   const setupSearchParams = useCallback((params: SearchParams) => {
     const updatedParams: { [key: string]: string | string[] } = {};
@@ -47,7 +49,7 @@ export default function ProductListPage(): JSX.Element {
 
   useLayoutEffect(() => {
     const searchParams: SearchParams = {
-      sort, order, minPrice, maxPrice, category, groups
+      sort, order, minPrice, maxPrice, category, groups, levels
     };
     const url: string = getUrlWithSearchParams({
       pageNumber,
@@ -55,7 +57,7 @@ export default function ProductListPage(): JSX.Element {
     });
     dispatch(fetchProducts({url}));
     setupSearchParams(searchParams);
-  }, [dispatch, pageNumber, setupSearchParams, sort, order, minPrice, maxPrice, category, groups]);
+  }, [dispatch, pageNumber, setupSearchParams, sort, order, minPrice, maxPrice, category, groups, levels]);
 
   return (
     <>

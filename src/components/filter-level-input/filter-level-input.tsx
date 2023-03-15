@@ -1,16 +1,16 @@
-import {levels, ProductLevel} from '../../types/filter-types';
-
+import {levels, LevelType, ProductLevel} from '../../types/filter-types';
+import React from 'react';
 
 interface FilterLevelInputProps {
   level: ProductLevel;
-  handleLevelChange: (level: ProductLevel) => void;
+  handleLevelChange: (level: LevelType, checked: boolean) => void;
 }
 
 export default function FilterLevelInput(props: FilterLevelInputProps): JSX.Element {
   const {level, handleLevelChange} = props;
 
-  const handleInputChange = () => {
-    handleLevelChange(level);
+  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    handleLevelChange(levels[level], evt.target.checked);
   };
 
   return (

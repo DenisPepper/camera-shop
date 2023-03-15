@@ -39,8 +39,12 @@ export const getUrlWithSearchParams = (args: SearchParamsType): string => {
     url = `${url}&category=${params?.category}`;
   }
 
-  if (params?.groups && params?.groups.length > 0) {
+  if (params?.groups?.length) {
     url = params.groups.reduce((acc, group) => `${acc}&type=${group}`, url);
+  }
+
+  if(params?.levels?.length) {
+    url = params.levels.reduce((acc, level) => `${acc}&level=${level}`, url);
   }
 
   return url;
