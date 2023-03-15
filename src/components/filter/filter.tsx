@@ -3,12 +3,24 @@ import FilterCategory from '../filter-category/filter-category';
 import FilterGroup from '../filter-group/filter-group';
 import FilterLevel from '../filter-level/filter-level';
 import {Dispatch, SetStateAction, useRef} from 'react';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
+import {searchParamsActions as actions} from '../../store/slices/search-params/slice/search-params-slice';
 
 export default function Filter(): JSX.Element {
   const resetHandlersRef = useRef<Dispatch<SetStateAction<string>>[]>([]);
+  const dispatch = useAppDispatch();
+
+  const resetStyles = () => {
+    resetHandlersRef.current?.forEach((resetStyleHandler) => resetStyleHandler(''));
+  };
+
+  const clearAllFilters = () => {
+    dispatch(actions.clearAllFilters());
+  };
 
   const handleFilterReset = () => {
-    resetHandlersRef.current?.forEach((resetStyleHandler) => resetStyleHandler(''));
+    resetStyles();
+    clearAllFilters();
   };
 
   return (
@@ -31,6 +43,3 @@ export default function Filter(): JSX.Element {
     </div>
   );
 }
-
-//TODO  on form reset - reset query params in reducer
-//TODO remove unused modules and functions

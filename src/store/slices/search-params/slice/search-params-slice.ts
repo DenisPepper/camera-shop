@@ -84,6 +84,15 @@ export const searchParamsSlice = createSlice({
     removeLevel: (state, action: PayloadAction<LevelType>) => {
       state.levels = state.levels.filter((level) => level !== action.payload);
     },
+
+    clearAllFilters: (state) => {
+      state.minPrice = '';
+      state.maxPrice = '';
+      state.category = '';
+      state.groups = [];
+      state.bannedGroups = [];
+      state.levels = [];
+    }
   },
 }
 );
