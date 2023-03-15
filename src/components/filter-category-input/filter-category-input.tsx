@@ -1,40 +1,28 @@
-import {ProductCategory, categories} from '../../types/filter-types';
-import {getCategory} from '../../store/slices/search-params/selectors/get-category/get-category';
-import {shallowEqual, useSelector} from 'react-redux';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
-import {searchParamsActions as actions} from '../../store/slices/search-params/slice/search-params-slice';
+import {ProductCategory, categories, CategoryType} from '../../types/filter-types';
+import React, {forwardRef} from 'react';
 
 interface FilterCategoryInputProps {
   category: ProductCategory;
+  handleCategoryChange: (category: CategoryType, checked: boolean) => void;
 }
 
-export default function FilterCategoryInput(props: FilterCategoryInputProps): JSX.Element {
-  const {category} = props;
-  const dispatch = useAppDispatch();
-  const current = useSelector(getCategory, shallowEqual);
+const FilterCategoryInput = forwardRef<HTMLInputElement, FilterCategoryInputProps>
+((props, ref) => {
+  const {category, handleCategoryChange} = props;
 
-  const handleInputChange = () => {
-    dispatch(actions.setCategory(categories[category]));
-    if (category === 'videocamera') {
-      dispatch(actions.setBannedGroups(['Моментальная', 'Плёночная']));
-      dispatch(actions.removeGroups(['Моментальная', 'Плёночная']));
-    } else {
-      dispatch(actions.setBannedGroups([]));
-    }
+  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    handleCategoryChange(categories[category], evt.currentTarget.checked);
   };
 
   return (
-    <div className="custom-checkbox catalog-filter__item">
-      <label>
-        <input
-          type="checkbox"
-          name={category}
-          checked={categories[category] === current}
-          onChange={handleInputChange}
-        />
-        <span className="custom-checkbox__icon"></span>
-        <span className="custom-checkbox__label">{categories[category]}</span>
-      </label>
-    </div>
+    <input
+      ref={ref}
+      type="checkbox"
+      name={category}
+      onChange={handleInputChange}
+    />
   );
-}
+});
+
+FilterCategoryInput.displayName = 'FilterCategoryInput';
+export default FilterCategoryInput;

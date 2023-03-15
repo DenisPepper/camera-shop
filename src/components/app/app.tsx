@@ -4,8 +4,10 @@ import {useSearchParams} from 'react-router-dom';
 import {SortOrderType, SortType} from '../../types/sort-types';
 import {searchParamsActions as actions} from '../../store/slices/search-params/slice/search-params-slice';
 import {CategoryType, GroupType} from '../../types/filter-types';
+import {useState} from 'react';
 
 export function App(): JSX.Element {
+  const [useInitialParams, setUseInitialParams] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
   const sort: SortType = searchParams.get('sort') as SortType || '';
@@ -13,16 +15,20 @@ export function App(): JSX.Element {
   const minPrice: string = searchParams.get('minPrice') || '';
   const maxPrice: string = searchParams.get('maxPrice') || '';
   const category: CategoryType = searchParams.get('category') as CategoryType || '';
-  const groups: GroupType[] = searchParams.getAll('group') as GroupType[] || [];
+  const groups: GroupType[] = searchParams.getAll('groups') as GroupType[] || [];
 
-  !!groups && dispatch(actions.setGroups(groups));
-  !!category && dispatch(actions.setCategory(category));
-  !!sort && dispatch(actions.setSort(sort));
-  !!order && dispatch(actions.setOrder(order));
-  !!minPrice && dispatch(actions.setMinPrice(minPrice));
-  !!maxPrice && dispatch(actions.setMaxPrice(maxPrice));
+  if (useInitialParams) {
+    groups.length > 0 && dispatch(actions.addGroups(groups));
+    !!category && dispatch(actions.setCategory(category));
+    !!sort && dispatch(actions.setSort(sort));
+    !!order && dispatch(actions.setOrder(order));
+    !!minPrice && dispatch(actions.setMinPrice(minPrice));
+    !!maxPrice && dispatch(actions.setMaxPrice(maxPrice));
+    setUseInitialParams(false);
+  }
 
-  return (
-    <AppRouter/>
-  );
+  return useInitialParams ?
+    <div className={'wrapper'} data-testid={'empty-app-layout'}/>
+    :
+    <AppRouter/>;
 }

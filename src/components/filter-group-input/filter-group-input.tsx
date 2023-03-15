@@ -3,7 +3,7 @@ import {shallowEqual, useSelector} from 'react-redux';
 import {getBannedGroups} from '../../store/slices/search-params/selectors/get-banned-groups/get-banned-groups';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {searchParamsActions as actions} from '../../store/slices/search-params/slice/search-params-slice';
-import {getGroups} from '../../store/slices/search-params/selectors/get-groups/get-groups';
+import React, {useLayoutEffect, useRef} from 'react';
 
 interface FilterGroupInputProps {
   group: ProductGroup;
@@ -13,21 +13,31 @@ export default function FilterGroupInput(props: FilterGroupInputProps): JSX.Elem
   const {group} = props;
   const dispatch = useAppDispatch();
   const banned = useSelector(getBannedGroups, shallowEqual).find((bannedGroup) => groups[group] === bannedGroup);
-  const current = useSelector(getGroups, shallowEqual).find((currentGroup) => groups[group] === currentGroup);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleInputChange = () => {
-    dispatch(actions.setGroups([groups[group]]));
+  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    if (evt.target.checked) {
+      dispatch(actions.addGroup(groups[group]));
+    } else {
+      dispatch(actions.removeGroup(groups[group]));
+    }
   };
+
+  useLayoutEffect(() => {
+    if (inputRef.current && !!banned) {
+      inputRef.current.checked = false;
+    }
+  }, [banned]);
 
   return (
     <div className="custom-checkbox catalog-filter__item">
       <label>
         <input
+          ref={inputRef}
           type="checkbox"
-          checked={!!current && current !== banned}
           name={group}
-          disabled={!!banned}
           onChange={handleInputChange}
+          disabled={!!banned}
         />
         <span className="custom-checkbox__icon"></span>
         <span className="custom-checkbox__label">{groups[group]}</span>
@@ -35,3 +45,5 @@ export default function FilterGroupInput(props: FilterGroupInputProps): JSX.Elem
     </div>
   );
 }
+//checked={!!current && current !== banned}
+

@@ -41,7 +41,19 @@ export const searchParamsSlice = createSlice({
       state.category = action.payload;
     },
 
-    setGroups: (state, action: PayloadAction<GroupType[]>) => {
+    removeCategory: (state) => {
+      state.category = '';
+    },
+
+    addGroup: (state, action: PayloadAction<GroupType>) => {
+      state.groups = [...state.groups, action.payload];
+    },
+
+    removeGroup: (state, action: PayloadAction<GroupType>) => {
+      state.groups = state.groups.filter((group) => group !== action.payload);
+    },
+
+    addGroups: (state, action: PayloadAction<GroupType[]>) => {
       state.groups = [...state.groups, ...action.payload];
     },
 
@@ -51,12 +63,17 @@ export const searchParamsSlice = createSlice({
         .join(' ')
         .replace(new RegExp(pattern, 'gi'), '')
         .trim()
-        .split(' ');
+        .split(' ')
+        .filter((group) => group.length > 0);
       state.groups = groups as GroupType[];
     },
 
-    setBannedGroups: (state, action: PayloadAction<GroupType[]>) => {
+    addBannedGroups: (state, action: PayloadAction<GroupType[]>) => {
       state.bannedGroups = action.payload;
+    },
+
+    removeBannedGroups: (state) => {
+      state.bannedGroups = [];
     },
   },
 }
