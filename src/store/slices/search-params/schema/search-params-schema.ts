@@ -1,5 +1,5 @@
 import {SortOrderType, SortType} from '../../../../types/sort-types';
-import {CategoryType} from '../../../../types/filter-types';
+import {CategoryType, GroupType} from '../../../../types/filter-types';
 
 export interface SearchParamsSchema {
   sort: SortType;
@@ -7,4 +7,6 @@ export interface SearchParamsSchema {
   minPrice: string;
   maxPrice: string;
   category: CategoryType;
+  groups: GroupType[];
+  bannedGroups: GroupType[];
 }

@@ -16,10 +16,11 @@ import {SearchParamsSchema} from '../../store/slices/search-params/schema/search
 import {getMinPrice} from '../../store/slices/search-params/selectors/get-min-price/get-min-price';
 import {getMaxPrice} from '../../store/slices/search-params/selectors/get-max-price/get-max-price';
 import {getCategory} from '../../store/slices/search-params/selectors/get-category/get-category';
+import {getGroups} from '../../store/slices/search-params/selectors/get-groups/get-groups';
 
 const COUNT_WITHOUT_PAGINATION = 1;
 
-type SearchParams = Partial<SearchParamsSchema>;
+type SearchParams = Partial<Omit<SearchParamsSchema, 'bannedGroups'>>;
 
 export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,9 +33,10 @@ export default function ProductListPage(): JSX.Element {
   const minPrice = useSelector(getMinPrice, shallowEqual);
   const maxPrice = useSelector(getMaxPrice, shallowEqual);
   const category = useSelector(getCategory, shallowEqual);
+  const groups = useSelector(getGroups, shallowEqual);
 
   const setupSearchParams = useCallback((params: SearchParams) => {
-    const updatedParams: { [key: string]: string } = {};
+    const updatedParams: { [key: string]: string | string[] } = {};
     Object.entries(params).forEach(([key, value]) => {
       if (value) {
         updatedParams[key] = value;
@@ -45,7 +47,7 @@ export default function ProductListPage(): JSX.Element {
 
   useLayoutEffect(() => {
     const searchParams: SearchParams = {
-      sort, order, minPrice, maxPrice, category
+      sort, order, minPrice, maxPrice, category, groups
     };
     const url: string = getUrlWithSearchParams({
       pageNumber,
@@ -53,7 +55,7 @@ export default function ProductListPage(): JSX.Element {
     });
     dispatch(fetchProducts({url}));
     setupSearchParams(searchParams);
-  }, [dispatch, pageNumber, setupSearchParams, sort, order, minPrice, maxPrice, category]);
+  }, [dispatch, pageNumber, setupSearchParams, sort, order, minPrice, maxPrice, category, groups]);
 
   return (
     <>

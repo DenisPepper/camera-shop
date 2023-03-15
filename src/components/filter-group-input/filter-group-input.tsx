@@ -1,41 +1,32 @@
-import {ProductGroup} from '../../types/filter-types';
-import {useLayoutEffect, useRef} from 'react';
-
-const groups: Record<ProductGroup, string> = {
-  collection: 'Коллекционная',
-  digital: 'Цифровая',
-  snapshot: 'Моментальная',
-  film: 'Плёночная',
-};
+import {groups, ProductGroup} from '../../types/filter-types';
+import {shallowEqual, useSelector} from 'react-redux';
+import {getBannedGroups} from '../../store/slices/search-params/selectors/get-banned-groups/get-banned-groups';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
+import {searchParamsActions as actions} from '../../store/slices/search-params/slice/search-params-slice';
+import {getGroups} from '../../store/slices/search-params/selectors/get-groups/get-groups';
 
 interface FilterGroupInputProps {
   group: ProductGroup;
-  handleGroupChange: (group: ProductGroup) => void;
-  isBanned?: boolean;
 }
 
 export default function FilterGroupInput(props: FilterGroupInputProps): JSX.Element {
-  const {group, handleGroupChange, isBanned} = props;
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const {group} = props;
+  const dispatch = useAppDispatch();
+  const banned = useSelector(getBannedGroups, shallowEqual).find((bannedGroup) => groups[group] === bannedGroup);
+  const current = useSelector(getGroups, shallowEqual).find((currentGroup) => groups[group] === currentGroup);
 
   const handleInputChange = () => {
-    handleGroupChange(group);
+    dispatch(actions.setGroups([groups[group]]));
   };
-
-  useLayoutEffect(() => {
-    if (isBanned !== undefined && inputRef.current) {
-      inputRef.current.checked = false;
-    }
-  }, [isBanned]);
 
   return (
     <div className="custom-checkbox catalog-filter__item">
       <label>
         <input
           type="checkbox"
-          ref={inputRef}
+          checked={!!current && current !== banned}
           name={group}
-          disabled={isBanned ?? false}
+          disabled={!!banned}
           onChange={handleInputChange}
         />
         <span className="custom-checkbox__icon"></span>

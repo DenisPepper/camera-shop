@@ -15,6 +15,12 @@ export default function FilterCategoryInput(props: FilterCategoryInputProps): JS
 
   const handleInputChange = () => {
     dispatch(actions.setCategory(categories[category]));
+    if (category === 'videocamera') {
+      dispatch(actions.setBannedGroups(['Моментальная', 'Плёночная']));
+      dispatch(actions.removeGroups(['Моментальная', 'Плёночная']));
+    } else {
+      dispatch(actions.setBannedGroups([]));
+    }
   };
 
   return (

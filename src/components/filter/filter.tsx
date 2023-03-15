@@ -2,27 +2,12 @@ import FilterPrice from '../filter-price/filter-price';
 import FilterCategory from '../filter-category/filter-category';
 import FilterGroup from '../filter-group/filter-group';
 import FilterLevel from '../filter-level/filter-level';
-import {ProductGroup} from '../../types/filter-types';
-import {Dispatch, SetStateAction, useRef, useState} from 'react';
+import {Dispatch, SetStateAction, useRef} from 'react';
 
 export default function Filter(): JSX.Element {
-  const [disabledGroups, setDisabledGroups] = useState<ProductGroup[]>([]);
   const resetHandlersRef = useRef<Dispatch<SetStateAction<string>>[]>([]);
 
-  /*
-  const handleCategoryChange = (category: ProductCategory) => {
-    let groups: ProductGroup[] = [];
-    switch (category) {
-      case 'videocamera':
-        groups = ['snapshot', 'film'];
-        break;
-    }
-    setDisabledGroups(groups);
-  };
-*/
-
   const handleFilterReset = () => {
-    setDisabledGroups([]);
     resetHandlersRef.current?.forEach((resetStyleHandler) => resetStyleHandler(''));
   };
 
@@ -34,7 +19,7 @@ export default function Filter(): JSX.Element {
 
           <FilterPrice key={'FilterPrice'} resetStylesHandlers={resetHandlersRef.current} />
           <FilterCategory key={'FilterCategory'} />
-          <FilterGroup key={'FilterGroup'} disabledGroups={disabledGroups} />
+          <FilterGroup key={'FilterGroup'} />
           <FilterLevel key={'FilterLevel'}/>
 
           <button className="btn catalog-filter__reset-btn" type="reset" >

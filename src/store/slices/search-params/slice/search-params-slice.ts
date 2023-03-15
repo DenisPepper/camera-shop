@@ -2,7 +2,7 @@ import {SearchParamsSchema} from '../schema/search-params-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {SortOrderType, SortType} from '../../../../types/sort-types';
 import {DEFAULT_SORT} from '../../../../settings/settings';
-import {CategoryType} from '../../../../types/filter-types';
+import {CategoryType, GroupType} from '../../../../types/filter-types';
 
 const initialState: SearchParamsSchema = {
   sort: '',
@@ -10,6 +10,8 @@ const initialState: SearchParamsSchema = {
   minPrice: '',
   maxPrice: '',
   category: '',
+  groups: [],
+  bannedGroups: [],
 };
 
 export const searchParamsSlice = createSlice({
@@ -37,6 +39,24 @@ export const searchParamsSlice = createSlice({
 
     setCategory: (state, action: PayloadAction<CategoryType>) => {
       state.category = action.payload;
+    },
+
+    setGroups: (state, action: PayloadAction<GroupType[]>) => {
+      state.groups = [...state.groups, ...action.payload];
+    },
+
+    removeGroups: (state, action: PayloadAction<GroupType[]>) => {
+      const pattern = [...action.payload].join('|');
+      const groups = [...state.groups]
+        .join(' ')
+        .replace(new RegExp(pattern, 'gi'), '')
+        .trim()
+        .split(' ');
+      state.groups = groups as GroupType[];
+    },
+
+    setBannedGroups: (state, action: PayloadAction<GroupType[]>) => {
+      state.bannedGroups = action.payload;
     },
   },
 }
