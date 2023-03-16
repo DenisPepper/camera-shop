@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useLayoutEffect, useRef, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {fetchMinMaxPrice} from '../../services/fetch-min-max-price/fetch-min-max-price';
 import {debounce} from '../../lib/debounce/debounce';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
@@ -36,8 +36,6 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     if (value <= 0) {
       price = 0;
     }
-    // eslint-disable-next-line no-console
-    console.log(price);
     dispatch(searchParamsActions.setMinPrice(price === 0 ? '' : price.toString()));
     setupMinPriceStyles(!evt.target.value ? evt.target.value : price.toString());
   };
@@ -118,6 +116,14 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     minRef.current && (minRef.current.value = minPrice ? minPrice.toString() : '');
     maxRef.current && (maxRef.current.value = maxPrice ? maxPrice.toString() : '');
   }, [minPrice, maxPrice]);
+
+  /**
+   setup styles for initial values from url
+   */
+  useEffect(() => {
+    setupMinPriceStyles(minPrice ? minPrice.toString() : '');
+    setupMaxPriceStyles(maxPrice ? maxPrice.toString() : '');
+  }, []);
 
   return (
     <fieldset className="catalog-filter__block">
