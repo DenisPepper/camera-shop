@@ -21,12 +21,11 @@ export const fetchProducts = createAsyncThunk<ReturnedType, fetchProductsArgs, {
     try {
       const response = await axios.get<Array<ProductType>>(url);
       const maxCatalogCount = parseInt(response.headers['x-total-count'] || '0', DECIMAL);
-      const totalPagesCount = Math.ceil(maxCatalogCount / PAGE_LIMIT);
       const products: ProductType[] = response.data.map((product) => ({...product, name: format(product.name)}));
+      const totalPagesCount = products.length ? Math.ceil(maxCatalogCount / PAGE_LIMIT) : 0;
       return {totalPagesCount, products};
     } catch (err) {
       return thunkAPI.rejectWithValue(error.OnFetchProducts);
     }
-
   }
 );
