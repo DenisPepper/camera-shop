@@ -47,7 +47,7 @@ export const searchParamsSlice = createSlice({
     },
 
     addGroup: (state, action: PayloadAction<GroupType>) => {
-      state.groups = [...state.groups, action.payload];
+      state.groups.push(action.payload);
     },
 
     removeGroup: (state, action: PayloadAction<GroupType>) => {
@@ -55,7 +55,7 @@ export const searchParamsSlice = createSlice({
     },
 
     addGroups: (state, action: PayloadAction<GroupType[]>) => {
-      state.groups = [...state.groups, ...action.payload];
+      state.groups = action.payload;
     },
 
     removeGroups: (state, action: PayloadAction<GroupType[]>) => {
@@ -78,7 +78,11 @@ export const searchParamsSlice = createSlice({
     },
 
     addLevel: (state, action: PayloadAction<LevelType>) => {
-      state.levels = [...state.levels, action.payload];
+      state.levels.push(action.payload);
+    },
+
+    addLevels: (state, action: PayloadAction<LevelType[]>) => {
+      state.levels = action.payload;
     },
 
     removeLevel: (state, action: PayloadAction<LevelType>) => {
