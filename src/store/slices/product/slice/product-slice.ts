@@ -8,6 +8,7 @@ const initialState: ProductSchema = {
   products: [],
   totalPagesCount: 0,
   isLoading: false,
+  isProductLoading: false,
 };
 
 export const productSlice = createSlice({
@@ -16,8 +17,15 @@ export const productSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(fetchProductByIdWithReviews.pending, (state) => {
+        state.isProductLoading = true;
+      })
       .addCase(fetchProductByIdWithReviews.fulfilled, (state, action) => {
         state.product = action.payload.product;
+        state.isProductLoading = false;
+      })
+      .addCase(fetchProductByIdWithReviews.rejected, (state) => {
+        state.isProductLoading = false;
       })
       .addCase(fetchProducts.pending, (state) => {
         state.isLoading = true;

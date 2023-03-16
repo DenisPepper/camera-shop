@@ -11,6 +11,7 @@ describe('test of product-slice reducer', () => {
       products: [],
       totalPagesCount: 0,
       isLoading: false,
+      isProductLoading: false,
     };
     expect(reducer(undefined, {type: undefined}))
       .toEqual(initialState);
