@@ -61,3 +61,8 @@ export const TEXTAREA_MIN_LENGTH = 5;
 export const DEFAULT_REVIEW_POPUP_VALUES = {userName: '', userPlus: '', userMinus: '', userComment: '', rate: '0'};
 
 export const DEFAULT_SORT: SortType = 'price';
+
+/**
+ это координата расчитана по макету, как высота хеддера + высота баннера
+ */
+export const WINDOW_SCROLL_TO_TOP_COORD = 348;

@@ -1,4 +1,4 @@
-import {DECIMAL, DEFAULT_PAGE_NUMBER} from '../../settings/settings';
+import {DECIMAL, DEFAULT_PAGE_NUMBER, WINDOW_SCROLL_TO_TOP_COORD as TOP} from '../../settings/settings';
 import PaginationButton from '../pagination-button/pagination-button';
 import PaginationTextButton from '../pagination-text-button/pagination-text-button';
 
@@ -17,12 +17,20 @@ export default function Pagination(props: PaginationProps): JSX.Element {
     currentPage,
   } = props;
 
+  const handleLinkClick = () => {
+    window.scrollTo({ top: TOP,});
+  };
+
   return (
     <div className={'pagination'}>
       <ul className={'pagination__list'}>
         {
           currentPage > FIRST_PAGE &&
-          <PaginationTextButton text={'Назад'} currentPage={currentPage}/>
+          <PaginationTextButton
+            text={'Назад'}
+            currentPage={currentPage}
+            handleLinkClick={handleLinkClick}
+          />
         }
 
         {
@@ -31,12 +39,17 @@ export default function Pagination(props: PaginationProps): JSX.Element {
               key={number}
               page={number}
               currentPage={currentPage}
+              handleLinkClick={handleLinkClick}
             />))
         }
 
         {
           currentPage < totalPages &&
-          <PaginationTextButton text={'Далее'} currentPage={currentPage}/>
+          <PaginationTextButton
+            text={'Далее'}
+            currentPage={currentPage}
+            handleLinkClick={handleLinkClick}
+          />
         }
       </ul>
     </div>
