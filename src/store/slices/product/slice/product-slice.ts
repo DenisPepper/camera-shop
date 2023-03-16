@@ -7,6 +7,7 @@ const initialState: ProductSchema = {
   product: null,
   products: [],
   totalPagesCount: 0,
+  isLoading: false,
 };
 
 export const productSlice = createSlice({
@@ -18,13 +19,18 @@ export const productSlice = createSlice({
       .addCase(fetchProductByIdWithReviews.fulfilled, (state, action) => {
         state.product = action.payload.product;
       })
+      .addCase(fetchProducts.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.products = action.payload.products;
         state.totalPagesCount = action.payload.totalPagesCount;
+        state.isLoading = false;
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
+      .addCase(fetchProducts.rejected, (state) => {
         state.products = [];
         state.totalPagesCount = 0;
+        state.isLoading = false;
       });
   }
 });
