@@ -18,6 +18,8 @@ import {getMaxPrice} from '../../store/slices/search-params/selectors/get-max-pr
 import {getCategory} from '../../store/slices/search-params/selectors/get-category/get-category';
 import {getGroups} from '../../store/slices/search-params/selectors/get-groups/get-groups';
 import {getLevels} from '../../store/slices/search-params/selectors/get-levels/get-levels';
+import {AppSpinner} from '../../components/app-spinner/app-spinner';
+import {getLoadingStatus} from '../../store/slices/product/selectors/get-loading-status/get-loading-status';
 
 const COUNT_WITHOUT_PAGINATION = 1;
 
@@ -25,6 +27,7 @@ type SearchParams = Partial<Omit<SearchParamsSchema, 'bannedGroups'>>;
 
 export default function ProductListPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const isLoading = useSelector(getLoadingStatus, shallowEqual);
   const [, setSearchParams] = useSearchParams();
   const {page} = useParams();
   const pageNumber = parseInt(page || DEFAULT_PAGE_NUMBER, DECIMAL);
@@ -66,23 +69,20 @@ export default function ProductListPage(): JSX.Element {
 
         <Filter key={'Filter'}/>
 
-        {totalPagesCount >= pageNumber &&
+        <div className={'catalog__content'}>
 
-          <div className={'catalog__content'}>
+          <Sort key={'ProductSort'}/>
+          {!isLoading ? <ProductList key={'ProductList'}/> : <AppSpinner/>}
 
-            <Sort key={'ProductSort'}/>
+          {totalPagesCount > COUNT_WITHOUT_PAGINATION &&
+            <Pagination
+              key={'Pagination'}
+              totalPagesCount={totalPagesCount}
+              currentPage={pageNumber}
+              pageNumbers={Array.from({length: totalPagesCount}, (_, i) => i + 1)}
+            />}
 
-            <ProductList key={'ProductList'}/>
-
-            {totalPagesCount > COUNT_WITHOUT_PAGINATION &&
-              <Pagination
-                key={'Pagination'}
-                totalPagesCount={totalPagesCount}
-                currentPage={pageNumber}
-                pageNumbers={Array.from({length: totalPagesCount}, (_, i) => i + 1)}
-              />}
-
-          </div>}
+        </div>
 
       </div>
     </>
