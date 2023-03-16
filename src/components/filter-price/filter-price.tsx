@@ -6,6 +6,8 @@ import {searchParamsActions} from '../../store/slices/search-params/slice/search
 import {shallowEqual, useSelector} from 'react-redux';
 import {getMinPrice} from '../../store/slices/search-params/selectors/get-min-price/get-min-price';
 import {getMaxPrice} from '../../store/slices/search-params/selectors/get-max-price/get-max-price';
+import {errorSliceActions as actions} from '../../store/slices/error/slice/error-slice';
+import {ApiError as Error} from '../../api/api-error';
 
 interface FilterPriceProps {
   resetStylesHandlers: Dispatch<SetStateAction<string>>[];
@@ -98,8 +100,14 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
    fetch max and min prices from server
    */
   useLayoutEffect(() => {
-    const minPricePromise = fetchMinMaxPrice('asc');
-    const maxPricePromise = fetchMinMaxPrice('desc');
+    const minPricePromise = fetchMinMaxPrice({
+      order: 'asc',
+      callWhenRejected: () => dispatch(actions.addError(Error.OnFetchMinPrice)),
+    });
+    const maxPricePromise = fetchMinMaxPrice({
+      order:'desc',
+      callWhenRejected: () => dispatch(actions.addError(Error.OnFetchMaxPrice)),
+    });
     Promise.all([minPricePromise, maxPricePromise])
       .then(([minPriceValue, maxPriceValue]) => {
         setMinCatalogPrice(minPriceValue.toString());

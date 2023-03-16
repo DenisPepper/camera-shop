@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ReviewPostType} from '../../types/review-post-type';
 import {ReviewType} from '../../types/review-type';
-import {ErrorsConfig as error} from '../../api/errors-config';
+import {ApiError as error} from '../../api/api-error';
 import axios from 'axios';
 import {ServerUrl as server} from '../../api/server-url';
 
@@ -11,7 +11,7 @@ interface PostReviewProps {
   callWhenResolved: () => void;
 }
 
-export const postReview = createAsyncThunk<ReviewType, PostReviewProps, {rejectValue: error}>(
+export const postReview = createAsyncThunk<ReviewType, PostReviewProps, {rejectValue: string}>(
   'POST_REVIEW',
   async (props, thunkAPI) => {
     const {review, callWhenResolved} = props;

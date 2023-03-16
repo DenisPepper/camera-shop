@@ -1,10 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ErrorSchema} from '../schema/error-schema';
-
-const stubErrors: string[] = ['Ошибка сервера 1', 'Ошибка сервера 2', 'Ошибка сервера 3', 'Ошибка сервера 4'];
+import {
+  fetchProductByIdWithReviews
+} from '../../../../services/fetch-product-by-id-with-reviews/fetch-product-by-id-with-reviews';
 
 const initialState: ErrorSchema = {
-  errors: stubErrors,
+  errors: [],
 };
 
 export const errorSlice = createSlice({
@@ -12,11 +13,21 @@ export const errorSlice = createSlice({
   initialState,
   reducers: {
     addError: (state, action: PayloadAction<string>) => {
-      state.errors.push(action.payload);
+      const errorsWithoutNew = state.errors.filter((err) => err !== action.payload);
+      state.errors = [...errorsWithoutNew, action.payload];
     },
-    removeError: (state, action: PayloadAction<string>) => {
-      state.errors = state.errors.filter((err) => err !== action.payload);
+    removeErrors: (state) => {
+      state.errors = [];
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProductByIdWithReviews.rejected, (state, action) => {
+        if (action.payload) {
+          const errorsWithoutNew = state.errors.filter((err) => err !== action.payload);
+          state.errors = [...errorsWithoutNew, action.payload];
+        }
+      });
   },
 });
 

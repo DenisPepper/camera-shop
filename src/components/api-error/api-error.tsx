@@ -8,9 +8,8 @@ export default function ApiError(): JSX.Element | null {
   const errors = useSelector(getErrors, shallowEqual);
   const dispatch = useAppDispatch();
 
-  const handleClickError = (evt: React.MouseEvent<HTMLLIElement>) => {
-    const value = evt.currentTarget.textContent || '';
-    dispatch(actions.removeError(value));
+  const handleClickError = () => {
+    dispatch(actions.removeErrors());
   };
 
   return errors.length ?
@@ -35,11 +34,3 @@ export default function ApiError(): JSX.Element | null {
     :
     null;
 }
-
-/*
-export default function ErrorMessage(): JSX.Element | null {
-  const error = useAppSelector(appError, shallowEqual);
-  return error ? <div className='error-message'>{error}</div> : null;
-}
-
- */

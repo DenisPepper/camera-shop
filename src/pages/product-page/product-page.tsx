@@ -15,6 +15,7 @@ import {
   getProductLoadingStatus
 } from '../../store/slices/product/selectors/get-product-loading-status/get-product-loading-status';
 import {AppSpinner} from '../../components/app-spinner/app-spinner';
+import AppError from '../../components/app-error/app-error';
 
 export default function ProductPage(): JSX.Element {
   const {id = ''} = useParams();
@@ -57,5 +58,7 @@ export default function ProductPage(): JSX.Element {
     <div
       className={'page-content__section'}
       key={'page-content__section'}
-    />;
+    >
+      <AppError>Товар не найден.</AppError>
+    </div>;
 }
