@@ -11,7 +11,8 @@
 }
 
 .api-error__title {
-  padding: 10px;
+  margin: 0;
+  padding: 5px 10px;
   background-color: #ed6041;
   color: #dddddd;
   font-weight: bold;

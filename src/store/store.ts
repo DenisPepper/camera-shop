@@ -7,6 +7,7 @@ import {reviewReducer} from './slices/review/slice/review-slice';
 import {reviewPopupReducer} from './slices/review-popup/slice/review-popup-slice';
 import {gratefulFeedbackPopupReducer} from './slices/grateful-feedback-popup/slice/grateful-feedback-popup-slice';
 import {searchParamsReducer} from './slices/search-params/slice/search-params-slice';
+import {errorSliceReducer} from './slices/error/slice/error-slice';
 
 export const buildStore = (initialState?: StateSchema) => {
   const rootReducer: ReducersMapObject<StateSchema> = {
@@ -17,6 +18,7 @@ export const buildStore = (initialState?: StateSchema) => {
     reviewPopup: reviewPopupReducer,
     gratefulFeedbackPopup: gratefulFeedbackPopupReducer,
     searchParams: searchParamsReducer,
+    error: errorSliceReducer,
   };
   return configureStore<StateSchema>({
     reducer: rootReducer,

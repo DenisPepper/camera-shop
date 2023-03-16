@@ -5,6 +5,7 @@ import {ReviewSchema} from './slices/review/schema/review-schema';
 import {ReviewPopupSchema} from './slices/review-popup/schema/review-popup-schema';
 import {GratefulFeedbackPopupSchema} from './slices/grateful-feedback-popup/schema/grateful-feedback-popup-schema';
 import {SearchParamsSchema} from './slices/search-params/schema/search-params-schema';
+import {ErrorSchema} from './slices/error/schema/error-schema';
 
 export interface StateSchema {
     promo: PromoSchema;
@@ -14,4 +15,5 @@ export interface StateSchema {
     reviewPopup: ReviewPopupSchema;
     gratefulFeedbackPopup: GratefulFeedbackPopupSchema;
     searchParams: SearchParamsSchema;
+    error: ErrorSchema;
 }

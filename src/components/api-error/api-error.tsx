@@ -1,18 +1,16 @@
 import './api-error.css';
-import {ErrorsConfig as Error} from '../../api/errors-config';
-import {useState} from 'react';
-
-const stubErrors: string[] = [Error.OnFetchProducts, Error.OnFetchProductByID, Error.OnFetchPromo];
+import {getErrors} from '../../store/slices/error/selectors/get-errors/get-errors';
+import {shallowEqual, useSelector} from 'react-redux';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
+import {errorSliceActions as actions} from '../../store/slices/error/slice/error-slice';
 
 export default function ApiError(): JSX.Element | null {
-  const [errors, setErrors] = useState<string[]>(stubErrors);
+  const errors = useSelector(getErrors, shallowEqual);
+  const dispatch = useAppDispatch();
 
   const handleClickError = (evt: React.MouseEvent<HTMLLIElement>) => {
-    const value = evt.currentTarget.textContent;
-    setErrors(
-      (prevState) =>
-        prevState.filter((err) => err !== value)
-    );
+    const value = evt.currentTarget.textContent || '';
+    dispatch(actions.removeError(value));
   };
 
   return errors.length ?
