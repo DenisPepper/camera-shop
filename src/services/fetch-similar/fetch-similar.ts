@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {ProductType} from '../../types/product-type';
 import {ServerUrl as server} from '../../api/server-url';
-import {ErrorsConfig as error} from '../../api/errors-config';
+import {ApiError as error} from '../../api/api-error';
 import {SIMILAR_FETCHING_LIMIT as LIMIT} from '../../settings/settings';
 import {formatProductName as format} from '../../lib/format-product-name/format-product-name';
 
@@ -10,7 +10,7 @@ interface fetchSimilarProps {
   id: string;
 }
 
-export const fetchSimilar = createAsyncThunk<ProductType[], fetchSimilarProps, {rejectValue: error}>(
+export const fetchSimilar = createAsyncThunk<ProductType[], fetchSimilarProps, {rejectValue: string}>(
   'FETCH_SIMILAR',
   async (args, thunkAPI) => {
     const {id} = args;

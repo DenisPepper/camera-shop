@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ProductType} from '../../types/product-type';
-import {ErrorsConfig as error, ErrorsConfig as Errors} from '../../api/errors-config';
+import {ApiError as error} from '../../api/api-error';
 import axios from 'axios';
 import {DECIMAL, MAX_PRODUCT_COUNT_ON_CATALOG_PAGE as PAGE_LIMIT} from '../../settings/settings';
 import {formatProductName as format} from '../../lib/format-product-name/format-product-name';
@@ -14,7 +14,7 @@ interface fetchProductsArgs {
   url: string;
 }
 
-export const fetchProducts = createAsyncThunk<ReturnedType, fetchProductsArgs, { rejectValue: Errors }>(
+export const fetchProducts = createAsyncThunk<ReturnedType, fetchProductsArgs, { rejectValue: string }>(
   'FETCH_PRODUCTS',
   async (args, thunkAPI) => {
     const {url} = args;
