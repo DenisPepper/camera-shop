@@ -3,7 +3,8 @@ import {shallowEqual, useSelector} from 'react-redux';
 import {getBannedGroups} from '../../store/slices/search-params/selectors/get-banned-groups/get-banned-groups';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {searchParamsActions as actions} from '../../store/slices/search-params/slice/search-params-slice';
-import React, {useLayoutEffect, useRef} from 'react';
+import React, {useEffect, useLayoutEffect, useRef} from 'react';
+import {getGroups} from '../../store/slices/search-params/selectors/get-groups/get-groups';
 
 interface FilterGroupInputProps {
   group: ProductGroup;
@@ -13,6 +14,7 @@ export default function FilterGroupInput(props: FilterGroupInputProps): JSX.Elem
   const {group} = props;
   const dispatch = useAppDispatch();
   const banned = useSelector(getBannedGroups, shallowEqual).find((bannedGroup) => groups[group] === bannedGroup);
+  const initial = useSelector(getGroups, shallowEqual).find((initGroup) => groups[group] === initGroup);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,6 +30,12 @@ export default function FilterGroupInput(props: FilterGroupInputProps): JSX.Elem
       inputRef.current.checked = false;
     }
   }, [banned]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.checked = !!initial;
+    }
+  }, []);
 
   return (
     <div className="custom-checkbox catalog-filter__item">

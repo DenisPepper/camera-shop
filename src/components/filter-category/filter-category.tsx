@@ -2,10 +2,13 @@ import FilterCategoryInput from '../filter-category-input/filter-category-input'
 import {categories, CategoryType} from '../../types/filter-types';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {searchParamsActions as actions} from '../../store/slices/search-params/slice/search-params-slice';
-import {useRef} from 'react';
+import {useEffect, useRef} from 'react';
+import {shallowEqual, useSelector} from 'react-redux';
+import {getCategory} from '../../store/slices/search-params/selectors/get-category/get-category';
 
 export default function FilterCategory(): JSX.Element {
   const dispatch = useAppDispatch();
+  const initial = useSelector(getCategory,shallowEqual);
   const photoRef = useRef<HTMLInputElement | null>(null);
   const videoRef = useRef<HTMLInputElement | null>(null);
 
@@ -30,6 +33,15 @@ export default function FilterCategory(): JSX.Element {
       dispatch(actions.removeBannedGroups());
     }
   };
+
+  useEffect(() => {
+    if (photoRef.current) {
+      photoRef.current.checked = categories['photocamera'] === initial;
+    }
+    if (videoRef.current) {
+      videoRef.current.checked = categories['videocamera'] === initial;
+    }
+  }, []);
 
   return (
     <fieldset className="catalog-filter__block">
