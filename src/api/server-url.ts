@@ -1,6 +1,8 @@
 import {MAX_PRODUCT_COUNT_ON_CATALOG_PAGE as PAGE_LIMIT} from '../settings/settings';
 import {SearchParamsType} from '../types/search-params-types';
 
+export const BASE_URL = 'https://camera-shop.accelerator.pages.academy';
+
 export const enum ServerUrl {
   PromoProduct = 'https://camera-shop.accelerator.pages.academy/promo',
   Product = 'https://camera-shop.accelerator.pages.academy/cameras/',
@@ -12,7 +14,7 @@ export const getStart = (pageNumber: number) => (pageNumber - 1) * PAGE_LIMIT;
 export const getUrlWithSearchParams = (args: SearchParamsType): string => {
   const {pageNumber, searchParams: params} = args;
 
-  let url = 'https://camera-shop.accelerator.pages.academy/cameras';
+  let url = `${BASE_URL}/cameras`;
 
   if (pageNumber) {
     const start = getStart(pageNumber);
