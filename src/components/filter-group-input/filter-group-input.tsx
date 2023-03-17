@@ -8,10 +8,11 @@ import {getGroups} from '../../store/slices/search-params/selectors/get-groups/g
 
 interface FilterGroupInputProps {
   group: ProductGroup;
+  navigateToDefaultPage: () => void;
 }
 
 export default function FilterGroupInput(props: FilterGroupInputProps): JSX.Element {
-  const {group} = props;
+  const {group, navigateToDefaultPage} = props;
   const dispatch = useAppDispatch();
   const banned = useSelector(getBannedGroups, shallowEqual).find((bannedGroup) => groups[group] === bannedGroup);
   const initial = useSelector(getGroups, shallowEqual).find((initGroup) => groups[group] === initGroup);
@@ -23,6 +24,7 @@ export default function FilterGroupInput(props: FilterGroupInputProps): JSX.Elem
     } else {
       dispatch(actions.removeGroup(groups[group]));
     }
+    navigateToDefaultPage();
   };
 
   useLayoutEffect(() => {

@@ -3,8 +3,12 @@ import FilterLevelInput from '../filter-level-input/filter-level-input';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {searchParamsActions as actions} from '../../store/slices/search-params/slice/search-params-slice';
 
+interface FilterLevelProps {
+  navigateToDefaultPage: () => void;
+}
 
-export default function FilterLevel(): JSX.Element {
+export default function FilterLevel(props: FilterLevelProps): JSX.Element {
+  const {navigateToDefaultPage} = props;
   const dispatch = useAppDispatch();
 
   const handleLevelChange = (level: LevelType, checked: boolean) => {
@@ -13,6 +17,7 @@ export default function FilterLevel(): JSX.Element {
     } else {
       dispatch(actions.removeLevel(level));
     }
+    navigateToDefaultPage();
   };
 
   return (

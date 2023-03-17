@@ -11,11 +11,12 @@ import {ApiError as Error} from '../../api/api-error';
 
 interface FilterPriceProps {
   resetStylesHandlers: Dispatch<SetStateAction<string>>[];
+  navigateToDefaultPage: () => void;
 }
 
 export default function FilterPrice(props: FilterPriceProps): JSX.Element {
+  const {resetStylesHandlers, navigateToDefaultPage} = props;
   const dispatch = useAppDispatch();
-  const {resetStylesHandlers} = props;
   const minPrice = Number(useSelector(getMinPrice, shallowEqual));
   const maxPrice = Number(useSelector(getMaxPrice, shallowEqual));
   const [minCatalogPrice, setMinCatalogPrice] = useState<string>('');
@@ -40,6 +41,7 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     }
     dispatch(searchParamsActions.setMinPrice(price === 0 ? '' : price.toString()));
     setupMinPriceStyles(!evt.target.value ? evt.target.value : price.toString());
+    navigateToDefaultPage();
   };
 
   const handleMaxPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
@@ -57,6 +59,7 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     }
     dispatch(searchParamsActions.setMaxPrice(price === 0 ? '' : price.toString()));
     setupMaxPriceStyles(!evt.target.value ? evt.target.value : price.toString());
+    navigateToDefaultPage();
   };
 
   const checkMaxPriceNotValid = (maxPriceValue: number) =>

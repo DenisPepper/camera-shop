@@ -6,7 +6,12 @@ import {useEffect, useRef} from 'react';
 import {shallowEqual, useSelector} from 'react-redux';
 import {getCategory} from '../../store/slices/search-params/selectors/get-category/get-category';
 
-export default function FilterCategory(): JSX.Element {
+interface FilterCategoryProps {
+  navigateToDefaultPage: () => void;
+}
+
+export default function FilterCategory(props: FilterCategoryProps): JSX.Element {
+  const {navigateToDefaultPage} = props;
   const dispatch = useAppDispatch();
   const initial = useSelector(getCategory,shallowEqual);
   const photoRef = useRef<HTMLInputElement | null>(null);
@@ -20,6 +25,7 @@ export default function FilterCategory(): JSX.Element {
     } else {
       dispatch(actions.removeCategory());
     }
+    navigateToDefaultPage();
   };
 
   const handleVideoCameraChange = (category: CategoryType, checked: boolean) => {
@@ -32,6 +38,7 @@ export default function FilterCategory(): JSX.Element {
       dispatch(actions.removeCategory());
       dispatch(actions.removeBannedGroups());
     }
+    navigateToDefaultPage();
   };
 
   useEffect(() => {
