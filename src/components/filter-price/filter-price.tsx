@@ -10,7 +10,7 @@ import {errorSliceActions as actions} from '../../store/slices/error/slice/error
 import {ApiError as Error} from '../../api/api-error';
 
 interface FilterPriceProps {
-  resetStylesHandlers: Dispatch<SetStateAction<string>>[];
+  resetStylesHandlers?: Dispatch<SetStateAction<string>>[];
   navigateToDefaultPage: () => void;
 }
 
@@ -119,8 +119,8 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
   }, []);
 
   useLayoutEffect(() => {
-    resetStylesHandlers.push(setMaxModifier);
-    resetStylesHandlers.push(setMinModifier);
+    resetStylesHandlers?.push(setMaxModifier);
+    resetStylesHandlers?.push(setMinModifier);
   }, []);
 
   useLayoutEffect(() => {
