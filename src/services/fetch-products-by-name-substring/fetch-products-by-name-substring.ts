@@ -1,5 +1,5 @@
-import {ProductType} from '../../../../types/product-type';
-import {getUrlWithSearchParams} from '../../../../api/server-url';
+import {ProductType} from '../../types/product-type';
+import {getUrlWithSearchParams} from '../../api/server-url';
 import axios from 'axios';
 
 const MAX_LIMIT = 100;

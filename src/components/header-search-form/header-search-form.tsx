@@ -4,7 +4,7 @@ import HeaderSearchList from '../header-search-list/header-search-list';
 import {useRef, useState} from 'react';
 import {
   fetchProductsByNameSubstring
-} from './services/fetch-products-by-name-substring/fetch-products-by-name-substring';
+} from '../../services/fetch-products-by-name-substring/fetch-products-by-name-substring';
 import {ProductType} from '../../types/product-type';
 import {DEFAULT_PRODUCT_TAB, Path as to} from '../../settings/settings';
 import {useNavigate} from 'react-router-dom';
