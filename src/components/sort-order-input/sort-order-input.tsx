@@ -25,7 +25,7 @@ export default function SortOrderInput(props: ProductSortOrderInputProps): JSX.E
   };
 
   return (
-    <div className={`catalog-sort__btn catalog-sort__btn--${modifier}`}>
+    <div className={`catalog-sort__btn catalog-sort__btn--${modifier}`} data-testid={'SortOrderInput'}>
       <input
         type="radio"
         id={modifier}
