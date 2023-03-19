@@ -55,5 +55,4 @@ export default function FilterGroupInput(props: FilterGroupInputProps): JSX.Elem
     </div>
   );
 }
-//checked={!!current && current !== banned}
 
