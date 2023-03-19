@@ -58,6 +58,8 @@ export const REVIEW_SHOW_LIMIT = 3;
 
 export const TEXTAREA_MIN_LENGTH = 5;
 
+export const PRODUCTS_LIMIT_WHEN_FETCH_BY_NAME = 100;
+
 export const DEFAULT_REVIEW_POPUP_VALUES = {userName: '', userPlus: '', userMinus: '', userComment: '', rate: '0'};
 
 export const DEFAULT_SORT: SortType = 'price';

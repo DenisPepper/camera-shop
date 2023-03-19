@@ -8,8 +8,12 @@ import {
 import {ProductType} from '../../types/product-type';
 import {DEFAULT_PRODUCT_TAB, Path as to} from '../../settings/settings';
 import {useNavigate} from 'react-router-dom';
+import {errorSliceActions as actions} from '../../store/slices/error/slice/error-slice';
+import {ApiError as Error} from '../../api/api-error';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 
 export default function HeaderSearchForm(): JSX.Element {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [notEmpty, setNotEmpty] = useState(() => false);
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -18,7 +22,10 @@ export default function HeaderSearchForm(): JSX.Element {
   const handleFormInput = (value: string) => {
     setNotEmpty(() => !!value);
     value ?
-      fetchProductsByNameSubstring(value)
+      fetchProductsByNameSubstring({
+        subString: value,
+        callWhenRejected: () => dispatch(actions.addError(Error.OnFetchProductByNameSubString)),
+      })
         .then((data) => setProducts(data))
       :
       setProducts([]);

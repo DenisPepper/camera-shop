@@ -20,7 +20,7 @@ export const fetchProducts = createAsyncThunk<ReturnedType, fetchProductsArgs, {
     const {url} = args;
     try {
       const response = await axios.get<Array<ProductType>>(url);
-      const maxCatalogCount = parseInt(response.headers['x-total-count'] || '0', DECIMAL);
+      const maxCatalogCount = parseInt(response.headers['x-total-count'], DECIMAL);
       const products: ProductType[] = response.data.map((product) => ({...product, name: format(product.name)}));
       const totalPagesCount = products.length ? Math.ceil(maxCatalogCount / PAGE_LIMIT) : 0;
       return {totalPagesCount, products};
