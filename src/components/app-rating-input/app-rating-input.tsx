@@ -14,7 +14,7 @@ export default function AppRatingInput(props: AppRatingInputProps): JSX.Element 
 
   const handleOnRatingInputChange = (evt: React.MouseEvent<HTMLFieldSetElement>) => {
     const input = evt.target as HTMLInputElement;
-    setValue(() => input.value);
+    setValue(input.value);
   };
 
   return (

@@ -20,7 +20,7 @@ export default function HeaderSearchForm(): JSX.Element {
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const handleFormInput = (value: string) => {
-    setNotEmpty(() => !!value);
+    setNotEmpty(!!value);
     value ?
       fetchProductsByNameSubstring({
         subString: value,
