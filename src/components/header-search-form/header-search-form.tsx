@@ -54,6 +54,7 @@ export default function HeaderSearchForm(): JSX.Element {
           <HeaderSearchList
             key={'HeaderSearchList'}
             products={products}
+            formRef={formRef}
             handleFormPick={handleFormPick}
           />}
 

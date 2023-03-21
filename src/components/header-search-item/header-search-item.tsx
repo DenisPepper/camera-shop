@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+export const SEARCH_SELECT_ITEM = 'form-search__select-item';
 
 interface HeaderSearchItemProps {
   id: number;
@@ -7,12 +7,10 @@ interface HeaderSearchItemProps {
 
 export default function HeaderSearchItem(props: HeaderSearchItemProps): JSX.Element {
   const {id, name} = props;
-  const itemRef = useRef<HTMLLIElement | null>(null);
 
   return (
     <li
-      className="form-search__select-item"
-      ref={itemRef}
+      className={SEARCH_SELECT_ITEM}
       value={id}
       tabIndex={0}
     >

@@ -1,17 +1,28 @@
 import React from 'react';
 import {debounce} from '../../lib/debounce/debounce';
+import {SEARCH_SELECT_ITEM} from '../header-search-item/header-search-item';
 
 interface HeaderSearchInputProps {
   handleFormInput: (value: string) => void;
+  formRef?: React.MutableRefObject<HTMLFormElement | null>;
 }
 
 export default function HeaderSearchInput(props: HeaderSearchInputProps): JSX.Element {
-  const {handleFormInput} = props;
+  const {handleFormInput, formRef} = props;
 
   const handleInputChange = debounce(
     (evt: React.ChangeEvent<HTMLInputElement>) => {
       handleFormInput(evt.target.value);
     });
+
+  const handleInputKeyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
+    if (evt.key === 'ArrowDown') {
+      evt.preventDefault();
+      const parent = formRef?.current ? formRef.current : document;
+      const firstItem = parent.querySelector(`.${SEARCH_SELECT_ITEM}`) as HTMLElement;
+      firstItem.focus();
+    }
+  };
 
   return (
     <label>
@@ -24,6 +35,7 @@ export default function HeaderSearchInput(props: HeaderSearchInputProps): JSX.El
         autoComplete="off"
         placeholder="Поиск по сайту"
         onChange={handleInputChange}
+        onKeyDown={handleInputKeyDown}
       />
     </label>
   );

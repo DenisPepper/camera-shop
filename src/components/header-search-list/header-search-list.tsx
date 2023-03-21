@@ -1,16 +1,17 @@
 import {ProductType} from '../../types/product-type';
-import HeaderSearchItem from '../header-search-item/header-search-item';
-import {useEffect} from 'react';
+import HeaderSearchItem, {SEARCH_SELECT_ITEM} from '../header-search-item/header-search-item';
+import React, {useEffect} from 'react';
 
 let elements: Element[] = [];
 
 interface HeaderSearchListProps {
   products: ProductType[];
+  formRef?: React.MutableRefObject<HTMLFormElement | null>;
   handleFormPick: (id: number) => void;
 }
 
 export default function HeaderSearchList(props: HeaderSearchListProps): JSX.Element {
-  const {products, handleFormPick} = props;
+  const {products, formRef, handleFormPick} = props;
 
   const handleListClick = (evt: React.MouseEvent<HTMLUListElement>) => {
     const picked = evt.target as HTMLLIElement;
@@ -18,7 +19,8 @@ export default function HeaderSearchList(props: HeaderSearchListProps): JSX.Elem
   };
 
   useEffect(() => {
-    elements = [...document.querySelectorAll('.form-search__select-item')];
+    const parent = formRef?.current ? formRef.current : document;
+    elements = [...parent.querySelectorAll(`.${SEARCH_SELECT_ITEM}`)];
   });
 
   const handleKeyDown = (evt: React.KeyboardEvent<HTMLUListElement>) => {
