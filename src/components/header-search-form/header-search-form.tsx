@@ -37,8 +37,8 @@ export default function HeaderSearchForm(): JSX.Element {
   };
 
   const handleFormReset = () => {
-    setNotEmpty(() => false);
-    setProducts(() => []);
+    setNotEmpty(false);
+    setProducts([]);
   };
 
   return (
