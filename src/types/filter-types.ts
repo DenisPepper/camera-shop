@@ -11,6 +11,8 @@ export type ProductGroup = 'digital' | 'film' | 'snapshot' | 'collection';
 
 export type GroupType = 'Коллекционная' | 'Цифровая' | 'Моментальная' | 'Плёночная';
 
+export type BannedGroupType = 'Моментальная' | 'Плёночная';
+
 export const groups: Record<ProductGroup, GroupType> = {
   collection: 'Коллекционная',
   digital: 'Цифровая',

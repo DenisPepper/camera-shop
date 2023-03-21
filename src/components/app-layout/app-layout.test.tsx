@@ -9,10 +9,6 @@ import axios from 'axios';
 import {DeepPartial} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 
-/*jest.mock('react-redux', () => ({
-  useSelector: jest.fn(),
-}));*/
-
 describe('test AppLayout FC', () => {
   const mockStore = configureMockStore<StateSchema,
     Action,

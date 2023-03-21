@@ -12,14 +12,12 @@ export default function PaginationButton(props: PaginationButtonProps): JSX.Elem
 
   const modifier = page === currentPage ? 'pagination__link--active' : '';
 
-  const handleClick = () => handleLinkClick();
-
   return (
     <li className="pagination__item">
       <Link
         className={`pagination__link ${modifier}`}
         to={`/${to.Catalog}/${page}`}
-        onClick={handleClick}
+        onClick={handleLinkClick}
       >
         {page}
       </Link>

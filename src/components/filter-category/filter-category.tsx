@@ -5,6 +5,7 @@ import {searchParamsActions as actions} from '../../store/slices/search-params/s
 import {useEffect, useRef} from 'react';
 import {shallowEqual, useSelector} from 'react-redux';
 import {getCategory} from '../../store/slices/search-params/selectors/get-category/get-category';
+import {BANNED_GROUPS} from '../../settings/settings';
 
 interface FilterCategoryProps {
   navigateToDefaultPage: () => void;
@@ -32,8 +33,8 @@ export default function FilterCategory(props: FilterCategoryProps): JSX.Element 
     if (checked) {
       !!photoRef.current && (photoRef.current.checked = false);
       dispatch(actions.setCategory(category));
-      dispatch(actions.addBannedGroups(['Моментальная', 'Плёночная']));
-      dispatch(actions.removeGroups(['Моментальная', 'Плёночная']));
+      dispatch(actions.addBannedGroups(BANNED_GROUPS));
+      dispatch(actions.removeGroups(BANNED_GROUPS));
     } else {
       dispatch(actions.removeCategory());
       dispatch(actions.removeBannedGroups());

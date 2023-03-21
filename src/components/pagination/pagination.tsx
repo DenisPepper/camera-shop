@@ -1,4 +1,4 @@
-import {DECIMAL, DEFAULT_PAGE_NUMBER, WINDOW_SCROLL_TO_TOP_COORD as TOP} from '../../settings/settings';
+import {DECIMAL, DEFAULT_PAGE_NUMBER, WINDOW_SCROLL_TO_TOP_CORD as TOP} from '../../settings/settings';
 import PaginationButton from '../pagination-button/pagination-button';
 import PaginationTextButton from '../pagination-text-button/pagination-text-button';
 

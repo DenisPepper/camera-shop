@@ -1,4 +1,5 @@
 import {SortType} from '../types/sort-types';
+import {BannedGroupType} from '../types/filter-types';
 
 export const enum Path {
   Main ='/',
@@ -67,4 +68,6 @@ export const DEFAULT_SORT: SortType = 'price';
 /**
  это координата расчитана по макету, как высота хеддера + высота баннера
  */
-export const WINDOW_SCROLL_TO_TOP_COORD = 348;
+export const WINDOW_SCROLL_TO_TOP_CORD = 348;
+
+export const BANNED_GROUPS: BannedGroupType[] = ['Плёночная', 'Моментальная'];

@@ -12,14 +12,12 @@ export default function PaginationTextButton(props: PaginationTextButtonProps): 
 
   const page = text === 'Назад' ? currentPage - 1 : currentPage + 1;
 
-  const handleClick = () => handleLinkClick();
-
   return (
     <li className="pagination__item">
       <Link
         className="pagination__link pagination__link--text"
         to={`/${to.Catalog}/${page}`}
-        onClick={handleClick}
+        onClick={handleLinkClick}
       >
         {text}
       </Link>

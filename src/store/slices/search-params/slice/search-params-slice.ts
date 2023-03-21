@@ -2,7 +2,7 @@ import {SearchParamsSchema} from '../schema/search-params-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {SortOrderType, SortType} from '../../../../types/sort-types';
 import {DEFAULT_SORT} from '../../../../settings/settings';
-import {CategoryType, GroupType, LevelType} from '../../../../types/filter-types';
+import {BannedGroupType, CategoryType, GroupType, LevelType} from '../../../../types/filter-types';
 
 const initialState: SearchParamsSchema = {
   sort: '',
@@ -69,7 +69,7 @@ export const searchParamsSlice = createSlice({
       state.groups = groups as GroupType[];
     },
 
-    addBannedGroups: (state, action: PayloadAction<GroupType[]>) => {
+    addBannedGroups: (state, action: PayloadAction<BannedGroupType[]>) => {
       state.bannedGroups = action.payload;
     },
 

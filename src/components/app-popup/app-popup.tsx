@@ -26,13 +26,13 @@ export default function AppPopup(props: AppPopupProps): JSX.Element {
   } = props;
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
+  const pageContentRef = useRef<HTMLDivElement>(document.querySelector('.wrapper'));
+
   const handleOnPopupKeyDown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
       handlePopupClose();
     }
   }, [handlePopupClose]);
-
-  const pageContentRef = useRef<HTMLDivElement>(document.querySelector('.wrapper'));
 
   useEffect(() => {
     const pageContent = pageContentRef.current;

@@ -5,7 +5,6 @@ import {getProductId} from '../../store/slices/product/selectors/get-product-id/
 
 export default function BreadcrumbsItemWithProductName(): JSX.Element {
   const {id} = useParams() || '';
-
   const name = useSelector(getProductName, shallowEqual);
   const lastLoadedID = useSelector(getProductId, shallowEqual)?.toString() || '';
 
