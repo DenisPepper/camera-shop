@@ -26,6 +26,14 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
   const minRef = useRef<HTMLInputElement | null>(null);
   const maxRef = useRef<HTMLInputElement | null>(null);
 
+  const updateMinPrice = () => {
+    minRef.current && (minRef.current.value = minPrice ? minPrice.toString() : '');
+  };
+
+  const updateMaxPrice = () => {
+    maxRef.current && (maxRef.current.value = maxPrice ? maxPrice.toString() : '');
+  };
+
   const handleMinPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
     const value = Number(evt.target.value);
     let price = value;
@@ -41,6 +49,7 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     }
     dispatch(searchParamsActions.setMinPrice(price === 0 ? '' : price.toString()));
     setupMinPriceStyles(!evt.target.value ? evt.target.value : price.toString());
+    updateMinPrice();
     navigateToDefaultPage();
   };
 
@@ -59,6 +68,7 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     }
     dispatch(searchParamsActions.setMaxPrice(price === 0 ? '' : price.toString()));
     setupMaxPriceStyles(!evt.target.value ? evt.target.value : price.toString());
+    updateMaxPrice();
     navigateToDefaultPage();
   };
 
@@ -123,10 +133,19 @@ export default function FilterPrice(props: FilterPriceProps): JSX.Element {
     resetStylesHandlers?.push(setMinModifier);
   }, []);
 
+  /**
+   update MIN price
+   */
   useLayoutEffect(() => {
-    minRef.current && (minRef.current.value = minPrice ? minPrice.toString() : '');
-    maxRef.current && (maxRef.current.value = maxPrice ? maxPrice.toString() : '');
-  }, [minPrice, maxPrice]);
+    updateMinPrice();
+  }, [minPrice]);
+
+  /**
+   update MAX price
+   */
+  useLayoutEffect(() => {
+    updateMaxPrice();
+  }, [maxPrice]);
 
   /**
    setup styles for initial values from url
