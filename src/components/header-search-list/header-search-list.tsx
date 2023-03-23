@@ -47,7 +47,7 @@ export default function HeaderSearchList(props: HeaderSearchListProps): JSX.Elem
 
   return (
     <ul
-      className="form-search__select-list"
+      className="form-search__select-list scroller"
       onClick={handleListClick}
       onKeyDown={handleKeyDown}
     >
