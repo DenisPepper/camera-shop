@@ -1,7 +1,10 @@
 import {CartSchema} from '../schema/cart-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {CartInitType} from '../../../../types/cart-types';
 
 const initialState: CartSchema = {
+  shouldInit: true,
+  shouldReset: false,
   items: [],
   totalCount: 0,
   addItemPopupIsOpen: false,
@@ -13,6 +16,12 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+
+    init: (state, action: PayloadAction<CartInitType>) => {
+      state.items = action.payload.items;
+      state.totalCount = action.payload.totalCount;
+      state.shouldInit = false;
+    },
 
     addItem: (state, action: PayloadAction<number>) => {
       const id = action.payload;
