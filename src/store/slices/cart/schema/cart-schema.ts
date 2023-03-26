@@ -1,8 +1,7 @@
 import {CartItemType} from '../../../../types/cart-types';
 
 export interface CartSchema {
-  shouldInit: boolean;
-  shouldReset: boolean;
+  enabled: boolean;
   items: CartItemType[];
   totalCount: number;
   addItemPopupIsOpen: boolean;

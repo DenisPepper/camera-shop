@@ -3,8 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CartInitType} from '../../../../types/cart-types';
 
 const initialState: CartSchema = {
-  shouldInit: true,
-  shouldReset: false,
+  enabled: false,
   items: [],
   totalCount: 0,
   addItemPopupIsOpen: false,
@@ -20,7 +19,7 @@ export const cartSlice = createSlice({
     init: (state, action: PayloadAction<CartInitType>) => {
       state.items = action.payload.items;
       state.totalCount = action.payload.totalCount;
-      state.shouldInit = false;
+      state.enabled = true;
     },
 
     addItem: (state, action: PayloadAction<number>) => {
