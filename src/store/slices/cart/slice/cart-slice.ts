@@ -4,7 +4,7 @@ import {CartInitType} from '../../../../types/cart-types';
 import {ProductType} from '../../../../types/product-type';
 
 const initialState: CartSchema = {
-  enabled: false,
+  disabled: true,
   items: [],
   totalCount: 0,
   addItemPopupIsOpen: false,
@@ -21,7 +21,10 @@ export const cartSlice = createSlice({
     init: (state, action: PayloadAction<CartInitType>) => {
       state.items = action.payload.items;
       state.totalCount = action.payload.totalCount;
-      state.enabled = true;
+    },
+
+    enable: (state) => {
+      state.disabled = false;
     },
 
     addItem: (state, action: PayloadAction<number>) => {
@@ -44,7 +47,7 @@ export const cartSlice = createSlice({
       }
     },
 
-    openAddItemPopup: (state, action:PayloadAction<ProductType>) => {
+    openAddItemPopup: (state, action: PayloadAction<ProductType>) => {
       state.product = action.payload;
       state.addItemPopupIsOpen = true;
     },

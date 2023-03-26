@@ -1,4 +1,4 @@
-import {useLayoutEffect} from 'react';
+import {useEffect, useLayoutEffect} from 'react';
 import {shallowEqual, useSelector} from 'react-redux';
 import {getTotalCount} from '../../store/slices/cart/selectors/get-total-count/get-total-count';
 import {getItems} from '../../store/slices/cart/selectors/get-items/get-items';
@@ -8,7 +8,8 @@ import {CartItemType} from '../../types/cart-types';
 import CartAddItemPopup from '../cart-add-item-popup/cart-add-item-popup';
 import CartSuccessAddedPopup from '../cart-success-added-popup/cart-success-added-popup';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {DEFAULT_PAGE_NUMBER, Path, Path as to} from '../../settings/settings';
+import {DEFAULT_PAGE_NUMBER, Path as to} from '../../settings/settings';
+import {getCartIsDisabled} from '../../store/slices/cart/selectors/get-cart-is-disabled/get-cart-is-disabled';
 
 const CartStorageKey = {
   TotalCount: 'CART_TOTAL_COUNT',
@@ -18,6 +19,7 @@ const CartStorageKey = {
 export default function CartManager(): JSX.Element {
   const totalCount = useSelector(getTotalCount, shallowEqual);
   const items = useSelector(getItems, shallowEqual);
+  const isCartDisabled = useSelector(getCartIsDisabled, shallowEqual);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,15 +42,28 @@ export default function CartManager(): JSX.Element {
    set cart items to local storage
    */
   useLayoutEffect(() => {
+    if (isCartDisabled) {
+      return;
+    }
     localStorage.setItem(CartStorageKey.Items, JSON.stringify(items));
-  }, [items]);
+  }, [items, isCartDisabled]);
 
   /**
    set cart total count to local storage
    */
   useLayoutEffect(() => {
+    if (isCartDisabled) {
+      return;
+    }
     localStorage.setItem(CartStorageKey.TotalCount, JSON.stringify(totalCount));
-  }, [totalCount]);
+  }, [totalCount, isCartDisabled]);
+
+  /**
+   enable cart for layout effects
+   */
+  useEffect(() => {
+    dispatch(cartActions.enable());
+  }, []);
 
   const handleAddItemPopupClose = (id: number) => {
     dispatch(cartActions.addItem(id));
@@ -62,14 +77,14 @@ export default function CartManager(): JSX.Element {
 
   const handleContinueButtonClick = () => {
     dispatch(cartActions.closeSuccessAddedItemPopup());
-    if (location.pathname.indexOf(Path.Catalog) === -1) {
+    if (location.pathname.indexOf(to.Catalog) === -1) {
       navigate(`/${to.Catalog}/${DEFAULT_PAGE_NUMBER}`);
     }
   };
 
   const handleNavigateToCartClick = () => {
     dispatch(cartActions.closeSuccessAddedItemPopup());
-    navigate(Path.Cart);
+    navigate(to.Cart);
   };
 
   return (
