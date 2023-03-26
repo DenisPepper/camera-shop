@@ -1,25 +1,22 @@
 import {Link} from 'react-router-dom';
 import {DEFAULT_PRODUCT_TAB, Path as to} from '../../settings/settings';
 import React from 'react';
+import CartBuyButton from '../cart-buy-button/cart-buy-button';
+import {ProductType} from '../../types/product-type';
 
 interface ProductCardButtonProps {
-  id: number;
+  product: ProductType;
 }
 
 export default function ProductCardButton(props: ProductCardButtonProps): JSX.Element {
-  const {id} = props;
+  const {product} = props;
 
   return (
     <div className="product-card__buttons">
-      <button
-        className="btn btn--purple product-card__btn"
-        type="button"
-      >
-        Купить
-      </button>
+      <CartBuyButton isProductCard product={product}/>
       <Link
         className="btn btn--transparent"
-        to={`/${to.Product}/${id}?tab=${DEFAULT_PRODUCT_TAB}`}
+        to={`/${to.Product}/${product.id}?tab=${DEFAULT_PRODUCT_TAB}`}
       >
         Подробнее
       </Link>

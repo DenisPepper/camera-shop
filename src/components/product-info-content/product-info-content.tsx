@@ -2,6 +2,7 @@ import {ProductType} from '../../types/product-type';
 import ProductRating from '../product-rating/product-rating';
 import ProductPrice from '../product-price/product-price';
 import ProductTabs from '../product-tabs/product-tabs';
+import CartBuyButton from '../cart-buy-button/cart-buy-button';
 
 interface ProductContentProps {
   product: ProductType;
@@ -29,12 +30,7 @@ export default function ProductInfoContent(props: ProductContentProps): JSX.Elem
         price={product.price}
       />
 
-      <button className="btn btn--purple" type="button">
-        <svg width="24" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-add-basket"></use>
-        </svg>
-        Добавить в корзину
-      </button>
+      <CartBuyButton product={product}/>
 
       <ProductTabs
         key={'ProductTabs'}

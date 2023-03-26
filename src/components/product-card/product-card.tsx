@@ -30,7 +30,7 @@ export default function ProductCard(props: ProductCardProps): JSX.Element {
         reviewCount={product.reviewCount}
       />
 
-      <ProductCardButton key={'ProductCardButton'} id={product.id}/>
+      <ProductCardButton key={'ProductCardButton'} product={product}/>
     </div>
   );
 }
