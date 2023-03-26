@@ -1,6 +1,7 @@
 import {CartSchema} from '../schema/cart-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CartInitType} from '../../../../types/cart-types';
+import {ProductType} from '../../../../types/product-type';
 
 const initialState: CartSchema = {
   enabled: false,
@@ -9,6 +10,7 @@ const initialState: CartSchema = {
   addItemPopupIsOpen: false,
   successAddedItemPopupIsOpen: false,
   removeItemPopupIsOpen: false,
+  product: null,
 };
 
 export const cartSlice = createSlice({
@@ -42,7 +44,8 @@ export const cartSlice = createSlice({
       }
     },
 
-    openAddItemPopup: (state) => {
+    openAddItemPopup: (state, action:PayloadAction<ProductType>) => {
+      state.product = action.payload;
       state.addItemPopupIsOpen = true;
     },
 

@@ -8,7 +8,7 @@ import Banner from '../banner/banner';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import UpButton from '../up-button/up-button';
 import ApiError from '../api-error/api-error';
-import CartRestorer from '../cart-restorer/cart-restorer';
+import CartManager from '../cart-manager/cart-manager';
 
 export default function AppLayout(): JSX.Element {
   const isLoaded = useSelector(getPromoIsLoaded, shallowEqual);
@@ -20,7 +20,7 @@ export default function AppLayout(): JSX.Element {
   return (
     <>
       <SvgSprite/>
-      <CartRestorer/>
+      <CartManager/>
       <ApiError/>
       <div className={'wrapper'} data-testid={'app-layout'}>
         <Header key={'Header'}/>
