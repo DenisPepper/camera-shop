@@ -9,8 +9,18 @@ import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
 import {CartItemType, CartProductType} from '../../types/cart-types';
 import CartListItem from '../cart-list-item/cart-list-item';
 
-const getCount = (array: CartItemType[], id: number): number =>
-  array.find((value) => value.id === id)?.count || 0;
+const getCount = (items: CartItemType[], id: number): number =>
+  items.find((item) => item.id === id)?.count || 0;
+
+const getProducts = (products: Array<ProductType | undefined>, items: CartItemType[]): CartProductType[] => {
+  const cartProducts: CartProductType[] = [];
+  products.forEach((product) => {
+    if (product !== undefined) {
+      cartProducts.push({...product, count: getCount(items, product.id)});
+    }
+  });
+  return cartProducts;
+};
 
 export default function CartItemsList(): JSX.Element {
   const items = useSelector(getItems, shallowEqual);
@@ -27,15 +37,9 @@ export default function CartItemsList(): JSX.Element {
     }));
     Promise.all<ProductType | undefined>(promises)
       .then((data) => {
-        const cartProducts: CartProductType[] = [];
-        data.forEach((product) => {
-          if (product !== undefined) {
-            cartProducts.push({...product, count: getCount(items, product.id)});
-          }
-        });
-        setProducts(cartProducts);
+        setProducts(getProducts(data, items));
       });
-  }, []);
+  }, [dispatch, items]);
 
   return (
     <ul className={'basket__list'}>

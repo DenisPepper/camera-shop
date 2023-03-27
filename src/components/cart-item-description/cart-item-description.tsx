@@ -1,4 +1,5 @@
 import CartItemPrice from '../cart-item-price/cart-item-price';
+import './cart-item-description.css';
 
 const getPrefix = (value: string) => /фото/gi.test(value) ? 'фото' : 'видео';
 

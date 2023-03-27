@@ -10,6 +10,7 @@ import CartSuccessAddedPopup from '../cart-success-added-popup/cart-success-adde
 import {useLocation, useNavigate} from 'react-router-dom';
 import {DEFAULT_PAGE_NUMBER, Path as to} from '../../settings/settings';
 import {getCartIsDisabled} from '../../store/slices/cart/selectors/get-cart-is-disabled/get-cart-is-disabled';
+import CartRemoveItemPopup from '../cart-remove-item-popup/cart-remove-item-popup';
 
 const CartStorageKey = {
   TotalCount: 'CART_TOTAL_COUNT',
@@ -91,6 +92,15 @@ export default function CartManager(): JSX.Element {
     navigate(to.Cart);
   };
 
+  const handleRemoveItemPopupClose = () => {
+    dispatch(cartActions.closeRemoveItemPopup());
+  };
+
+  const handleRemoveClick = (id: number) => {
+    dispatch(cartActions.removeItem(id));
+    dispatch(cartActions.closeRemoveItemPopup());
+  };
+
   return (
     <>
       <CartAddItemPopup
@@ -103,6 +113,11 @@ export default function CartManager(): JSX.Element {
         handlePopupClose={handleSuccessAddedPopupClose}
         handleContinueButtonClick={handleContinueButtonClick}
         handleNavigateToCartClick={handleNavigateToCartClick}
+      />
+      <CartRemoveItemPopup
+        key={'CartRemoveItemPopup'}
+        handlePopupClose={handleRemoveItemPopupClose}
+        handlePopupRemoveItem={handleRemoveClick}
       />
     </>
   );

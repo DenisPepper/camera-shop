@@ -69,11 +69,12 @@ export const cartSlice = createSlice({
       state.successAddedItemPopupIsOpen = true;
     },
 
-    closeSuccessAddedItemPopup: (state) => {
+    closeSuccessAddedItemPopup: (state, ) => {
       state.successAddedItemPopupIsOpen = false;
     },
 
-    openRemoveItemPopup: (state) => {
+    openRemoveItemPopup: (state, action: PayloadAction<ProductType>) => {
+      state.product = action.payload;
       state.removeItemPopupIsOpen = true;
     },
 
