@@ -1,6 +1,6 @@
 import {CartSchema} from '../schema/cart-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CartInitType} from '../../../../types/cart-types';
+import {CartInitType, CartItemType} from '../../../../types/cart-types';
 import {ProductType} from '../../../../types/product-type';
 
 const initialState: CartSchema = {
@@ -36,6 +36,15 @@ export const cartSlice = createSlice({
         state.items.push({id, count: 1});
       }
       state.totalCount = state.totalCount + 1;
+    },
+
+    updateCount: (state, action: PayloadAction<CartItemType>) => {
+      const {id, count} = action.payload;
+      const item = state.items.find((element) => element.id === id);
+      if(item) {
+        state.totalCount = state.totalCount - item.count + count;
+        item.count = count;
+      }
     },
 
     removeItem: (state, action: PayloadAction<number>) => {

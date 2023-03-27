@@ -9,24 +9,25 @@ import CartItemImage from '../cart-item-image/cart-item-image';
 import CartItemDescription from '../cart-item-description/cart-item-description';
 
 interface CartAddItemPopupProps {
-  handlePopupClose: (id: number) => void;
+  handlePopupClose: () => void;
+  handlePopupAdd: (id: number) => void;
 }
 
 export default function CartAddItemPopup(props: CartAddItemPopupProps): JSX.Element {
-  const {handlePopupClose} = props;
+  const {handlePopupClose, handlePopupAdd} = props;
   const isMounted = useSelector(getAddItemPopupIsOpen, shallowEqual);
   const product = useSelector(getProduct, shallowEqual);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const handleCartPopupClose = () => {
-    !!product && handlePopupClose(product.id);
+  const handleCartPopupAdd = () => {
+    !!product && handlePopupAdd(product.id);
   };
 
   return (
     <AppPopup
       isOpen={isMounted}
       title={'Добавить товар в корзину'}
-      handlePopupClose={handleCartPopupClose}
+      handlePopupClose={handlePopupClose}
       defaultFocusedElement={buttonRef}
     >
 
@@ -55,7 +56,7 @@ export default function CartAddItemPopup(props: CartAddItemPopupProps): JSX.Elem
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
-          onClick={handleCartPopupClose}
+          onClick={handleCartPopupAdd}
           ref={buttonRef}
         >
           <svg width="24" height="16" aria-hidden="true">

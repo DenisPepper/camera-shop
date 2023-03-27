@@ -65,10 +65,14 @@ export default function CartManager(): JSX.Element {
     dispatch(cartActions.enable());
   }, []);
 
-  const handleAddItemPopupClose = (id: number) => {
+  const handleAddItemPopupAdd = (id: number) => {
     dispatch(cartActions.addItem(id));
     dispatch(cartActions.closeAddItemPopup());
     dispatch(cartActions.openSuccessAddedItemPopup());
+  };
+
+  const handleAddItemPopupClose = () => {
+    dispatch(cartActions.closeAddItemPopup());
   };
 
   const handleSuccessAddedPopupClose = () => {
@@ -91,6 +95,7 @@ export default function CartManager(): JSX.Element {
     <>
       <CartAddItemPopup
         key={'CartAddItemPopup'}
+        handlePopupAdd={handleAddItemPopupAdd}
         handlePopupClose={handleAddItemPopupClose}
       />
       <CartSuccessAddedPopup
