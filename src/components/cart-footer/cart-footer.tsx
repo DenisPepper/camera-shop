@@ -1,12 +1,23 @@
 import CartPromo from '../cart-promo/cart-promo';
-import CartTotalCost from '../cart-total-cost/cart-total-cost';
+import CartAmount from '../cart-total-cost/cart-amount';
+import {shallowEqual, useSelector} from 'react-redux';
+import {getProducts} from '../../store/slices/cart/selectors/get-products/get-products';
+import {getDiscount} from '../../store/slices/cart/selectors/get-discount/get-discount';
 
-export default function CartFooter(): JSX.Element {
+export default function CartFooter(): JSX.Element | null {
+  const products = useSelector(getProducts, shallowEqual);
+  const discount = useSelector(getDiscount, shallowEqual);
 
   return (
-    <div className={'basket__summary'}>
-      <CartPromo key={'CartPromo'}/>
-      <CartTotalCost key={'CartTotalCost'}/>
-    </div>
-  );
+    products.length ?
+      <div className={'basket__summary'}>
+        <CartPromo key={'CartPromo'}/>
+        <CartAmount
+          key={'CartAmount'}
+          discount={discount}
+          products={products}
+        />
+      </div>
+      :
+      null);
 }

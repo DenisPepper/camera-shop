@@ -1,11 +1,13 @@
-import {getProducts} from '../../store/slices/cart/selectors/get-products/get-products';
-import {shallowEqual, useSelector} from 'react-redux';
-import {getDiscount} from '../../store/slices/cart/selectors/get-discount/get-discount';
 import {formatPrice} from '../../lib/format-price/format-price';
+import {CartProductType} from '../../types/cart-types';
 
-export default function CartTotalCost(): JSX.Element {
-  const products = useSelector(getProducts, shallowEqual);
-  const discount = useSelector(getDiscount, shallowEqual);
+interface CartAmountProps {
+  products: CartProductType[];
+  discount: number;
+}
+
+export default function CartAmount(props: CartAmountProps): JSX.Element {
+  const {discount, products} = props;
 
   const cost = products.reduce((sum, product) => sum + product.price * product.count, 0);
   const discountAmount = cost * discount / 100;

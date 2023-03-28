@@ -24,7 +24,7 @@ const formatData = (products: Array<ProductType | undefined>, items: CartItemTyp
   return cartProducts;
 };
 
-export default function CartItemsList(): JSX.Element {
+export default function CartItemsList(): JSX.Element | null {
   const items = useSelector(getItems, shallowEqual);
   const products = useSelector(getProducts, shallowEqual);
   const dispatch = useAppDispatch();
@@ -44,10 +44,12 @@ export default function CartItemsList(): JSX.Element {
   }, [dispatch, items]);
 
   return (
-    <ul className={'basket__list'}>
-      {
-        products.map((product) => <CartListItem key={product.id} product={product}/>)
-      }
-    </ul>
-  );
+    products.length ?
+      <ul className={'basket__list'}>
+        {
+          products.map((product) => <CartListItem key={product.id} product={product}/>)
+        }
+      </ul>
+      :
+      null);
 }
