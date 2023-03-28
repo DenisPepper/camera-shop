@@ -27,9 +27,9 @@ export function AppRouter(): JSX.Element {
 
         <Route path={to.Cart} element={<CartPage/>}/>
 
-        <Route path={to.CartError} element={<CartErrorPage/>}/>
-
       </Route>
+
+      <Route path={to.CartError} element={<CartErrorPage/>}/>
 
       <Route path={to.NotFound} element={<NotFoundPage/>}/>
 

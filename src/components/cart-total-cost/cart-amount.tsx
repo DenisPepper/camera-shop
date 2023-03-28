@@ -21,7 +21,7 @@ export default function CartAmount(props: CartAmountProps): JSX.Element {
   const handleButtonClick = () => {
     dispatch(postOrder(
       {
-        callWhenRejected: () => navigate(to.CartError)
+        callWhenRejected: () => navigate(`/${to.CartError}`)
       }
     ));
   };
