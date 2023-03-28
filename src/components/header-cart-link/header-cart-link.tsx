@@ -1,3 +1,4 @@
+import './header-cart-link.css';
 import {Link} from 'react-router-dom';
 import {Path as to} from '../../settings/settings';
 import {shallowEqual, useSelector} from 'react-redux';
