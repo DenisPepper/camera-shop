@@ -15,7 +15,7 @@ export const postOrder = createAsyncThunk<string, postOrderArgs, { rejectValue: 
     const {cart} = thunkAPI.getState();
     try {
       const response = await axios.post<string>(
-        `${server.PostOrder}/ds`,
+        server.PostOrder,
         {
           camerasIds: cart.items.map((item) => item.id),
           coupon: cart.coupon ? cart.coupon : null
