@@ -8,4 +8,5 @@ export interface ApiErrorSchema {
   readonly OnFetchMaxPrice: string;
   readonly OnPostReview: string;
   readonly OnPostCoupon: string;
+  readonly OnPostOrder: string;
 }

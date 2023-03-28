@@ -1,5 +1,9 @@
 import {formatPrice} from '../../lib/format-price/format-price';
 import {CartProductType} from '../../types/cart-types';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts/use-app-dispatch';
+import {postOrder} from '../../services/post-order/post-order';
+import {useNavigate} from 'react-router-dom';
+import {Path as to} from '../../settings/settings';
 
 interface CartAmountProps {
   products: CartProductType[];
@@ -8,10 +12,19 @@ interface CartAmountProps {
 
 export default function CartAmount(props: CartAmountProps): JSX.Element {
   const {discount, products} = props;
-
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const cost = products.reduce((sum, product) => sum + product.price * product.count, 0);
   const discountAmount = cost * discount / 100;
   const finalCost = cost - discountAmount;
+
+  const handleButtonClick = () => {
+    dispatch(postOrder(
+      {
+        callWhenRejected: () => navigate(to.CartError)
+      }
+    ));
+  };
 
   return (
     <div className="basket__summary-order">
@@ -38,6 +51,7 @@ export default function CartAmount(props: CartAmountProps): JSX.Element {
       <button
         className="btn btn--purple"
         type="button"
+        onClick={handleButtonClick}
       >
         Оформить заказ
       </button>

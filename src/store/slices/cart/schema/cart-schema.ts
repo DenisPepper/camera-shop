@@ -8,11 +8,11 @@ export interface CartSchema {
   totalCount: number;
   addItemPopupIsOpen: boolean;
   successAddedItemPopupIsOpen: boolean;
+  successPostedOrderPopupIsOpen: boolean;
   removeItemPopupIsOpen: boolean;
   products: CartProductType[];
   coupon: string;
   discount: number;
-  discountAmount: number;
   discountIsLoading: boolean;
-  discountResponseStatus: 'OK' | 'NOT' | '';
+  discountResponseStatus: 'OK' | 'BAD' | '';
 }

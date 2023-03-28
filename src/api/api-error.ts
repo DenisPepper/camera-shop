@@ -10,4 +10,5 @@ export const ApiError: ApiErrorSchema = {
   OnFetchMaxPrice: 'Ошибка при получении максимальной цены',
   OnPostReview: 'Ошибка при записи нового комментария',
   OnPostCoupon: 'Ошибка при отправке купона',
+  OnPostOrder: 'Ошибка при отправке заказа',
 };

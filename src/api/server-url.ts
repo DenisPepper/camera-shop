@@ -8,6 +8,7 @@ export const enum ServerUrl {
   Product = 'https://camera-shop.accelerator.pages.academy/cameras/',
   PostReview = 'https://camera-shop.accelerator.pages.academy/reviews/',
   PostCoupon = 'https://camera-shop.accelerator.pages.academy/coupons',
+  PostOrder = 'https://camera-shop.accelerator.pages.academy/orders',
 }
 
 export const getStart = (pageNumber: number) => (pageNumber - 1) * PAGE_LIMIT;

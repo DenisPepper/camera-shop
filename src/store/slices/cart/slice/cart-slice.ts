@@ -3,6 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CartInitType, CartItemType, CartProductType, CouponResponseType} from '../../../../types/cart-types';
 import {ProductType} from '../../../../types/product-type';
 import {postCoupon} from '../../../../services/post-coupon/post-coupon';
+import {postOrder} from '../../../../services/post-order/post-order';
 
 const initialState: CartSchema = {
   disabled: true,
@@ -10,12 +11,12 @@ const initialState: CartSchema = {
   totalCount: 0,
   addItemPopupIsOpen: false,
   successAddedItemPopupIsOpen: false,
+  successPostedOrderPopupIsOpen: false,
   removeItemPopupIsOpen: false,
   product: null,
   products: [],
   coupon: '',
   discount: 0,
-  discountAmount: 0,
   discountIsLoading: false,
   discountResponseStatus: '',
 };
@@ -65,6 +66,10 @@ export const cartSlice = createSlice({
       }
     },
 
+    setProducts: (state, action: PayloadAction<CartProductType[]>) => {
+      state.products = action.payload;
+    },
+
     openAddItemPopup: (state, action: PayloadAction<ProductType>) => {
       state.product = action.payload;
       state.addItemPopupIsOpen = true;
@@ -91,8 +96,18 @@ export const cartSlice = createSlice({
       state.removeItemPopupIsOpen = false;
     },
 
-    setProducts: (state, action: PayloadAction<CartProductType[]>) => {
-      state.products = action.payload;
+    closeSuccessPostedOrderPopup: (state) => {
+      state.successPostedOrderPopupIsOpen = false;
+    },
+
+    clearCart: (state) => {
+      state.items = [];
+      state.totalCount = 0;
+      state.coupon = '';
+      state.discount = 0;
+      state.product = null;
+      state.products = [];
+      state.discountResponseStatus = '';
     },
   },
 
@@ -101,17 +116,20 @@ export const cartSlice = createSlice({
       .addCase(postCoupon.pending, (state) => {
         state.discountIsLoading = true;
       })
-      .addCase(postCoupon.fulfilled, (state, action:PayloadAction<CouponResponseType>) => {
+      .addCase(postCoupon.fulfilled, (state, action: PayloadAction<CouponResponseType>) => {
         state.discount = action.payload.discount;
         state.coupon = action.payload.coupon;
         state.discountResponseStatus = 'OK';
         state.discountIsLoading = false;
       })
-      .addCase(postCoupon.rejected, (state, action) => {
+      .addCase(postCoupon.rejected, (state) => {
         state.discount = 0;
         state.coupon = '';
-        state.discountResponseStatus = 'NOT';
+        state.discountResponseStatus = 'BAD';
         state.discountIsLoading = false;
+      })
+      .addCase(postOrder.fulfilled, (state) => {
+        state.successPostedOrderPopupIsOpen = true;
       });
   }
 });

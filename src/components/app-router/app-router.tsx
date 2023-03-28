@@ -7,6 +7,7 @@ import CartPage from '../../pages/cart-page/cart-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import CatalogPage from '../../pages/catalog-page/catalog-page';
 import ProductListPage from '../../pages/product-list-page/product-list-page';
+import CartErrorPage from '../../pages/cart-error-page/cart-error-page';
 
 export function AppRouter(): JSX.Element {
   return (
@@ -25,6 +26,8 @@ export function AppRouter(): JSX.Element {
         </Route>
 
         <Route path={to.Cart} element={<CartPage/>}/>
+
+        <Route path={to.CartError} element={<CartErrorPage/>}/>
 
       </Route>
 

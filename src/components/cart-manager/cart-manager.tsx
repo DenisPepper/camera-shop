@@ -13,6 +13,7 @@ import {getCartIsDisabled} from '../../store/slices/cart/selectors/get-cart-is-d
 import CartRemoveItemPopup from '../cart-remove-item-popup/cart-remove-item-popup';
 import {getDiscount} from '../../store/slices/cart/selectors/get-discount/get-discount';
 import {getCoupon} from '../../store/slices/cart/selectors/get-coupon/get-coupon';
+import CartSuccessPostedOrderPopup from '../cart-success-posted-order-popup/cart-success-posted-order-popup';
 
 const CartStorageKey = {
   TotalCount: 'CART_TOTAL_COUNT',
@@ -131,6 +132,17 @@ export default function CartManager(): JSX.Element {
     dispatch(cartActions.closeRemoveItemPopup());
   };
 
+  const handleAfterSuccessClose = () => {
+    dispatch(cartActions.closeSuccessPostedOrderPopup());
+    dispatch(cartActions.clearCart());
+  };
+
+  const handleAfterSuccessContinue = () => {
+    dispatch(cartActions.closeSuccessPostedOrderPopup());
+    navigate(`/${to.Catalog}/${DEFAULT_PAGE_NUMBER}`);
+    dispatch(cartActions.clearCart());
+  };
+
   return (
     <>
       <CartAddItemPopup
@@ -149,10 +161,10 @@ export default function CartManager(): JSX.Element {
         handlePopupClose={handleRemoveItemPopupClose}
         handlePopupRemoveItem={handleRemoveClick}
       />
+      <CartSuccessPostedOrderPopup
+        handlePopupClose={handleAfterSuccessClose}
+        handleContinueButtonClick={handleAfterSuccessContinue}
+      />
     </>
   );
 }
-
-//TODO блок с ценой и промокодом рендерится вместе со списком товаров и не рендерится без него
-//TODO при перезагрузке нужно восстанавливать РАЗМЕР_СКИДКИ и ТЕКСТ_ПРОМОКОДА, если был введен валидный промокод
-//TODO при отправке заказа ключи корзины нужно удалить и перевести состояние корзины в редьюсере enabled:false
