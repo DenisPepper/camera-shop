@@ -1,4 +1,4 @@
-import {CartItemType} from '../../../../types/cart-types';
+import {CartItemType, CartProductType} from '../../../../types/cart-types';
 import {ProductType} from '../../../../types/product-type';
 
 export interface CartSchema {
@@ -9,4 +9,7 @@ export interface CartSchema {
   addItemPopupIsOpen: boolean;
   successAddedItemPopupIsOpen: boolean;
   removeItemPopupIsOpen: boolean;
+  products: CartProductType[];
+  discount: number;
+  discountIsLoading: boolean;
 }

@@ -9,4 +9,5 @@ export const ApiError: ApiErrorSchema = {
   OnFetchMinPrice: 'Ошибка при получении минимальной цены',
   OnFetchMaxPrice: 'Ошибка при получении максимальной цены',
   OnPostReview: 'Ошибка при записи нового комментария',
+  OnPostCoupon: 'Ошибка при отправке купона',
 };

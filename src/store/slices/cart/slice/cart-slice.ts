@@ -1,7 +1,8 @@
 import {CartSchema} from '../schema/cart-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CartInitType, CartItemType} from '../../../../types/cart-types';
+import {CartInitType, CartItemType, CartProductType} from '../../../../types/cart-types';
 import {ProductType} from '../../../../types/product-type';
+import {postCoupon} from '../../../../services/post-coupon/post-coupon';
 
 const initialState: CartSchema = {
   disabled: true,
@@ -11,6 +12,9 @@ const initialState: CartSchema = {
   successAddedItemPopupIsOpen: false,
   removeItemPopupIsOpen: false,
   product: null,
+  products: [],
+  discount: 0,
+  discountIsLoading: false,
 };
 
 export const cartSlice = createSlice({
@@ -41,7 +45,7 @@ export const cartSlice = createSlice({
     updateCount: (state, action: PayloadAction<CartItemType>) => {
       const {id, count} = action.payload;
       const item = state.items.find((element) => element.id === id);
-      if(item) {
+      if (item) {
         state.totalCount = state.totalCount - item.count + count;
         item.count = count;
       }
@@ -69,7 +73,7 @@ export const cartSlice = createSlice({
       state.successAddedItemPopupIsOpen = true;
     },
 
-    closeSuccessAddedItemPopup: (state, ) => {
+    closeSuccessAddedItemPopup: (state,) => {
       state.successAddedItemPopupIsOpen = false;
     },
 
@@ -82,7 +86,25 @@ export const cartSlice = createSlice({
       state.removeItemPopupIsOpen = false;
     },
 
+    setProducts: (state, action: PayloadAction<CartProductType[]>) => {
+      state.products = action.payload;
+    },
   },
+
+  extraReducers(builder) {
+    builder
+      .addCase(postCoupon.pending, (state) => {
+        state.discountIsLoading = true;
+      })
+      .addCase(postCoupon.fulfilled, (state, action) => {
+        state.discount = action.payload;
+        state.discountIsLoading = false;
+      })
+      .addCase(postCoupon.rejected, (state, action) => {
+        state.discount = 0;
+        state.discountIsLoading = false;
+      });
+  }
 });
 
 export const {actions: cartActions} = cartSlice;
