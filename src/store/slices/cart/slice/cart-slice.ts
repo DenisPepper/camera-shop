@@ -70,6 +70,10 @@ export const cartSlice = createSlice({
       state.products = action.payload;
     },
 
+    clearProducts: (state) => {
+      state.products = [];
+    },
+
     openAddItemPopup: (state, action: PayloadAction<ProductType>) => {
       state.product = action.payload;
       state.addItemPopupIsOpen = true;

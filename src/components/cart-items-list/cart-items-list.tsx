@@ -10,6 +10,7 @@ import {CartItemType, CartProductType} from '../../types/cart-types';
 import CartListItem from '../cart-list-item/cart-list-item';
 import {getProducts} from '../../store/slices/cart/selectors/get-products/get-products';
 import {cartActions} from '../../store/slices/cart/slice/cart-slice';
+import {AppSpinner} from '../app-spinner/app-spinner';
 
 const getCount = (items: CartItemType[], id: number): number =>
   items.find((item) => item.id === id)?.count || 0;
@@ -43,13 +44,17 @@ export default function CartItemsList(): JSX.Element | null {
       });
   }, [dispatch, items]);
 
+  if (items.length === 0) {
+    return null;
+  }
+
   return (
     products.length ?
-      <ul className={'basket__list'}>
+      <ul className={'basket__list'} key={'basket__list'}>
         {
           products.map((product) => <CartListItem key={product.id} product={product}/>)
         }
       </ul>
       :
-      null);
+      <AppSpinner/>);
 }
