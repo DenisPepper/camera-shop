@@ -11,16 +11,22 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {DEFAULT_PAGE_NUMBER, Path as to} from '../../settings/settings';
 import {getCartIsDisabled} from '../../store/slices/cart/selectors/get-cart-is-disabled/get-cart-is-disabled';
 import CartRemoveItemPopup from '../cart-remove-item-popup/cart-remove-item-popup';
+import {getDiscount} from '../../store/slices/cart/selectors/get-discount/get-discount';
+import {getCoupon} from '../../store/slices/cart/selectors/get-coupon/get-coupon';
 
 const CartStorageKey = {
   TotalCount: 'CART_TOTAL_COUNT',
-  Items: 'CART_ITEMS'
+  Items: 'CART_ITEMS',
+  Discount: 'DISCOUNT',
+  Coupon: 'COUPON',
 } as const;
 
 export default function CartManager(): JSX.Element {
   const totalCount = useSelector(getTotalCount, shallowEqual);
   const items = useSelector(getItems, shallowEqual);
   const isCartDisabled = useSelector(getCartIsDisabled, shallowEqual);
+  const discount = useSelector(getDiscount, shallowEqual);
+  const coupon = useSelector(getCoupon, shallowEqual);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,10 +37,14 @@ export default function CartManager(): JSX.Element {
   useLayoutEffect(() => {
     const countFromStorage = localStorage.getItem(CartStorageKey.TotalCount);
     const itemsFromStorage = localStorage.getItem(CartStorageKey.Items);
-    if (countFromStorage && itemsFromStorage) {
+    const discountFromStorage = localStorage.getItem(CartStorageKey.Discount);
+    const couponFromStorage = localStorage.getItem(CartStorageKey.Coupon);
+    if (countFromStorage && itemsFromStorage && discountFromStorage && couponFromStorage) {
       dispatch(cartActions.init({
         totalCount: JSON.parse(countFromStorage) as number,
         items: JSON.parse(itemsFromStorage) as CartItemType[],
+        discount: JSON.parse(discountFromStorage) as number,
+        coupon: JSON.parse(couponFromStorage) as string,
       }));
     }
   }, []);
@@ -58,6 +68,26 @@ export default function CartManager(): JSX.Element {
     }
     localStorage.setItem(CartStorageKey.TotalCount, JSON.stringify(totalCount));
   }, [totalCount, isCartDisabled]);
+
+  /**
+   set discount to local storage
+   */
+  useLayoutEffect(() => {
+    if (isCartDisabled) {
+      return;
+    }
+    localStorage.setItem(CartStorageKey.Discount, JSON.stringify(discount));
+  }, [discount, isCartDisabled]);
+
+  /**
+   set coupon to local storage
+   */
+  useLayoutEffect(() => {
+    if (isCartDisabled) {
+      return;
+    }
+    localStorage.setItem(CartStorageKey.Coupon, JSON.stringify(coupon));
+  }, [coupon, isCartDisabled]);
 
   /**
    enable cart for layout effects
@@ -123,4 +153,6 @@ export default function CartManager(): JSX.Element {
   );
 }
 
+//TODO блок с ценой и промокодом рендерится вместе со списком товаров и не рендерится без него
+//TODO при перезагрузке нужно восстанавливать РАЗМЕР_СКИДКИ и ТЕКСТ_ПРОМОКОДА, если был введен валидный промокод
 //TODO при отправке заказа ключи корзины нужно удалить и перевести состояние корзины в редьюсере enabled:false

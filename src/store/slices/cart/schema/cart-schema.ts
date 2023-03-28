@@ -10,6 +10,9 @@ export interface CartSchema {
   successAddedItemPopupIsOpen: boolean;
   removeItemPopupIsOpen: boolean;
   products: CartProductType[];
+  coupon: string;
   discount: number;
+  discountAmount: number;
   discountIsLoading: boolean;
+  discountResponseStatus: 'OK' | 'NOT' | '';
 }
