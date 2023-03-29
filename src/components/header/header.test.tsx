@@ -13,7 +13,7 @@ describe('test Header FC', () => {
   const mockStore = configureMockStore<StateSchema,
     Action,
     ThunkDispatch<StateSchema, typeof axios, Action>>([thunk]);
-  const initialState: DeepPartial<StateSchema> = {};
+  const initialState: DeepPartial<StateSchema> = {cart: {totalCount: 0}};
   const store = mockStore(initialState);
 
   it('should render without fail', () => {

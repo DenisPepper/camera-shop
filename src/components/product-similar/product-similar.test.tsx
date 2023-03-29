@@ -17,7 +17,8 @@ describe('test ProductSimilar', () => {
 
   it('should render with expected text', () => {
     const initialState: DeepPartial<StateSchema> = {
-      similar: {products: [stubProduct]}
+      similar: {products: [stubProduct]},
+      cart: {items: []}
     };
     const store = mockStore(initialState);
 

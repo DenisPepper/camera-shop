@@ -17,7 +17,20 @@ describe('test AppRouter FC', () => {
     promo: {isLoaded: false, product: null},
     searchParams: {sort: '', order: '', minPrice: '', maxPrice: '', levels: [], category: '', groups: [], bannedGroups: []},
     error: {errors: []},
-    product: {product: null, isProductLoading: false, products: [], isLoading: false, totalPagesCount: 0}
+    product: {product: null, isProductLoading: false, products: [], isLoading: false, totalPagesCount: 0},
+    cart: {disabled: true,
+      items: [],
+      totalCount: 0,
+      addItemPopupIsOpen: false,
+      successAddedItemPopupIsOpen: false,
+      successPostedOrderPopupIsOpen: false,
+      removeItemPopupIsOpen: false,
+      product: null,
+      products: [],
+      coupon: '',
+      discount: 0,
+      discountIsLoading: false,
+      discountResponseStatus: '',}
   };
   const store = mockStore(initialState);
 

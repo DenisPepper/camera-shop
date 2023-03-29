@@ -26,7 +26,10 @@ describe('test AppLayout FC', () => {
       bannedGroups: []
     },
     error: {errors: []},
-    product: {product: null, isProductLoading: false, products: [], isLoading: false, totalPagesCount: 0}
+    product: {product: null, isProductLoading: false, products: [], isLoading: false, totalPagesCount: 0},
+    cart: {
+      totalCount: 0,
+    }
   };
   const store = mockStore(initialState);
 
