@@ -1,5 +1,5 @@
 import CartPromo from '../cart-promo/cart-promo';
-import CartAmount from '../cart-total-cost/cart-amount';
+import CartAmount from '../cart-amount/cart-amount';
 import {shallowEqual, useSelector} from 'react-redux';
 import {getProducts} from '../../store/slices/cart/selectors/get-products/get-products';
 import {getDiscount} from '../../store/slices/cart/selectors/get-discount/get-discount';
