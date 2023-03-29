@@ -1,5 +1,5 @@
 import CartRemoveItemPopup from './cart-remove-item-popup';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import {configureMockStore} from '@jedmao/redux-mock-store';
@@ -33,4 +33,8 @@ it('should render without fail', () => {
       </BrowserRouter>
     </Provider>
   );
+
+  const element = screen.getByText(/Удалить этот товар?/);
+  expect(element).toBeInTheDocument();
+
 });
