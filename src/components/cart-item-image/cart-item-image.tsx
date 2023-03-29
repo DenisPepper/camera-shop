@@ -12,7 +12,7 @@ export default function CartItemImage(props: CartItemImageProps): JSX.Element {
   const {...restProps} = props;
 
   return (
-    <div className="basket-item__img">
+    <div className="basket-item__img" data-testid={'basket-item__img'}>
       <ProductImage {...restProps} width={'140'} height={'120'}/>
     </div>
   );
