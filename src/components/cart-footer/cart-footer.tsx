@@ -10,7 +10,7 @@ export default function CartFooter(): JSX.Element | null {
 
   return (
     products.length ?
-      <div className={'basket__summary'}>
+      <div className={'basket__summary'} data-testid={'basket__summary'}>
         <CartPromo key={'CartPromo'}/>
         <CartAmount
           key={'CartAmount'}
