@@ -52,7 +52,7 @@ export default function CartItemCount(props: CartItemCountProps): JSX.Element {
   };
 
   return (
-    <div className="quantity">
+    <div className="quantity" data-testid={'quantity'}>
 
       <button
         className="btn-icon btn-icon--prev"
