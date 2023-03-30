@@ -91,7 +91,7 @@ export const cartSlice = createSlice({
       state.successAddedItemPopupIsOpen = false;
     },
 
-    openRemoveItemPopup: (state, action: PayloadAction<ProductType>) => {
+    openRemoveItemPopup: (state, action: PayloadAction<CartProductType>) => {
       state.product = action.payload;
       state.removeItemPopupIsOpen = true;
     },
