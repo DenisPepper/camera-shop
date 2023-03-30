@@ -3,6 +3,8 @@ import {CartSchema as StateSchema} from '../schema/cart-schema';
 import {stubCartItem} from '../../../../mocks/stub-cart-item';
 import {stubCartProduct} from '../../../../mocks/stub-cart-product';
 import {stubProduct} from '../../../../mocks/stub-product';
+import {postCoupon} from '../../../../services/post-coupon/post-coupon';
+import {postOrder} from '../../../../services/post-order/post-order';
 
 describe('test cart-slice reducer', () => {
 
@@ -233,11 +235,67 @@ describe('test cart-slice reducer', () => {
       .toEqual(updatedState);
   });
 
-});
-
-
-/*
-  it('should ', () => {
-
+  it('should update discountIsLoading field with true', () => {
+    const prevState: Partial<StateSchema> = {
+      discountIsLoading: false
+    };
+    const updatedState: Partial<StateSchema> = {
+      discountIsLoading: true
+    };
+    expect(reducer(prevState as StateSchema, {type: postCoupon.pending}))
+      .toEqual(updatedState);
   });
- */
+
+  it('should update state with expected coupon and discount values', () => {
+    const discount = 10;
+    const coupon = 'coupon';
+    const discountResponseStatus = 'OK';
+    const prevState: Partial<StateSchema> = {
+      discountIsLoading: true,
+      discount: 0,
+      coupon: '',
+      discountResponseStatus: '',
+    };
+    const updatedState: Partial<StateSchema> = {
+      discountIsLoading: false,
+      discount,
+      coupon,
+      discountResponseStatus,
+    };
+    expect(reducer(prevState as StateSchema,
+      {type: postCoupon.fulfilled, payload: {discount, coupon}}))
+      .toEqual(updatedState);
+  });
+
+  it('should update state with initial coupon and discount values', () => {
+    const discount = 10;
+    const coupon = 'coupon';
+    const discountResponseStatus = 'BAD';
+    const prevState: Partial<StateSchema> = {
+      discountIsLoading: true,
+      discount,
+      coupon,
+      discountResponseStatus: '',
+    };
+    const updatedState: Partial<StateSchema> = {
+      discountIsLoading: false,
+      discount: 0,
+      coupon: '',
+      discountResponseStatus,
+    };
+    expect(reducer(prevState as StateSchema,
+      {type: postCoupon.rejected, payload: {discount, coupon}}))
+      .toEqual(updatedState);
+  });
+
+  it('should update successPostedOrderPopupIsOpen with true', () => {
+    const prevState: Partial<StateSchema> = {
+      successPostedOrderPopupIsOpen: false,
+    };
+    const updatedState: Partial<StateSchema> = {
+      successPostedOrderPopupIsOpen: true,
+    };
+    expect(reducer(prevState as StateSchema,
+      {type: postOrder.fulfilled})).toEqual(updatedState);
+  });
+});
