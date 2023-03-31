@@ -1,6 +1,12 @@
 import {CartSchema} from '../schema/cart-schema';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CartInitType, CartItemType, CartProductType, CouponResponseType} from '../../../../types/cart-types';
+import {
+  CartInitType,
+  CartItemType,
+  CartProductType,
+  DiscountResponseStatus,
+  CouponResponseType,
+} from '../../../../types/cart-types';
 import {ProductType} from '../../../../types/product-type';
 import {postCoupon} from '../../../../services/post-coupon/post-coupon';
 import {postOrder} from '../../../../services/post-order/post-order';
@@ -18,7 +24,7 @@ const initialState: CartSchema = {
   coupon: '',
   discount: 0,
   discountIsLoading: false,
-  discountResponseStatus: '',
+  discountResponseStatus: DiscountResponseStatus.Default,
 };
 
 export const cartSlice = createSlice({
@@ -111,7 +117,7 @@ export const cartSlice = createSlice({
       state.discount = 0;
       state.product = null;
       state.products = [];
-      state.discountResponseStatus = '';
+      state.discountResponseStatus = DiscountResponseStatus.Default;
     },
   },
 
@@ -123,13 +129,13 @@ export const cartSlice = createSlice({
       .addCase(postCoupon.fulfilled, (state, action: PayloadAction<CouponResponseType>) => {
         state.discount = action.payload.discount;
         state.coupon = action.payload.coupon;
-        state.discountResponseStatus = 'OK';
+        state.discountResponseStatus = DiscountResponseStatus.Ok;
         state.discountIsLoading = false;
       })
       .addCase(postCoupon.rejected, (state) => {
         state.discount = 0;
         state.coupon = '';
-        state.discountResponseStatus = 'BAD';
+        state.discountResponseStatus = DiscountResponseStatus.Bad;
         state.discountIsLoading = false;
       })
       .addCase(postOrder.fulfilled, (state) => {

@@ -4,6 +4,7 @@ import {stubCartItem} from '../../../../mocks/stub-cart-item';
 import {stubCartProduct} from '../../../../mocks/stub-cart-product';
 import {postCoupon} from '../../../../services/post-coupon/post-coupon';
 import {postOrder} from '../../../../services/post-order/post-order';
+import {DiscountResponseStatus} from '../../../../types/cart-types';
 
 describe('test cart-slice reducer', () => {
 
@@ -21,7 +22,7 @@ describe('test cart-slice reducer', () => {
       coupon: '',
       discount: 0,
       discountIsLoading: false,
-      discountResponseStatus: '',
+      discountResponseStatus: DiscountResponseStatus.Default,
     };
 
     expect(reducer(undefined, {type: undefined})).toEqual(initialState);
@@ -219,7 +220,7 @@ describe('test cart-slice reducer', () => {
       discount: 10,
       product: stubCartProduct,
       products: [stubCartProduct],
-      discountResponseStatus: 'OK',
+      discountResponseStatus: DiscountResponseStatus.Ok,
     };
     const updatedState: Partial<StateSchema> = {
       items: [],
@@ -228,7 +229,7 @@ describe('test cart-slice reducer', () => {
       discount: 0,
       product: null,
       products: [],
-      discountResponseStatus: '',
+      discountResponseStatus: DiscountResponseStatus.Default,
     };
     expect(reducer(prevState as StateSchema, actions.clearCart()))
       .toEqual(updatedState);
@@ -248,12 +249,12 @@ describe('test cart-slice reducer', () => {
   it('should update state with expected coupon and discount values', () => {
     const discount = 10;
     const coupon = 'coupon';
-    const discountResponseStatus = 'OK';
+    const discountResponseStatus = DiscountResponseStatus.Ok;
     const prevState: Partial<StateSchema> = {
       discountIsLoading: true,
       discount: 0,
       coupon: '',
-      discountResponseStatus: '',
+      discountResponseStatus: DiscountResponseStatus.Default,
     };
     const updatedState: Partial<StateSchema> = {
       discountIsLoading: false,
@@ -269,12 +270,12 @@ describe('test cart-slice reducer', () => {
   it('should update state with initial coupon and discount values', () => {
     const discount = 10;
     const coupon = 'coupon';
-    const discountResponseStatus = 'BAD';
+    const discountResponseStatus = DiscountResponseStatus.Bad;
     const prevState: Partial<StateSchema> = {
       discountIsLoading: true,
       discount,
       coupon,
-      discountResponseStatus: '',
+      discountResponseStatus: DiscountResponseStatus.Default,
     };
     const updatedState: Partial<StateSchema> = {
       discountIsLoading: false,

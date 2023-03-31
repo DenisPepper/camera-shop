@@ -8,6 +8,7 @@ import {
   getDiscountResponseStatus
 } from '../../store/slices/cart/selectors/get-discount-response-status/get-discount-response-status';
 import {getCoupon} from '../../store/slices/cart/selectors/get-coupon/get-coupon';
+import {DiscountResponseStatus} from '../../types/cart-types';
 
 const MAX_PROMO_LENGTH = 25;
 
@@ -48,15 +49,15 @@ export default function CartPromo(): JSX.Element {
     setShouldRenderRequired(evt.target.value === '');
   });
 
-  const handleInputBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
+  const handleInputBlur = () => {
     setShouldRenderRequired(false);
   };
 
   useLayoutEffect(() => {
-    if (discountResponse === '') {
+    if (discountResponse === DiscountResponseStatus.Default) {
       return;
     }
-    coupon === 'OK' ? setModifier(Modifiers.Valid) : setModifier(Modifiers.Invalid);
+    coupon === DiscountResponseStatus.Ok ? setModifier(Modifiers.Valid) : setModifier(Modifiers.Invalid);
   }, [discountResponse]);
 
   useLayoutEffect(() => {

@@ -20,3 +20,11 @@ export interface CouponResponseType {
   discount: number;
   coupon: string;
 }
+
+export type DiscountResponseStatusType = 'Default' | 'Ok' | 'Bad';
+
+export const DiscountResponseStatus: Record<DiscountResponseStatusType, DiscountResponseStatusType> = {
+  Default: 'Default',
+  Ok: 'Ok',
+  Bad: 'Bad',
+} as const;

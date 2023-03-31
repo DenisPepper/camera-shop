@@ -1,4 +1,7 @@
-import {CartItemType, CartProductType} from '../../../../types/cart-types';
+import {
+  CartItemType,
+  CartProductType, DiscountResponseStatusType,
+} from '../../../../types/cart-types';
 import {ProductType} from '../../../../types/product-type';
 
 export interface CartSchema {
@@ -14,5 +17,5 @@ export interface CartSchema {
   coupon: string;
   discount: number;
   discountIsLoading: boolean;
-  discountResponseStatus: 'OK' | 'BAD' | '';
+  discountResponseStatus: DiscountResponseStatusType;
 }
