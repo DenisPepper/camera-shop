@@ -8,6 +8,7 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import axios from 'axios';
 import {DeepPartial} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
+import {DiscountResponseStatus} from '../../types/cart-types';
 
 describe('test AppRouter FC', () => {
   const mockStore = configureMockStore<StateSchema,
@@ -30,7 +31,7 @@ describe('test AppRouter FC', () => {
       coupon: '',
       discount: 0,
       discountIsLoading: false,
-      discountResponseStatus: '',}
+      discountResponseStatus: DiscountResponseStatus.Default,}
   };
   const store = mockStore(initialState);
 

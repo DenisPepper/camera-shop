@@ -8,6 +8,7 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import axios from 'axios';
 import {DeepPartial} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
+import {DiscountResponseStatus} from '../../types/cart-types';
 
 const mockStore = configureMockStore<StateSchema,
   Action,
@@ -20,7 +21,7 @@ const initialState: DeepPartial<StateSchema> = {
     coupon: '',
     discount: 0,
     discountIsLoading: false,
-    discountResponseStatus: '',
+    discountResponseStatus: DiscountResponseStatus.Default,
   }
 };
 const store = mockStore(initialState);
