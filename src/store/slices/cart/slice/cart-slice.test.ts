@@ -2,7 +2,6 @@ import {cartActions as actions, cartReducer as reducer} from './cart-slice';
 import {CartSchema as StateSchema} from '../schema/cart-schema';
 import {stubCartItem} from '../../../../mocks/stub-cart-item';
 import {stubCartProduct} from '../../../../mocks/stub-cart-product';
-import {stubProduct} from '../../../../mocks/stub-product';
 import {postCoupon} from '../../../../services/post-coupon/post-coupon';
 import {postOrder} from '../../../../services/post-order/post-order';
 
@@ -184,7 +183,7 @@ describe('test cart-slice reducer', () => {
     };
     const updatedState: Partial<StateSchema> = {
       removeItemPopupIsOpen: true,
-      product: stubProduct,
+      product: stubCartProduct,
     };
     expect(reducer(prevState as StateSchema, actions.openRemoveItemPopup(stubCartProduct)))
       .toEqual(updatedState);
