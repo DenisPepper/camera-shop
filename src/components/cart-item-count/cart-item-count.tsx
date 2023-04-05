@@ -58,6 +58,7 @@ export default function CartItemCount(props: CartItemCountProps): JSX.Element {
         className="btn-icon btn-icon--prev"
         aria-label="уменьшить количество товара"
         onClick={handleDecrement}
+        disabled={count <= MIN_CART_COUNT}
       >
         <svg width="7" height="12" aria-hidden="true">
           <use xlinkHref="#icon-arrow"></use>
@@ -78,6 +79,7 @@ export default function CartItemCount(props: CartItemCountProps): JSX.Element {
         className="btn-icon btn-icon--next"
         aria-label="увеличить количество товара"
         onClick={handleIncrement}
+        disabled={count >= MAX_CART_COUNT}
       >
         <svg width="7" height="12" aria-hidden="true">
           <use xlinkHref="#icon-arrow"></use>
